@@ -1,0 +1,2 @@
+<script type="text/javascript" src="formPrueba.ui.js"></script>
+<script type="text/javascript" src="formPrueba.js"></script>

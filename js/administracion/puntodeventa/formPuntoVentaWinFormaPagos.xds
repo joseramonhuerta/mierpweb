@@ -1,0 +1,388 @@
+{
+    "name": "formPuntoVentaWinFormaPagos.xds",
+    "projectId": "6C4BEABF-330E-4751-B60B-4128B29F703E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyWindow",
+            "cid": "window",
+            "jsClass": "formPuntoVentaWinFormaPagos",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Formas de Pago",
+                "width": 560,
+                "height": 370,
+                "modal": true,
+                "border": false,
+                "draggable": false,
+                "resizable": false
+            },
+            "userXType": "formPuntoVentaWinFormaPagos",
+            "cn": [
+                {
+                    "id": "MyPanel",
+                    "cid": "panel",
+                    "jsClass": "MyPanel",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "layout": "-ext-undefined-",
+                        "height": 340
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 35,
+                                "layout": "column",
+                                "style": "margin-top:10px;margin-left:10px"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer1",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer3",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "width": 330,
+                                        "labelWidth": 70
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyCombo",
+                                            "cid": "combobox",
+                                            "jsClass": "MyCombo",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Forma Pago",
+                                                "anchor": "-ext-undefined-",
+                                                "width": 240,
+                                                "itemId": "cmbFormaPago",
+                                                "autoRef": "cmbFormaPago",
+                                                "name": "id_formapago",
+                                                "valueField": "id_formapago",
+                                                "displayField": "nombre_formapago",
+                                                "editable": false,
+                                                "triggerAction": "all",
+                                                "enableKeyEvents": true
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer2",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "width": 120,
+                                        "style": "",
+                                        "hideLabels": true
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyNumberField",
+                                            "cid": "numberfield",
+                                            "jsClass": "MyNumberField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Label",
+                                                "anchor": "-ext-undefined-",
+                                                "width": 100,
+                                                "itemId": "txtImporte",
+                                                "autoRef": "txtImporte",
+                                                "style": "text-align:right;",
+                                                "enableKeyEvents": true,
+                                                "selectOnFocus": true
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer3",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "cn": [
+                                        {
+                                            "id": "MyButton",
+                                            "cid": "button",
+                                            "jsClass": "MyButton",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Agregar",
+                                                "itemId": "btnAgregarFormaPago",
+                                                "autoRef": "btnAgregarFormaPago",
+                                                "width": 70,
+                                                "height": 22
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyGrid",
+                            "cid": "grid",
+                            "jsClass": "MyGrid",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "store": "(none)",
+                                "itemId": "gridFormasPagos",
+                                "autoRef": "gridFormasPagos",
+                                "height": 200,
+                                "border": false,
+                                "hideBorders": true
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyColumn",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "-ext-undefined-",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 25,
+                                        "dataIndex": "-ext-undefined-",
+                                        "id": "colDelete"
+                                    }
+                                },
+                                {
+                                    "id": "MyColumn2",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Forma Pago",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 400,
+                                        "dataIndex": "nombre_formapago"
+                                    }
+                                },
+                                {
+                                    "id": "MyColumn3",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn3",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Importe",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 100,
+                                        "dataIndex": "importe",
+                                        "align": "right",
+                                        "id": "colImporte"
+                                    }
+                                },
+                                {
+                                    "id": "MyGridView",
+                                    "cid": "gridview",
+                                    "jsClass": "MyGridView",
+                                    "dock": "view",
+                                    "snapToGrid": 10,
+                                    "dockCls": "Ext.grid.GridView"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyContainer5",
+                            "cid": "container",
+                            "jsClass": "MyContainer5",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 8
+                            }
+                        },
+                        {
+                            "id": "MyContainer4",
+                            "cid": "container",
+                            "jsClass": "MyContainer4",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 81,
+                                "layout": "hbox"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyFill",
+                                    "cid": "tbspacer",
+                                    "jsClass": "MyFill",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "width": 10
+                                    }
+                                },
+                                {
+                                    "id": "MyContainer6",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer6",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "hbox",
+                                        "width": 150
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyButton1",
+                                            "cid": "button",
+                                            "jsClass": "MyButton1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Aceptar",
+                                                "iconAlign": "right",
+                                                "height": 40,
+                                                "width": 60,
+                                                "itemId": "btnAceptarFormaPago",
+                                                "autoRef": "btnAceptarFormaPago"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyContainer8",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer8",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "flex": 1,
+                                                "width": 20
+                                            }
+                                        },
+                                        {
+                                            "id": "MyButton2",
+                                            "cid": "button",
+                                            "jsClass": "MyButton2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Cancelar",
+                                                "iconAlign": "right",
+                                                "height": 40,
+                                                "width": 60,
+                                                "itemId": "btnCancelarFormaPago",
+                                                "autoRef": "btnCancelarFormaPago"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MySpacer",
+                                    "cid": "tbspacer",
+                                    "jsClass": "MyFill",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "width": 120
+                                    }
+                                },
+                                {
+                                    "id": "MyContainer7",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer7",
+                                    "snapToGrid": 10,
+                                    "layoutConfig": {
+                                        "columns": 2
+                                    },
+                                    "userConfig": {
+                                        "flex": 1,
+                                        "layout": "table",
+                                        "height": 200
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Total venta:",
+                                                "width": 120,
+                                                "style": "font-size:18px;font-weight:bold;text-align:right;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField1",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": 0,
+                                                "width": 130,
+                                                "style": "font-size:20px;font-weight:bold;text-align:right;",
+                                                "itemId": "lblTotalVenta",
+                                                "autoRef": "lblTotalVenta"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField2",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Abonos:",
+                                                "style": "font-size:18px;font-weight:bold;text-align:right;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField3",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField3",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": 0,
+                                                "style": "font-size:20px;font-weight:bold;text-align:right;",
+                                                "itemId": "lblAbonos",
+                                                "autoRef": "lblAbonos",
+                                                "width": 130
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField4",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField4",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Cambio:",
+                                                "style": "font-size:18px;font-weight:bold;text-align:right;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField5",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField5",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": 0,
+                                                "style": "font-size:20px;font-weight:bold;text-align:right;",
+                                                "itemId": "lblCambio",
+                                                "autoRef": "lblCambio",
+                                                "width": 130
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,1102 @@
+{
+    "name": "formCortes.xds",
+    "projectId": "F9897966-A373-4B80-9EF6-4F2BB2546379",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyPanel",
+            "cid": "panel",
+            "jsClass": "formCortes",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Corte",
+                "width": "-ext-undefined-",
+                "height": "-ext-undefined-",
+                "autoScroll": true
+            },
+            "userXType": "formCortes",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "autoRef": "btnGuardar",
+                                "icon": "images/iconos/cortes_add.png",
+                                "itemId": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Imprimir",
+                                "height": 22,
+                                "autoRef": "btnImprimir",
+                                "itemId": "btnImprimir",
+                                "icon": "images/iconos/pdf.png",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "disabled": true,
+                                "itemId": "btnEliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/cortes_delete.png"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "height": "-ext-undefined-",
+                        "itemId": "frmMain",
+                        "autoRef": "frmMain",
+                        "padding": 10,
+                        "border": false
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer11",
+                            "cid": "container",
+                            "jsClass": "MyContainer11",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "hbox",
+                                "width": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer12",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer12",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": 1,
+                                        "layout": "form",
+                                        "width": 220
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDateField",
+                                            "cid": "datefield",
+                                            "jsClass": "MyDateField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Fecha",
+                                                "width": 100,
+                                                "disabled": "-ext-undefined-",
+                                                "itemId": "txtFecha",
+                                                "name": "fechainicio",
+                                                "autoRef": "txtFecha"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer30",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer30",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": 1,
+                                        "layout": "form",
+                                        "labelWidth": 50
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTimeField",
+                                            "cid": "timefield",
+                                            "jsClass": "MyTimeField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Hora",
+                                                "anchor": "-ext-undefined-",
+                                                "name": "hora",
+                                                "itemId": "txtHora",
+                                                "autoRef": "txtHora",
+                                                "width": 100,
+                                                "format": "g:i:s A",
+                                                "disabled": true
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Concepto",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "txtConcepto",
+                                "autoRef": "txtConcepto",
+                                "name": "concepto",
+                                "width": 350,
+                                "labelStyle": "font-weight:bold",
+                                "submitValue": false
+                            }
+                        },
+                        {
+                            "id": "MyHiddenField",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "id_corte",
+                                "autoRef": "txtIdCorte",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "",
+                                "bubbleEvents": "[ 'cambioDeId' ]"
+                            }
+                        },
+                        {
+                            "id": "MyTextField1",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "-ext-undefined-",
+                                "autoRef": "txtStatus",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "status",
+                                "bubbleEvents": "-ext-undefined-",
+                                "value": "A"
+                            }
+                        },
+                        {
+                            "id": "MyTextField2",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "itemId": "txtTotal",
+                                "autoRef": "txtTotal",
+                                "name": "total",
+                                "submitValue": false
+                            }
+                        },
+                        {
+                            "id": "MyTextField3",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "itemId": "txtTotalRetencion",
+                                "autoRef": "txtTotalRetencion",
+                                "name": "total",
+                                "submitValue": false
+                            }
+                        },
+                        {
+                            "id": "MyTextField4",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "itemId": "txtTotalCorte",
+                                "autoRef": "txtTotalCorte",
+                                "name": "total",
+                                "submitValue": false
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyFieldSet",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Detalles",
+                        "height": 360,
+                        "width": 497,
+                        "collapsible": true,
+                        "style": "padding-left:0;border-width:1px 0 0 0;",
+                        "bodyStyle": "padding-left:10px;"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTabPanel",
+                            "cid": "tabpanel",
+                            "jsClass": "MyTabPanel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "activeTab": 0,
+                                "border": "-ext-undefined-",
+                                "hideBorders": "-ext-undefined-",
+                                "height": 320
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyPanel1",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "Liquidacion",
+                                        "style": "padding-left:0;border-width:1px 0 0 0;",
+                                        "bodyStyle": "padding-left:10px;",
+                                        "height": "-ext-undefined-",
+                                        "hideBorders": true,
+                                        "border": false
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyContainer13",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer13",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "height": 10
+                                            }
+                                        },
+                                        {
+                                            "id": "MyForm1",
+                                            "cid": "form",
+                                            "jsClass": "MyForm1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "width": 456,
+                                                "border": false,
+                                                "itemId": "frmDetalles",
+                                                "autoRef": "frmDetalles",
+                                                "padding": "-ext-undefined-"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "hbox",
+                                                        "height": 50
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyContainer1",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 210
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyCombo",
+                                                                    "cid": "combobox",
+                                                                    "jsClass": "MyCombo",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Forma de Pago",
+                                                                        "anchor": "100%",
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "cmbFormaPago",
+                                                                        "name": "id_formapago",
+                                                                        "autoRef": "cmbFormaPago",
+                                                                        "valueField": "id_formapago",
+                                                                        "displayField": "nombre_formapago",
+                                                                        "editable": false,
+                                                                        "triggerAction": "all"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer5",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer5",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "width": 8
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyContainer2",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer2",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 90
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyCombo1",
+                                                                    "cid": "combobox",
+                                                                    "jsClass": "MyCombo1",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Denominacion",
+                                                                        "anchor": "100%",
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "cmbDenominacion",
+                                                                        "autoRef": "cmbDenominacion",
+                                                                        "name": "id_denominacion",
+                                                                        "triggerAction": "all",
+                                                                        "editable": false,
+                                                                        "valueField": "id_denominacion",
+                                                                        "displayField": "denominacion",
+                                                                        "style": "text-align:right;"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer6",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer6",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "width": 8
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyContainer3",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer3",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 90
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyNumberField",
+                                                                    "cid": "numberfield",
+                                                                    "jsClass": "MyNumberField",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Cantidad",
+                                                                        "anchor": "100%",
+                                                                        "width": 10,
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "txtCantidad",
+                                                                        "autoRef": "txtCantidad",
+                                                                        "name": "-ext-undefined-",
+                                                                        "style": "text-align:right;",
+                                                                        "submitValue": false,
+                                                                        "allowNegative": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer4",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer4",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "width": 50
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyButton3",
+                                                                    "cid": "button",
+                                                                    "jsClass": "MyButton3",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "text": "-ext-undefined-",
+                                                                        "style": "margin-left:8px;margin-top:5px;",
+                                                                        "width": 24,
+                                                                        "height": 24,
+                                                                        "scale": "large",
+                                                                        "autoRef": "btnAgregar",
+                                                                        "itemId": "btnAgregar",
+                                                                        "icon": "images/iconos/ventas_add_big.png"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyGrid",
+                                            "cid": "grid",
+                                            "jsClass": "MyGrid",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "store": "(none)",
+                                                "height": 200,
+                                                "width": 456,
+                                                "itemId": "gridDetalles",
+                                                "autoRef": "gridDetalles"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyColumn",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "dataIndex": "-ext-undefined-",
+                                                        "header": "-ext-undefined-",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 25,
+                                                        "id": "colDelete"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn1",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn1",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Forma de Pago",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 150,
+                                                        "id": "colFormaPago",
+                                                        "dataIndex": "nombre_formapago"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn2",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn2",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Denominacion",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 80,
+                                                        "id": "colDenominacion",
+                                                        "dataIndex": "denominacion"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn3",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Cantidad",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 90,
+                                                        "id": "colCantidad",
+                                                        "dataIndex": "cantidad",
+                                                        "align": "right"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn4",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn4",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Total",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 90,
+                                                        "id": "colTotal",
+                                                        "dataIndex": "total",
+                                                        "align": "right"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyGridView",
+                                                    "cid": "gridview",
+                                                    "jsClass": "MyGridView",
+                                                    "dock": "view",
+                                                    "snapToGrid": 10,
+                                                    "dockCls": "Ext.grid.GridView"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyContainer10",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer10",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "height": 5
+                                            }
+                                        },
+                                        {
+                                            "id": "MyContainer7",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer7",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "layout": "hbox",
+                                                "width": 456,
+                                                "height": "-ext-undefined-"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer8",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer8",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "width": 190
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyContainer9",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer9",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "table",
+                                                        "width": "-ext-undefined-",
+                                                        "flex": 1
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "Total Liquidado:",
+                                                                "width": 150,
+                                                                "style": "text-align:right;font-size:14px;font-weight:bold",
+                                                                "height": 20,
+                                                                "submitValue": false
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField1",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": 0,
+                                                                "width": 100,
+                                                                "style": "text-align:right;font-size:14px;font-weight:bold",
+                                                                "itemId": "lblTotal",
+                                                                "autoRef": "lblTotal",
+                                                                "height": 20,
+                                                                "submitValue": false
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel3",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "Retencion",
+                                        "style": "padding-left:0;border-width:1px 0 0 0;",
+                                        "bodyStyle": "padding-left:10px;",
+                                        "height": "-ext-undefined-",
+                                        "hideBorders": true,
+                                        "border": false
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyContainer14",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer13",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "height": 10
+                                            }
+                                        },
+                                        {
+                                            "id": "MyForm2",
+                                            "cid": "form",
+                                            "jsClass": "MyForm1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "width": 456,
+                                                "border": false,
+                                                "itemId": "frmDetallesRetencion",
+                                                "autoRef": "frmDetallesRetencion",
+                                                "padding": "-ext-undefined-"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer15",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "hbox",
+                                                        "height": 50
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyContainer16",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 210
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyCombo2",
+                                                                    "cid": "combobox",
+                                                                    "jsClass": "MyCombo",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Forma de Pago",
+                                                                        "anchor": "100%",
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "cmbFormaPagoRetencion",
+                                                                        "name": "id_formapago",
+                                                                        "autoRef": "cmbFormaPagoRetencion",
+                                                                        "valueField": "id_formapago",
+                                                                        "displayField": "nombre_formapago",
+                                                                        "editable": false,
+                                                                        "triggerAction": "all"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer17",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer5",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "width": 8
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyContainer18",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer2",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 90
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyCombo3",
+                                                                    "cid": "combobox",
+                                                                    "jsClass": "MyCombo1",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Denominacion",
+                                                                        "anchor": "100%",
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "cmbDenominacionRetencion",
+                                                                        "autoRef": "cmbDenominacionRetencion",
+                                                                        "name": "id_denominacion",
+                                                                        "triggerAction": "all",
+                                                                        "editable": false,
+                                                                        "valueField": "id_denominacion",
+                                                                        "displayField": "denominacion",
+                                                                        "style": "text-align:right;"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer19",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer6",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "width": 8
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyContainer20",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer3",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "labelAlign": "top",
+                                                                "width": 90
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyNumberField1",
+                                                                    "cid": "numberfield",
+                                                                    "jsClass": "MyNumberField",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "fieldLabel": "Cantidad",
+                                                                        "anchor": "100%",
+                                                                        "width": 10,
+                                                                        "labelSeparator": " ",
+                                                                        "itemId": "txtCantidadRetencion",
+                                                                        "autoRef": "txtCantidadRetencion",
+                                                                        "name": "-ext-undefined-",
+                                                                        "style": "text-align:right;",
+                                                                        "submitValue": false,
+                                                                        "allowNegative": false
+                                                                    }
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "id": "MyContainer21",
+                                                            "cid": "container",
+                                                            "jsClass": "MyContainer4",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "flex": 1,
+                                                                "layout": "form",
+                                                                "width": 50
+                                                            },
+                                                            "cn": [
+                                                                {
+                                                                    "id": "MyButton4",
+                                                                    "cid": "button",
+                                                                    "jsClass": "MyButton3",
+                                                                    "snapToGrid": 10,
+                                                                    "userConfig": {
+                                                                        "text": "-ext-undefined-",
+                                                                        "style": "margin-left:8px;margin-top:5px;",
+                                                                        "width": 24,
+                                                                        "height": 24,
+                                                                        "scale": "large",
+                                                                        "autoRef": "btnAgregarRetencion",
+                                                                        "itemId": "btnAgregarRetencion",
+                                                                        "icon": "images/iconos/ventas_add_big.png"
+                                                                    }
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyGrid1",
+                                            "cid": "grid",
+                                            "jsClass": "MyGrid",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "store": "(none)",
+                                                "height": 200,
+                                                "width": 456,
+                                                "itemId": "gridDetallesRetencion",
+                                                "autoRef": "gridDetallesRetencion"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyColumn5",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "dataIndex": "-ext-undefined-",
+                                                        "header": "-ext-undefined-",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 25,
+                                                        "id": "colDeleteRetencion"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn6",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn1",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Forma de Pago",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 150,
+                                                        "id": "colFormaPagoRetencion",
+                                                        "dataIndex": "nombre_formapago"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn7",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn2",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Denominacion",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 80,
+                                                        "id": "colDenominacionRetencion",
+                                                        "dataIndex": "denominacion"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn8",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Cantidad",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 90,
+                                                        "id": "colCantidadRetencion",
+                                                        "dataIndex": "cantidad",
+                                                        "align": "right"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyColumn9",
+                                                    "cid": "gridcolumn",
+                                                    "jsClass": "MyColumn4",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "header": "Total",
+                                                        "sortable": true,
+                                                        "resizable": "-ext-undefined-",
+                                                        "width": 90,
+                                                        "id": "colTotalRetencion",
+                                                        "dataIndex": "total",
+                                                        "align": "right"
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyGridView1",
+                                                    "cid": "gridview",
+                                                    "jsClass": "MyGridView",
+                                                    "dock": "view",
+                                                    "snapToGrid": 10,
+                                                    "dockCls": "Ext.grid.GridView"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyContainer22",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer10",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "height": 5
+                                            }
+                                        },
+                                        {
+                                            "id": "MyContainer23",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer7",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "layout": "hbox",
+                                                "width": 456,
+                                                "height": "-ext-undefined-"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer24",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer8",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "width": 190
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyContainer25",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer9",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "table",
+                                                        "width": "-ext-undefined-",
+                                                        "flex": 1
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField2",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "Total Retenido:",
+                                                                "width": 150,
+                                                                "style": "text-align:right;font-size:14px;font-weight:bold",
+                                                                "height": 20,
+                                                                "submitValue": false
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField3",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": 0,
+                                                                "width": 100,
+                                                                "style": "text-align:right;font-size:14px;font-weight:bold",
+                                                                "itemId": "lblTotalRetencion",
+                                                                "autoRef": "lblTotalRetencion",
+                                                                "height": 20,
+                                                                "submitValue": false
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "MyContainer26",
+                    "cid": "container",
+                    "jsClass": "MyContainer26",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyContainer27",
+                            "cid": "container",
+                            "jsClass": "MyContainer7",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "hbox",
+                                "width": "-ext-undefined-",
+                                "height": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer28",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer8",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "width": 190
+                                    }
+                                },
+                                {
+                                    "id": "MyContainer29",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer9",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "table",
+                                        "width": "-ext-undefined-",
+                                        "flex": 1
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField4",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Total Corte:",
+                                                "width": 150,
+                                                "style": "text-align:right;font-size:22px;font-weight:bold",
+                                                "height": "-ext-undefined-",
+                                                "submitValue": false
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField5",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": 0,
+                                                "width": 130,
+                                                "style": "text-align:right;font-size:20px;font-weight:bold",
+                                                "itemId": "lblTotalCorte",
+                                                "autoRef": "lblTotalCorte",
+                                                "height": "-ext-undefined-",
+                                                "submitValue": false
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,318 @@
+{
+    "name": "formCertificados.xds",
+    "projectId": "A7E97AC0-D59B-4692-A49E-594738C7DDB3",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formCertificados",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Nuevo Certificado",
+                "width": 814,
+                "height": 524,
+                "padding": 10,
+                "labelWidth": "-ext-undefined-",
+                "autoScroll": true,
+                "fileUpload": true
+            },
+            "userXType": "formCertificados",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "icon": "images/iconos/certificate_add.png",
+                                "autoRef": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "disabled": true,
+                                "icon": "images/iconos/certificate_red.png",
+                                "autoRef": "btnDesactivar"
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "disabled": true,
+                                "icon": "images/iconos/certificate_delete.png",
+                                "autoRef": "btnEliminar"
+                            }
+                        },
+                        {
+                            "id": "MyFill",
+                            "cid": "tbfill",
+                            "jsClass": "MyFill",
+                            "snapToGrid": 10
+                        }
+                    ]
+                },
+                {
+                    "id": "MyContainer",
+                    "cid": "container",
+                    "jsClass": "MyContainer",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "layout": "column",
+                        "height": 32
+                    },
+                    "cn": [
+                        {
+                            "id": "MyDisplayField",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "Seleccione el archivo .cer",
+                                "width": 180
+                            }
+                        },
+                        {
+                            "id": "MyUserComponent",
+                            "cid": "usercomponent",
+                            "jsClass": "BORRARFileUploadField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "jsClass": "BORRARFileUploadField",
+                                "userXType": "fileuploadfield",
+                                "autoRef": "txtCertificado",
+                                "width": 200,
+                                "name": "archivo_certificado",
+                                "itemId": "txtCertificado",
+                                "id": "txtCertificado"
+                            },
+                            "userComponent": "MyTextField"
+                        }
+                    ]
+                },
+                {
+                    "id": "MyContainer1",
+                    "cid": "container",
+                    "jsClass": "MyContainer1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "height": 32,
+                        "layout": "column"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyDisplayField1",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "Seleccione el archivo .key",
+                                "width": 180
+                            }
+                        },
+                        {
+                            "id": "MyUserComponent1",
+                            "cid": "usercomponent",
+                            "jsClass": "BORRAR2fileuploadfield",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "jsClass": "BORRAR2fileuploadfield",
+                                "userXType": "fileuploadfield",
+                                "autoRef": "txtLlave",
+                                "name": "archivo_llave",
+                                "itemId": "txtLlave",
+                                "width": 200,
+                                "id": "txtLlave"
+                            },
+                            "userComponent": "MyTextField1"
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Contraseña",
+                        "anchor": "-ext-undefined-",
+                        "width": 150,
+                        "name": "pass_certificado",
+                        "autoRef": "txtPassword",
+                        "inputType": "password",
+                        "allowBlank": false
+                    }
+                },
+                {
+                    "id": "MyFieldSet",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Detalles de Certificado",
+                        "width": 500,
+                        "style": "margin-top:20px;"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTextField3",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Numero de Serie",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "autoRef": "txtSerie",
+                                "readOnly": true,
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField4",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField4",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Rfc",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "autoRef": "txtRfc",
+                                "readOnly": true,
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField5",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField5",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Empresa",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "autoRef": "txtEmpresa",
+                                "readOnly": true,
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField6",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField6",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "F. Solicitud",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "autoRef": "txtFechaSol",
+                                "readOnly": true,
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField7",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField7",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "F. Vencimiento",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "autoRef": "txtFechaVen",
+                                "readOnly": true,
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField8",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField8",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "name": "id_certificado",
+                        "autoRef": "txtIdCertificado",
+                        "bubbleEvents": "this.bubbleEvents = [\n            'cambioDeId'\n        ]",
+                        "value": 0
+                    }
+                },
+                {
+                    "id": "MyTextField9",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField9",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "autoRef": "txtStatus",
+                        "value": "A",
+                        "name": "status",
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "MyTextField",
+            "cid": "textfield",
+            "jsClass": "BORRARFileUploadField",
+            "snapToGrid": 10,
+            "userConfig": {
+                "width": 200,
+                "name": "archivo_certificado"
+            },
+            "userXType": "fileuploadfield"
+        },
+        {
+            "id": "MyTextField1",
+            "cid": "textfield",
+            "jsClass": "BORRAR2fileuploadfield",
+            "snapToGrid": 10,
+            "userConfig": {
+                "width": 200
+            },
+            "userXType": "fileuploadfield"
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,452 @@
+{
+    "name": "formProductos.xds",
+    "projectId": "A7B0A8FF-6569-4E60-8034-0E351C66E55E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formProductos",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Producto",
+                "width": 820,
+                "height": 580,
+                "padding": 10,
+                "autoScroll": true,
+                "labelWidth": 120
+            },
+            "userXType": "formProductos",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "icon": "images/iconos/productos_add.png",
+                                "autoRef": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "icon": "images/iconos/productos_red.png",
+                                "autoRef": "btnDesactivar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "icon": "images/iconos/productos_delete.png",
+                                "autoRef": "btnEliminar",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Código",
+                        "anchor": "-ext-undefined-",
+                        "width": 100,
+                        "name": "codigo",
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;"
+                    }
+                },
+                {
+                    "id": "MyTextField1",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Codigo de Barras",
+                        "anchor": "-ext-undefined-",
+                        "width": 150,
+                        "name": "codigo_barras",
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;"
+                    }
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Descripción",
+                        "anchor": "-ext-undefined-",
+                        "width": 500,
+                        "autoRef": "txtDescripcion",
+                        "name": "descripcion",
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;",
+                        "bubbleEvents": "[\n            'cambioDeNombre'\n        ]"
+                    }
+                },
+                {
+                    "id": "MyTextArea",
+                    "cid": "textarea",
+                    "jsClass": "MyTextArea",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "anchor": "-ext-undefined-",
+                        "fieldLabel": "Detalle",
+                        "width": 500,
+                        "height": 100,
+                        "name": "detalles"
+                    }
+                },
+                {
+                    "id": "MyCombo2",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Tipo Producto",
+                        "anchor": "-ext-undefined-",
+                        "width": 120,
+                        "labelStyle": "font-weight:bold;",
+                        "mode": "local",
+                        "triggerAction": "all",
+                        "displayField": "nombre",
+                        "valueField": "id",
+                        "forceSelection": true,
+                        "allowBlank": false,
+                        "name": "tipo_producto",
+                        "hiddenName": "tipo_producto",
+                        "autoRef": "cmbTipoProducto",
+                        "triggerConfig": "-ext-undefined-",
+                        "triggerClass": "x-form-search-trigger"
+                    }
+                },
+                {
+                    "id": "MyCombo",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Unidad de Medida",
+                        "anchor": "-ext-undefined-",
+                        "width": 180,
+                        "labelStyle": "font-weight:bold;",
+                        "allowBlank": false,
+                        "forceSelection": true,
+                        "hiddenName": "id_unidadmedida",
+                        "name": "id_unidadmedida",
+                        "displayField": "descripcion_unidad",
+                        "valueField": "id_unidadmedida",
+                        "enableKeyEvents": true,
+                        "pageSize": 20,
+                        "autoRef": "cmbUnidades",
+                        "itemSelector": "-ext-undefined-",
+                        "store": "-ext-undefined-",
+                        "triggerAction": "all",
+                        "minChars": 2,
+                        "triggerClass": "x-form-search-trigger"
+                    }
+                },
+                {
+                    "id": "MyCombo1",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Línea",
+                        "anchor": "-ext-undefined-",
+                        "width": 250,
+                        "autoRef": "cmbLineas",
+                        "name": "id_linea",
+                        "hiddenName": "id_linea",
+                        "displayField": "nombre_linea",
+                        "valueField": "id_linea",
+                        "enableKeyEvents": true,
+                        "pageSize": 20,
+                        "triggerAction": "all",
+                        "minChars": 0,
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;",
+                        "forceSelection": true,
+                        "triggerConfig": "{\n                        tag: 'span',\n                        cls: 'x-form-twin-triggers',\n                        style: 'padding-right:2px',\n                        cn: [\n                            {\n                                tag: \"img\",\n                                src: Ext.BLANK_IMAGE_URL,\n                                cls: \"x-form-trigger x-form-clear-trigger\"\n                            },\n                            {\n                                tag: \"img\",\n                                src: Ext.BLANK_IMAGE_URL,\n                                cls: \"x-form-trigger x-form-search-trigger\"\n                            }\n                        ]\n                    }"
+                    }
+                },
+                {
+                    "id": "MyFieldSet",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Informacion de Costos",
+                        "width": 550,
+                        "labelWidth": "-ext-undefined-"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTextField4",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField4",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Precio de Venta",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "labelStyle": "font-weight:bold;",
+                                "autoRef": "txtPrecioVenta",
+                                "name": "precio_venta",
+                                "style": "text-align:right;margin-left:3px;"
+                            }
+                        },
+                        {
+                            "id": "MyTextField5",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField5",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Precio de Compra",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "labelStyle": "font-weight:bold;",
+                                "autoRef": "txtPrecioCompra",
+                                "name": "precio_compra",
+                                "style": "text-align:right;margin-left:3px;"
+                            }
+                        },
+                        {
+                            "id": "MyTextField9",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField9",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Precio Estilista",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "labelStyle": "font-weight:bold;",
+                                "style": "text-align:right;margin-left:3px;",
+                                "name": "precio_estilista",
+                                "autoRef": "txtPrecioEstilista"
+                            }
+                        },
+                        {
+                            "id": "MyTextField6",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField6",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Ultimo Costo",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "readOnly": true,
+                                "autoRef": "txtUltimoCosto",
+                                "name": "ultimo_costo",
+                                "style": "text-align:right;margin-left:3px;"
+                            }
+                        },
+                        {
+                            "id": "MyTextField7",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField7",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Costo Promedio",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "labelStyle": "-ext-undefined-",
+                                "readOnly": true,
+                                "autoRef": "txtCostoPromedio",
+                                "name": "costo_promedio",
+                                "style": "text-align:right;margin-left:3px;"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyFieldSet1",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Impuestos",
+                        "width": 550
+                    },
+                    "cn": [
+                        {
+                            "id": "MyCombo3",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "IVA",
+                                "anchor": "-ext-undefined-",
+                                "width": 60,
+                                "labelStyle": "font-weight:bold;",
+                                "mode": "local",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "triggerAction": "all",
+                                "name": "iva",
+                                "hiddenName": "iva",
+                                "autoRef": "cmbIva",
+                                "triggerClass": "x-form-search-trigger"
+                            }
+                        },
+                        {
+                            "id": "MyCombo4",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo4",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Retencion de IVA",
+                                "anchor": "-ext-undefined-",
+                                "width": 60,
+                                "labelStyle": "font-weight:bold;",
+                                "mode": "local",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "triggerAction": "all",
+                                "name": "ret_iva",
+                                "hiddenName": "ret_iva",
+                                "autoRef": "cmbRetIva",
+                                "triggerClass": "x-form-search-trigger"
+                            }
+                        },
+                        {
+                            "id": "MyCombo5",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo5",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Retencion de ISR",
+                                "anchor": "-ext-undefined-",
+                                "width": 60,
+                                "labelStyle": "font-weight:bold;",
+                                "mode": "local",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "triggerAction": "all",
+                                "name": "ret_isr",
+                                "hiddenName": "ret_isr",
+                                "autoRef": "cmbRetIsr",
+                                "triggerClass": "x-form-search-trigger"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyFieldSet2",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Máximos y Mínimos",
+                        "width": 550
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTextField10",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField10",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Mínimo",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "txtMinimo",
+                                "autoRef": "txtMinimo",
+                                "name": "stock_min",
+                                "width": 100
+                            }
+                        },
+                        {
+                            "id": "MyTextField11",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField11",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Máximo",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "txtMaximo",
+                                "autoRef": "txtMaximo",
+                                "name": "stock_max",
+                                "width": 100
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField3",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField3",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "name": "id_producto",
+                        "autoRef": "txtIdProducto",
+                        "hidden": true,
+                        "bubbleEvents": "[\n                    'cambioDeId'\n                ]"
+                    }
+                },
+                {
+                    "id": "MyTextField8",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField8",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "name": "status",
+                        "autoRef": "txtStatus",
+                        "hidden": true,
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]",
+                        "value": "A"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

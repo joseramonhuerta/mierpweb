@@ -1,0 +1,346 @@
+{
+    "name": "WindowFechasObras.xds",
+    "projectId": "E8346EE5-31E3-438F-B374-497B8B4AAD8D",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "directAPI": "",
+        "spacesToIndent": "4",
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": false,
+        "genTimestamps": false
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyWindow",
+            "cid": "window",
+            "jsClass": "WindowFechasObras",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Fechas",
+                "width": 688,
+                "height": 486,
+                "layout": "card",
+                "activeItem": 0,
+                "modal": true
+            },
+            "userXType": "window_fechasobras",
+            "cn": [
+                {
+                    "id": "MyPanel",
+                    "cid": "panel",
+                    "jsClass": "MyPanel3",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "region": "west",
+                        "width": "-ext-undefined-",
+                        "layout": "border",
+                        "itemId": "pnlContent",
+                        "autoRef": "pnlContent"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyPanel1",
+                            "cid": "panel",
+                            "jsClass": "MyPanel2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "region": "north",
+                                "width": 100,
+                                "height": 40,
+                                "layout": "form",
+                                "border": false,
+                                "padding": "-ext-undefined-",
+                                "labelWidth": 60,
+                                "hidden": true
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyForm",
+                                    "cid": "form",
+                                    "jsClass": "MyPanel2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "width": "-ext-undefined-",
+                                        "layout": "form",
+                                        "border": false,
+                                        "height": "-ext-undefined-",
+                                        "padding": 10,
+                                        "hideBorders": "-ext-undefined-",
+                                        "autoRef": "pnlFechas",
+                                        "autoHeight": true,
+                                        "itemId": "pnlFechas",
+                                        "cls": "-ext-undefined-",
+                                        "hidden": "-ext-undefined-",
+                                        "forceLayout": true
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyContainer",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "layout": "hbox",
+                                                "cls": "x-form-item"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer1",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "flex": "-ext-undefined-",
+                                                        "layout": "form",
+                                                        "labelWidth": 40
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDateField",
+                                                            "cid": "datefield",
+                                                            "jsClass": "MyDateField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "autoRef": "txtFechaInicialExcepcion",
+                                                                "itemId": "txtFechaInicialExcepcion",
+                                                                "name": "FechaInicialExcepcion",
+                                                                "fieldLabel": "Desde"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "MySpacer",
+                                                    "cid": "tbspacer",
+                                                    "jsClass": "MyFill",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "height": "-ext-undefined-",
+                                                        "width": 10
+                                                    }
+                                                },
+                                                {
+                                                    "id": "MyContainer2",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "flex": "-ext-undefined-",
+                                                        "layout": "form",
+                                                        "labelWidth": 35
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDateField1",
+                                                            "cid": "datefield",
+                                                            "jsClass": "MyDateField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "autoRef": "txtFechaFinalExcepcion",
+                                                                "itemId": "txtFechaFinalExcepcion",
+                                                                "name": "FechaFinalExcepcion",
+                                                                "fieldLabel": "Hasta"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "MySpacer1",
+                                                    "cid": "tbspacer",
+                                                    "jsClass": "MyFill",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "height": "-ext-undefined-",
+                                                        "width": 10
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyPanel2",
+                            "cid": "panel",
+                            "jsClass": "MyPanel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "layout": "fit",
+                                "padding": 10,
+                                "border": false,
+                                "itemId": "contenedor",
+                                "autoRef": "contenedor",
+                                "height": 262,
+                                "width": "-ext-undefined-",
+                                "region": "center"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyGrid",
+                                    "cid": "grid",
+                                    "jsClass": "MyGrid",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "store": "(none)",
+                                        "itemId": "gridFechas",
+                                        "autoRef": "gridFechas",
+                                        "width": 250
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyCheckboxSelectionModel",
+                                            "cid": "gridcheckboxselectionmodel",
+                                            "jsClass": "MyCheckboxSelectionModel",
+                                            "dock": "selModel",
+                                            "snapToGrid": 10,
+                                            "dockCls": "Ext.grid.CheckboxSelectionModel",
+                                            "userConfig": {
+                                                "checkOnly": true,
+                                                "moveEditorOnEnter": false
+                                            }
+                                        },
+                                        {
+                                            "id": "MyColumn",
+                                            "cid": "gridcolumn",
+                                            "jsClass": "MyColumn2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "dataIndex": "Fecha",
+                                                "header": "Fecha",
+                                                "sortable": true,
+                                                "resizable": "-ext-undefined-",
+                                                "width": 100
+                                            }
+                                        },
+                                        {
+                                            "id": "MyColumn1",
+                                            "cid": "gridcolumn",
+                                            "jsClass": "MyColumn2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "dataIndex": "NombreTipoIncidencia",
+                                                "header": "Tipo",
+                                                "sortable": true,
+                                                "resizable": "-ext-undefined-",
+                                                "width": 100
+                                            }
+                                        },
+                                        {
+                                            "id": "MyColumn2",
+                                            "cid": "gridcolumn",
+                                            "jsClass": "MyColumn2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "dataIndex": "NombreCentroCosto",
+                                                "header": "Centro Costo",
+                                                "sortable": true,
+                                                "resizable": "-ext-undefined-",
+                                                "width": 400
+                                            }
+                                        },
+                                        {
+                                            "id": "MyGridView",
+                                            "cid": "gridview",
+                                            "jsClass": "MyGridView",
+                                            "dock": "view",
+                                            "snapToGrid": 10,
+                                            "dockCls": "Ext.grid.GridView"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyPanel3",
+                            "cid": "panel",
+                            "jsClass": "MyPanel1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "height": 40,
+                                "region": "south",
+                                "width": 100,
+                                "border": false,
+                                "padding": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer3",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer4",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "height": 10
+                                    }
+                                },
+                                {
+                                    "id": "MyContainer4",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "layoutConfig": {
+                                        "pack": "end"
+                                    },
+                                    "userConfig": {
+                                        "layout": "hbox",
+                                        "height": "-ext-undefined-",
+                                        "style": "padding-right:10px"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyButton",
+                                            "cid": "button",
+                                            "jsClass": "MyButton",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Aceptar",
+                                                "flex": 1,
+                                                "width": 100,
+                                                "autoRef": "btnAceptar",
+                                                "itemId": "btnAceptar"
+                                            }
+                                        },
+                                        {
+                                            "id": "MySpacer2",
+                                            "cid": "spacer",
+                                            "jsClass": "MySpacer1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "width": 5
+                                            }
+                                        },
+                                        {
+                                            "id": "MyButton1",
+                                            "cid": "button",
+                                            "jsClass": "MyButton",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Cancelar",
+                                                "flex": 1,
+                                                "width": 100,
+                                                "autoRef": "btnCancelar",
+                                                "itemId": "btnCancelar"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

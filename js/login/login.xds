@@ -1,0 +1,511 @@
+{
+    "name": "login.xds",
+    "projectId": "6B4EC7D8-7DD6-4FEA-99EE-FEC5596A8DD8",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyPanel",
+            "cid": "panel",
+            "jsClass": "main",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "-ext-undefined-",
+                "width": 528,
+                "height": 251,
+                "cls": "LoginMain",
+                "style": "position:absolute;font-family:arial",
+                "unstyled": true
+            },
+            "cn": [
+                {
+                    "id": "MyPanel1",
+                    "cid": "panel",
+                    "jsClass": "loginPanel",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "width": 430,
+                        "height": 251,
+                        "layout": "card",
+                        "activeItem": "-ext-undefined-",
+                        "hideBorders": true,
+                        "border": false,
+                        "style": "position:absolute;left:50%;margin-left:-180px;top:95px;",
+                        "bodyStyle": "background:none;",
+                        "id": "cardLogin",
+                        "autoRef": "cardLogin"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyForm",
+                            "cid": "form",
+                            "jsClass": "MyForm",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "width": 360,
+                                "height": 160,
+                                "labelWidth": 110,
+                                "hideBorders": true,
+                                "border": false,
+                                "unstyled": true,
+                                "id": "frmLogin",
+                                "autoRef": "frmLogin",
+                                "bubbleEvents": ""
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyPanel2",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "hbox",
+                                        "unstyled": true,
+                                        "style": "margin-bottom:15px;"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Correo Electrónico:",
+                                                "style": "font-size: 13px;",
+                                                "width": 150
+                                            }
+                                        },
+                                        {
+                                            "id": "MyTextField",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "flex": 1,
+                                                "width": 214,
+                                                "allowBlank": false,
+                                                "vtype": "email",
+                                                "name": "username",
+                                                "style": "margin-bottom:10px;",
+                                                "enableKeyEvents": true,
+                                                "autoRef": "txtUsername",
+                                                "selectOnFocus": true,
+                                                "itemId": "txtUsername",
+                                                "tabIndex": 1,
+                                                "bubbleEvents": "['keyup']"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel3",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "hbox",
+                                        "unstyled": true,
+                                        "hideBorders": true,
+                                        "border": false,
+                                        "style": "margin-bottom:10px;"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField1",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Contraseña:",
+                                                "flex": 1,
+                                                "style": "font-size: 13px;",
+                                                "width": 150
+                                            }
+                                        },
+                                        {
+                                            "id": "MyTextField1",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "flex": 1,
+                                                "width": 214,
+                                                "allowBlank": false,
+                                                "name": "pass",
+                                                "inputType": "password",
+                                                "enableKeyEvents": true,
+                                                "selectOnFocus": true,
+                                                "itemId": "txtPass",
+                                                "autoRef": "txtPass",
+                                                "tabIndex": 2,
+                                                "bubbleEvents": "['enterPassword','keyup']"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyDisplayField2",
+                                    "cid": "displayfield",
+                                    "jsClass": "MyDisplayField2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "value": "<a href=\"#\" onClick=\"recordar_password();\">Olvidé mi contraseña</a>",
+                                        "fieldLabel": "-ext-undefined-",
+                                        "anchor": "100%",
+                                        "style": "-ext-undefined-",
+                                        "width": 136,
+                                        "height": 16
+                                    }
+                                },
+                                {
+                                    "id": "MyPanel4",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel4",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "absolute",
+                                        "height": 30,
+                                        "width": 360,
+                                        "unstyled": true,
+                                        "style": "margin-top:5px;"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyButton",
+                                            "cid": "button",
+                                            "jsClass": "MyButton",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Entrar",
+                                                "x": "-ext-undefined-",
+                                                "y": "-ext-undefined-",
+                                                "width": 100,
+                                                "style": "left:50%;margin-left:-105px;",
+                                                "tabIndex": 3,
+                                                "bubbleEvents": "[\n                            \"click\"\n                        ]",
+                                                "itemId": "btnIdentificar",
+                                                "autoRef": "btnIdentificar",
+                                                "height": 25
+                                            }
+                                        },
+                                        {
+                                            "id": "MyButton1",
+                                            "cid": "button",
+                                            "jsClass": "MyButton1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Salir",
+                                                "x": "-ext-undefined-",
+                                                "y": "-ext-undefined-",
+                                                "width": 100,
+                                                "style": "left:50%;margin-left:20px;",
+                                                "itemId": "salir",
+                                                "autoRef": "btnSalir",
+                                                "tabIndex": 4,
+                                                "bubbleEvents": "[\n                            \"click\"\n                        ]",
+                                                "height": 25
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyForm1",
+                            "cid": "form",
+                            "jsClass": "MyForm1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "width": 360,
+                                "height": 160,
+                                "unstyled": true,
+                                "labelWidth": 110,
+                                "id": "frmCorps",
+                                "autoRef": "frmCorps",
+                                "bubbleEvents": "[\n            \"entrar\",\n            \"pushCambiarUsuario\",\n            \"pushEntrar\",\n            \"pushSalir\"\n        ]"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyPanel5",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel5",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "hbox",
+                                        "style": "margin-bottom:12px;",
+                                        "unstyled": true,
+                                        "height": 22
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField3",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField3",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Corporativo:",
+                                                "width": 135,
+                                                "style": "font-size: 13px;",
+                                                "flex": 1,
+                                                "height": 22
+                                            }
+                                        },
+                                        {
+                                            "id": "MyCombo",
+                                            "cid": "combobox",
+                                            "jsClass": "MyCombo",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "width": 214,
+                                                "name": "id_corporativo",
+                                                "id": "cmbCorporativos",
+                                                "autoRef": "cmbCorporativos",
+                                                "mode": "local",
+                                                "emptyText": "Seleccione un corporativo",
+                                                "store": "loginStoreCorporativos",
+                                                "displayField": "nombre_corporativo",
+                                                "value": "-ext-undefined-",
+                                                "valueField": "id_corporativo",
+                                                "editable": false,
+                                                "forceSelection": true,
+                                                "autoSelect": "-ext-undefined-",
+                                                "hiddenName": "id_corporativo",
+                                                "itemSelector": "-ext-undefined-"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField4",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField4",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "-ext-undefined-",
+                                                "flex": 1,
+                                                "style": "margin-left:5px;",
+                                                "autoRef": "dspCorps",
+                                                "width": 16,
+                                                "id": "",
+                                                "height": 16
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel6",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel6",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "hbox",
+                                        "hideBorders": true,
+                                        "border": false,
+                                        "unstyled": true,
+                                        "style": "margin-bottom:12px;",
+                                        "height": 22
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField5",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField5",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Empresa:",
+                                                "style": "font-size: 13px;",
+                                                "width": 135,
+                                                "height": 22
+                                            }
+                                        },
+                                        {
+                                            "id": "MyCombo1",
+                                            "cid": "combobox",
+                                            "jsClass": "MyCombo1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "flex": 1,
+                                                "width": 214,
+                                                "hiddenName": "ID_Empresa",
+                                                "name": "id_empresa",
+                                                "editable": false,
+                                                "displayField": "nombre_fiscal",
+                                                "valueField": "id_empresa",
+                                                "emptyText": "Seleccione una empresa",
+                                                "store": "loginStoreEmpresas",
+                                                "enableKeyEvents": true,
+                                                "disabled": true,
+                                                "mode": "local",
+                                                "listWidth": "-ext-undefined-",
+                                                "autoRef": "cmbEmpresas",
+                                                "id": "cmbEmpresas",
+                                                "itemId": "cmbEmpresas",
+                                                "itemSelector": "-ext-undefined-"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField6",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField6",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "-ext-undefined-",
+                                                "flex": 1,
+                                                "height": 16,
+                                                "width": 16,
+                                                "style": "margin-left:5px;",
+                                                "autoRef": "dspEmps"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel7",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel7",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "hbox",
+                                        "hideBorders": true,
+                                        "border": false,
+                                        "unstyled": true,
+                                        "style": "margin-bottom:10px;",
+                                        "height": 22
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField7",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField7",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Sucursal:",
+                                                "flex": 1,
+                                                "width": 135,
+                                                "style": "font-size: 13px;",
+                                                "height": 22
+                                            }
+                                        },
+                                        {
+                                            "id": "MyCombo2",
+                                            "cid": "combobox",
+                                            "jsClass": "MyCombo2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "flex": 1,
+                                                "width": 214,
+                                                "hiddenName": "ID_Sucursal",
+                                                "name": "id_sucursal",
+                                                "editable": false,
+                                                "displayField": "nombre_sucursal",
+                                                "valueField": "id_sucursal",
+                                                "emptyText": "Seleccione una sucursal",
+                                                "store": "loginStoreSucursales",
+                                                "enableKeyEvents": true,
+                                                "disabled": true,
+                                                "mode": "local",
+                                                "autoRef": "cmbSucursales",
+                                                "id": "cmbSucursales",
+                                                "itemId": "cmbSucursales"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField8",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField8",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "-ext-undefined-",
+                                                "flex": 1,
+                                                "height": 16,
+                                                "width": 16,
+                                                "style": "margin-left:5px;",
+                                                "autoRef": "dspSucs"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel8",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel8",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "layout": "table",
+                                        "unstyled": true,
+                                        "style": "margin-top:15px;",
+                                        "height": 30,
+                                        "width": 370
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyButton2",
+                                            "cid": "button",
+                                            "jsClass": "MyButton2",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Cambiar Usuario",
+                                                "height": 25,
+                                                "width": 150,
+                                                "itemId": "cambiar",
+                                                "autoRef": "btnCambiar"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyButton3",
+                                            "cid": "button",
+                                            "jsClass": "MyButton3",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Entrar",
+                                                "width": 100,
+                                                "height": 25,
+                                                "autoRef": "btnEntrar",
+                                                "style": "margin-left:10px;",
+                                                "disabled": true,
+                                                "itemId": "entrar"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyButton4",
+                                            "cid": "button",
+                                            "jsClass": "MyButton4",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Salir",
+                                                "style": "margin-left:10px;",
+                                                "width": 100,
+                                                "autoRef": "btnSalir2",
+                                                "itemId": "salir2",
+                                                "height": 25
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

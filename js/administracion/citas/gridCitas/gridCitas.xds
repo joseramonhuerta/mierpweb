@@ -1,0 +1,292 @@
+{
+    "name": "gridCitas.xds",
+    "projectId": "BA1EE614-F378-4507-A849-1BAB9B5AB0EB",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyGrid",
+            "cid": "grid",
+            "jsClass": "gridCitas",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Citas",
+                "store": "storeGridCitas",
+                "width": 869,
+                "height": 330,
+                "stripeRows": true,
+                "autoExpandColumn": "colCliente"
+            },
+            "userXType": "gridCitas",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Nuevo",
+                                "autoRef": "btnAgregar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Editar",
+                                "autoRef": "btnEditar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator2",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator2",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyDisplayField1",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "Periodo:",
+                                "style": "margin-right:5px;"
+                            }
+                        },
+                        {
+                            "id": "MyDateField1",
+                            "cid": "datefield",
+                            "jsClass": "MyDateField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "autoRef": "txtFechaini",
+                                "style": "-ext-undefined-"
+                            }
+                        },
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 5
+                            }
+                        },
+                        {
+                            "id": "MyDateField",
+                            "cid": "datefield",
+                            "jsClass": "MyDateField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "autoRef": "txtFechafin",
+                                "style": "-ext-undefined-"
+                            }
+                        },
+                        {
+                            "id": "MyContainer1",
+                            "cid": "container",
+                            "jsClass": "MyContainer1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 10
+                            }
+                        },
+                        {
+                            "id": "MyButton3",
+                            "cid": "button",
+                            "jsClass": "MyButton3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Buscar",
+                                "autoRef": "btnBuscar",
+                                "icon": "images/iconos/buscar.png"
+                            }
+                        },
+                        {
+                            "id": "MyFill",
+                            "cid": "tbfill",
+                            "jsClass": "MyFill",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyDisplayField",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "Status:",
+                                "style": "margin-right:5px;"
+                            }
+                        },
+                        {
+                            "id": "MyCombo",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "cmbStatus",
+                                "name": "status",
+                                "width": 100,
+                                "autoRef": "cmbStatus",
+                                "triggerAction": "all",
+                                "mode": "local",
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "forceSelection": true,
+                                "allowBlank": false,
+                                "hidden": "-ext-undefined-",
+                                "hiddenName": "status",
+                                "editable": false
+                            }
+                        },
+                        {
+                            "id": "MySeparator1",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator1",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "autoRef": "txtFiltro",
+                                "width": 250,
+                                "emptyText": "Introduzca el texto a buscar"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyGridView",
+                    "cid": "gridview",
+                    "jsClass": "MyGridView",
+                    "dock": "view",
+                    "snapToGrid": 10,
+                    "dockCls": "Ext.grid.GridView"
+                },
+                {
+                    "id": "MyColumn2",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Fecha",
+                        "sortable": true,
+                        "resizable": false,
+                        "width": 90,
+                        "dataIndex": "fecha"
+                    }
+                },
+                {
+                    "id": "MyColumn6",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn6",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Horario",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 200,
+                        "id": "colHorario",
+                        "dataIndex": "horario",
+                        "editable": false
+                    }
+                },
+                {
+                    "id": "MyColumn",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Cliente",
+                        "sortable": true,
+                        "resizable": false,
+                        "width": 300,
+                        "dataIndex": "nombre_fiscal",
+                        "id": "colCliente"
+                    }
+                },
+                {
+                    "id": "MyColumn1",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Vendedor",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 200,
+                        "dataIndex": "nombre_agente",
+                        "id": "colAgente"
+                    }
+                },
+                {
+                    "id": "MyColumn3",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Observaciones",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 300,
+                        "dataIndex": "observaciones",
+                        "id": "colObservacion"
+                    }
+                },
+                {
+                    "id": "MyPagingToolbar",
+                    "cid": "pagingtoolbar",
+                    "jsClass": "MyPagingToolbar",
+                    "dock": "bbar",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "store": "(none)",
+                        "displayMsg": "Mostrando {0} - {1} de {2}",
+                        "emptyMsg": "No hay registros para mostrar"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,2 @@
+<script type="text/javascript" src="formMovimientosBancos.ui.js"></script>
+<script type="text/javascript" src="formMovimientosBancos.js"></script>

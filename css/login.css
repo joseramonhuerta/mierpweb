@@ -1,0 +1,39 @@
+.LoginMain{
+	background-image: url("../images/fondoLogin.png");
+}
+a{
+	/*text-decoration:none;
+	color:black;*/
+}
+#frmRecordar span.x-plain-header-text{
+	font-weight:bold;
+}
+.centro{   
+    height: 329px;
+    width: 598px;
+    position: absolute;
+    left:50%;
+    margin-left:-299px;
+    top:50%;
+    margin-top:-164px;
+}
+.pensando{
+    background-image: url(../images/pensando.gif);
+    width:16px;
+    height:16px;
+}
+
+.SUC{
+	padding:0px 25px;
+}
+
+.ext-el-mask-msg div{	
+	background: url("../images/pensando.gif") no-repeat scroll 0 0 #EEEEEE !important;
+	/*background: url("../images/ajax-loader.gif") no-repeat scroll 0 0 #EEEEEE !important;*/
+	background-color: #EEEEEE;
+    border-color: #A3BAD9;
+    color: #222222;
+    font: 11px tahoma,arial,helvetica,sans-serif;
+    background-position: 5px center !important;
+    padding-left:25px !important;    
+}

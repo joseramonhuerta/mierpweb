@@ -1,0 +1,143 @@
+{
+    "name": "formChecador.xds",
+    "projectId": "71D4E11A-D481-43CA-8F24-D15DD595B00F",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyPanel",
+            "cid": "panel",
+            "jsClass": "formChecador",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Checador",
+                "width": "-ext-undefined-",
+                "height": "-ext-undefined-",
+                "autoScroll": true
+            },
+            "userXType": "formChecador",
+            "cn": [
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "width": 990,
+                        "height": "-ext-undefined-",
+                        "padding": 10,
+                        "autoScroll": "-ext-undefined-",
+                        "autoHeight": "-ext-undefined-",
+                        "border": false,
+                        "hideBorders": "-ext-undefined-",
+                        "itemId": "frmMain",
+                        "autoRef": "frmMain",
+                        "hideParent": "-ext-undefined-",
+                        "labelWidth": 180
+                    },
+                    "userXType": "formMovimientosAlmacen",
+                    "cn": [
+                        {
+                            "id": "MyTriggerField",
+                            "cid": "trigger",
+                            "jsClass": "MyTriggerField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Codigo Empleado",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "cmbEmpleado",
+                                "autoRef": "cmbEmpleado",
+                                "triggerClass": "x-form-search-trigger",
+                                "selectOnFocus": true,
+                                "enableKeyEvents": true,
+                                "labelStyle": "font-size:16px;font-weight:bold;",
+                                "height": "-ext-undefined-",
+                                "width": 200,
+                                "style": "font-size:14px;font-weight:bold;",
+                                "submitValue": false,
+                                "allowBlank": false
+                            }
+                        },
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 25
+                            }
+                        },
+                        {
+                            "id": "MyDisplayField",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "-ext-undefined-",
+                                "fieldLabel": "-ext-undefined-",
+                                "anchor": "100%",
+                                "itemId": "lblHora",
+                                "autoRef": "lblHora",
+                                "style": "font-size:35px;font-weight:bold;text-align:left;color:#FFFFF;",
+                                "hideLabel": true
+                            }
+                        },
+                        {
+                            "id": "MyContainer1",
+                            "cid": "container",
+                            "jsClass": "MyContainer1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 25
+                            }
+                        },
+                        {
+                            "id": "MyDisplayField1",
+                            "cid": "displayfield",
+                            "jsClass": "MyDisplayField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "value": "-ext-undefined-",
+                                "fieldLabel": "-ext-undefined-",
+                                "anchor": "100%",
+                                "itemId": "lblMensaje",
+                                "autoRef": "lblMensaje",
+                                "style": "font-size:35px;font-weight:bold;text-align:left;color:#1E90FF;",
+                                "hideLabel": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "",
+                                "bubbleEvents": "[\n            'cambioDeId'\n        ]",
+                                "autoRef": "txtIdVenta",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "itemId": "id_venta"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

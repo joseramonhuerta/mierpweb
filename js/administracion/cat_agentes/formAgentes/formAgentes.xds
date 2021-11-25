@@ -1,0 +1,131 @@
+{
+    "name": "formAgentes.xds",
+    "projectId": "417A4210-BD16-488B-9DBC-D8A005BC7775",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formAgentes",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Agente",
+                "width": 820,
+                "height": 580,
+                "padding": 10,
+                "autoScroll": true,
+                "labelWidth": 120
+            },
+            "userXType": "formAgentes",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "icon": "images/iconos/clientes_add.png",
+                                "autoRef": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "icon": "images/iconos/clientes_todos.png",
+                                "autoRef": "btnDesactivar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/clientes_delete.png",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Nombre Agente",
+                        "anchor": "-ext-undefined-",
+                        "width": 400,
+                        "name": "nombre_agente",
+                        "autoRef": "txtNombreAgente",
+                        "bubbleEvents": "[\n            'cambioDeNombre'\n        ]",
+                        "style": "-ext-undefined-",
+                        "labelStyle": "font-weight:bold;"
+                    }
+                },
+                {
+                    "id": "MyTextField1",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "name": "id_agente",
+                        "autoRef": "txtIdAgente",
+                        "bubbleEvents": "[\n            'cambioDeId'\n        ]",
+                        "hidden": true
+                    }
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "name": "status",
+                        "autoRef": "txtStatus",
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]",
+                        "value": "A"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

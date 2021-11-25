@@ -1,0 +1,541 @@
+{
+    "name": "formClientes.xds",
+    "projectId": "B3F9C9AF-8847-4779-8F8C-0E570DD13E7D",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formClientes",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Cliente",
+                "width": 820,
+                "height": 581,
+                "padding": 10,
+                "labelWidth": 120,
+                "autoScroll": true
+            },
+            "userXType": "formClientes",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "autoRef": "btnGuardar",
+                                "icon": "images/iconos/clientes_add.png"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "autoRef": "btnDesactivar",
+                                "icon": "images/iconos/clientes_todos.png",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/clientes_delete.png",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyCombo",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Tipo Cliente",
+                        "anchor": "-ext-undefined-",
+                        "width": 160,
+                        "labelStyle": "font-weight:bold;",
+                        "allowBlank": false,
+                        "forceSelection": true,
+                        "name": "tipo_cliente",
+                        "displayField": "nombre",
+                        "valueField": "id",
+                        "mode": "local",
+                        "triggerAction": "all",
+                        "hiddenName": "tipo_cliente",
+                        "store": "-ext-undefined-",
+                        "autoRef": "cmbTipoCliente",
+                        "itemId": "-ext-undefined-",
+                        "id": "-ext-undefined-",
+                        "editable": false
+                    }
+                },
+                {
+                    "id": "MyTextField",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "RFC",
+                        "anchor": "-ext-undefined-",
+                        "width": 120,
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;",
+                        "name": "rfc_cliente"
+                    }
+                },
+                {
+                    "id": "MyTextField1",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Razon Social",
+                        "anchor": "-ext-undefined-",
+                        "allowBlank": false,
+                        "width": 380,
+                        "labelStyle": "font-weight:bold;",
+                        "name": "nombre_fiscal",
+                        "autoRef": "txtNombreFiscal",
+                        "bubbleEvents": "[\n                    'cambioDeNombre'\n                ]"
+                    }
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Nombre Comercial",
+                        "anchor": "-ext-undefined-",
+                        "width": 300,
+                        "labelStyle": "font-weight:bold;",
+                        "allowBlank": false,
+                        "name": "nombre_comercial",
+                        "autoRef": "-ext-undefined-",
+                        "autoCreate": "{tag:'input', type:'text',maxLength:'255', size:'20', autocomplete:'off'}"
+                    }
+                },
+                {
+                    "id": "MyCombo2",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Estilista",
+                        "anchor": "-ext-undefined-",
+                        "autoRef": "cmbEstilista",
+                        "name": "estilista",
+                        "width": 60,
+                        "labelStyle": "font-weight:bold;",
+                        "mode": "local",
+                        "triggerAction": "all",
+                        "allowBlank": false,
+                        "forceSelection": true,
+                        "editable": false,
+                        "displayField": "nombre",
+                        "valueField": "id",
+                        "hiddenValue": "-ext-undefined-",
+                        "submitValue": "-ext-undefined-",
+                        "hiddenName": "estilista"
+                    }
+                },
+                {
+                    "id": "MyCombo3",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Foraneo",
+                        "anchor": "-ext-undefined-",
+                        "autoRef": "cmbForaneo",
+                        "name": "foraneo",
+                        "width": 60,
+                        "labelStyle": "font-weight:bold;",
+                        "mode": "local",
+                        "triggerAction": "all",
+                        "allowBlank": false,
+                        "forceSelection": true,
+                        "editable": false,
+                        "displayField": "nombre",
+                        "valueField": "id",
+                        "hiddenValue": "-ext-undefined-",
+                        "submitValue": "-ext-undefined-",
+                        "hiddenName": "foraneo"
+                    }
+                },
+                {
+                    "id": "MyFieldSet",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Direccion",
+                        "height": 242,
+                        "layout": "-ext-undefined-",
+                        "width": 500,
+                        "collapsible": "-ext-undefined-"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTextField3",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Calle",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "name": "calle"
+                            }
+                        },
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "hbox"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer1",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer4",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "flex": 1
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTextField4",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField4",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Num Ext",
+                                                "anchor": "100%",
+                                                "width": 100,
+                                                "name": "numext"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer2",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer5",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "labelWidth": 50,
+                                        "style": "margin-left:20px;",
+                                        "flex": 1
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTextField5",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField5",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Num Int",
+                                                "anchor": "-ext-undefined-",
+                                                "width": 100,
+                                                "name": "numint"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyTextField6",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField6",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Colonia",
+                                "anchor": "-ext-undefined-",
+                                "width": 275,
+                                "name": "colonia"
+                            }
+                        },
+                        {
+                            "id": "MyTextField7",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField7",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Código Postal",
+                                "anchor": "-ext-undefined-",
+                                "width": 75,
+                                "labelStyle": "font-weight:bold;",
+                                "allowBlank": false,
+                                "name": "cp"
+                            }
+                        },
+                        {
+                            "id": "MyTextField8",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField8",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Localidad",
+                                "anchor": "-ext-undefined-",
+                                "width": 280,
+                                "name": "localidad"
+                            }
+                        },
+                        {
+                            "id": "MyCombo1",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Ciudad",
+                                "anchor": "-ext-undefined-",
+                                "width": 220,
+                                "labelStyle": "font-weight:bold;",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "store": "-ext-undefined-",
+                                "autoRef": "cmbCiudades",
+                                "id": "-ext-undefined-",
+                                "itemId": "-ext-undefined-",
+                                "name": "id_ciu",
+                                "displayField": "nom_ciu",
+                                "valueField": "id_ciu",
+                                "enableKeyEvents": true,
+                                "pageSize": 20,
+                                "listWidth": 300,
+                                "maskRe": "/[^\\\\\\/\"']/",
+                                "itemSelector": "div.search-item",
+                                "hiddenName": "id_ciu"
+                            }
+                        },
+                        {
+                            "id": "MyTextField9",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField9",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Estado",
+                                "anchor": "-ext-undefined-",
+                                "width": 200,
+                                "labelStyle": "font-weight:bold;",
+                                "allowBlank": false,
+                                "name": "estado",
+                                "autoRef": "txtEstado"
+                            }
+                        },
+                        {
+                            "id": "MyTextField10",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField10",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Pais",
+                                "anchor": "-ext-undefined-",
+                                "width": 200,
+                                "labelStyle": "font-weight:bold;",
+                                "allowBlank": false,
+                                "name": "pais",
+                                "autoRef": "txtPais"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyFieldSet1",
+                    "cid": "fieldset",
+                    "jsClass": "MyFieldSet1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "Información de Contacto",
+                        "height": 112,
+                        "width": 500
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTextField11",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField11",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Nombre Contacto",
+                                "anchor": "-ext-undefined-",
+                                "width": 350,
+                                "name": "nombre_contacto"
+                            }
+                        },
+                        {
+                            "id": "MyTextField12",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField12",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Email Contacto",
+                                "anchor": "-ext-undefined-",
+                                "width": 200,
+                                "name": "email_contacto"
+                            }
+                        },
+                        {
+                            "id": "MyContainer3",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "hbox"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer4",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": "-ext-undefined-",
+                                        "layout": "form"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTextField13",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField13",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Telefono",
+                                                "anchor": "100%",
+                                                "width": 135,
+                                                "name": "telefono_contacto"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer5",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": "-ext-undefined-",
+                                        "layout": "form",
+                                        "labelWidth": 50,
+                                        "style": "margin-left:20px;"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTextField14",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField14",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Celular",
+                                                "anchor": "-ext-undefined-",
+                                                "width": 135,
+                                                "name": "celular_contacto"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField15",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField15",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "autoRef": "txtIdCliente",
+                        "hidden": true,
+                        "name": "id_cliente",
+                        "bubbleEvents": "[\n                    'cambioDeId'\n                ]"
+                    }
+                },
+                {
+                    "id": "MyTextField16",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField16",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "autoRef": "txtIdEstado",
+                        "hidden": true,
+                        "name": "id_est"
+                    }
+                },
+                {
+                    "id": "MyTextField17",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField17",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "autoRef": "txtIdPais",
+                        "hidden": true,
+                        "name": "id_pai"
+                    }
+                },
+                {
+                    "id": "MyTextField18",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField18",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "autoRef": "txtStatus",
+                        "name": "status",
+                        "value": "A",
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

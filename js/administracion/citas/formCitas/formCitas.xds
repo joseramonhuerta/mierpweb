@@ -1,0 +1,243 @@
+{
+    "name": "formCitas.xds",
+    "projectId": "71D4E11A-D481-43CA-8F24-D15DD595B00F",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyPanel",
+            "cid": "panel",
+            "jsClass": "formCitas",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Citas",
+                "width": "-ext-undefined-",
+                "height": "-ext-undefined-",
+                "autoScroll": true
+            },
+            "userXType": "formCitas",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "itemId": "btnGuardar",
+                                "autoRef": "btnGuardar",
+                                "icon": "images/iconos/calendar_add.png"
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "itemId": "btnEliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/calendar_delete.png",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "width": "-ext-undefined-",
+                        "height": "-ext-undefined-",
+                        "padding": 10,
+                        "autoScroll": "-ext-undefined-",
+                        "autoHeight": "-ext-undefined-",
+                        "border": false,
+                        "hideBorders": "-ext-undefined-",
+                        "itemId": "frmMain",
+                        "autoRef": "frmMain"
+                    },
+                    "userXType": "formMovimientosAlmacen",
+                    "cn": [
+                        {
+                            "id": "MyDateField",
+                            "cid": "datefield",
+                            "jsClass": "MyDateField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Fecha",
+                                "anchor": "-ext-undefined-",
+                                "width": 100,
+                                "itemId": "txtFecha",
+                                "autoRef": "txtFecha",
+                                "name": "fecha",
+                                "submitValue": false,
+                                "labelStyle": "font-weight:bold"
+                            }
+                        },
+                        {
+                            "id": "MyCombo3",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Cliente",
+                                "anchor": "-ext-undefined-",
+                                "width": 400,
+                                "itemId": "cmbCliente",
+                                "name": "id_cliente",
+                                "autoRef": "cmbCliente",
+                                "valueField": "id_cliente",
+                                "displayField": "nombre_fiscal",
+                                "editable": "-ext-undefined-",
+                                "triggerAction": "-ext-undefined-",
+                                "hiddenValue": "-ext-undefined-",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "enableKeyEvents": true,
+                                "minChars": 0,
+                                "pageSize": 20,
+                                "validateOnBlur": false,
+                                "labelStyle": "font-weight:bold",
+                                "triggerConfig": "{\n            tag: 'span',\n            cls: 'x-form-twin-triggers',\n            style: 'padding-right:2px',\n            cn: [\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-clear-trigger\"\n                },\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-search-trigger\"\n                }\n            ]\n        }",
+                                "submitValue": "-ext-undefined-"
+                            }
+                        },
+                        {
+                            "id": "MyCombo",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Vendedor",
+                                "anchor": "-ext-undefined-",
+                                "width": 400,
+                                "itemId": "cmbAgente",
+                                "name": "id_agente",
+                                "autoRef": "cmbAgente",
+                                "valueField": "id_agente",
+                                "displayField": "nombre_agente",
+                                "editable": "-ext-undefined-",
+                                "triggerAction": "-ext-undefined-",
+                                "hiddenValue": "-ext-undefined-",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "enableKeyEvents": true,
+                                "minChars": 0,
+                                "pageSize": 20,
+                                "validateOnBlur": false,
+                                "labelStyle": "font-weight:bold",
+                                "triggerConfig": "{\n            tag: 'span',\n            cls: 'x-form-twin-triggers',\n            style: 'padding-right:2px',\n            cn: [\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-clear-trigger\"\n                },\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-search-trigger\"\n                }\n            ]\n        }",
+                                "submitValue": "-ext-undefined-"
+                            }
+                        },
+                        {
+                            "id": "MyCombo1",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Horario",
+                                "anchor": "-ext-undefined-",
+                                "width": 200,
+                                "itemId": "cmbHorario",
+                                "name": "id_horario",
+                                "autoRef": "cmbHorario",
+                                "valueField": "id_horario",
+                                "displayField": "descripcion_horario",
+                                "editable": false,
+                                "triggerAction": "-ext-undefined-",
+                                "hiddenValue": "-ext-undefined-",
+                                "allowBlank": false,
+                                "forceSelection": true,
+                                "enableKeyEvents": true,
+                                "minChars": 0,
+                                "pageSize": 20,
+                                "validateOnBlur": false,
+                                "labelStyle": "font-weight:bold",
+                                "triggerConfig": "{\n            tag: 'span',\n            cls: 'x-form-twin-triggers',\n            style: 'padding-right:2px',\n            cn: [\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-clear-trigger\"\n                },\n                {\n                    tag: \"img\",\n                    src: Ext.BLANK_IMAGE_URL,\n                    cls: \"x-form-trigger x-form-search-trigger\"\n                }\n            ]\n        }",
+                                "submitValue": "-ext-undefined-"
+                            }
+                        },
+                        {
+                            "id": "MyTextField1",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Observaciones",
+                                "anchor": "-ext-undefined-",
+                                "width": 300,
+                                "itemId": "txtObservaciones",
+                                "autoRef": "txtObservaciones",
+                                "name": "observaciones"
+                            }
+                        },
+                        {
+                            "id": "MyTextField2",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "",
+                                "bubbleEvents": "[\n            'cambioDeId'\n        ]",
+                                "autoRef": "txtIdCita",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "itemId": "id_cita"
+                            }
+                        },
+                        {
+                            "id": "MyTextField3",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "status",
+                                "autoRef": "txtStatus",
+                                "value": "A",
+                                "bubbleEvents": "-ext-undefined-",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

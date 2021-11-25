@@ -1,0 +1,168 @@
+{
+    "name": "gridAgentes.xds",
+    "projectId": "9CD387CC-52A5-4529-9AB5-820F193C675F",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyGrid",
+            "cid": "grid",
+            "jsClass": "gridAgentes",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Buscar Agentes",
+                "store": "storeGridAgentes",
+                "width": 805,
+                "height": 250,
+                "stripeRows": true
+            },
+            "userXType": "gridAgentes",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Nuevo",
+                                "autoRef": "btnAgregar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Editar",
+                                "autoRef": "btnEditar"
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyFill",
+                            "cid": "tbfill",
+                            "jsClass": "MyFill",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyLabel",
+                            "cid": "label",
+                            "jsClass": "MyLabel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Status:",
+                                "style": "margin-right:5px;"
+                            }
+                        },
+                        {
+                            "id": "MyCombo",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 100,
+                                "itemId": "cmbStatus",
+                                "name": "status",
+                                "triggerAction": "all",
+                                "mode": "local",
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "forceSelection": true,
+                                "allowBlank": false,
+                                "hiddenName": "status",
+                                "editable": false,
+                                "autoRef": "cmbStatus"
+                            }
+                        },
+                        {
+                            "id": "MySeparator1",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator1",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 250,
+                                "emptyText": "Introduzca el texto a buscar",
+                                "autoRef": "txtFiltro"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyGridView",
+                    "cid": "gridview",
+                    "jsClass": "MyGridView",
+                    "dock": "view",
+                    "snapToGrid": 10,
+                    "dockCls": "Ext.grid.GridView"
+                },
+                {
+                    "id": "MyColumn",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "dataIndex": "nombre_agente",
+                        "header": "Nombre Agente",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 500,
+                        "id": "colNombreAgente"
+                    }
+                },
+                {
+                    "id": "MyPagingToolbar",
+                    "cid": "pagingtoolbar",
+                    "jsClass": "MyPagingToolbar",
+                    "dock": "bbar",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "store": "(none)",
+                        "displayMsg": "Mostrando {0} - {1} de {2}",
+                        "emptyMsg": "No hay registros para mostrar"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

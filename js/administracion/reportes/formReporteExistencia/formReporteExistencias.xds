@@ -1,0 +1,146 @@
+{
+    "name": "formReporteExistencias.xds",
+    "projectId": "BCFF2636-5E03-4577-8212-F94680F1F80B",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formReporteExistencia",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Reporte Existencia",
+                "width": 717,
+                "height": 465,
+                "padding": 10,
+                "autoScroll": true,
+                "itemId": "-ext-undefined-"
+            },
+            "userXType": "formReporteExistencia",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "splitbutton",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Imprimir",
+                                "itemId": "-ext-undefined-",
+                                "autoRef": "btnImprimir",
+                                "icon": "images/iconos/bullet_printer.png"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyMenu",
+                                    "cid": "menu",
+                                    "jsClass": "MyMenu",
+                                    "dock": "menu",
+                                    "snapToGrid": 10,
+                                    "cn": [
+                                        {
+                                            "id": "MyMenuItem",
+                                            "cid": "menuitem",
+                                            "jsClass": "MyMenuItem",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "PDF",
+                                                "autoRef": "btnPDF",
+                                                "itemId": "btnPDF",
+                                                "icon": "images/iconos/pdf.png"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyMenuItem1",
+                                            "cid": "menuitem",
+                                            "jsClass": "MyMenuItem1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Excel",
+                                                "autoRef": "btnExcel",
+                                                "itemId": "btnExcel",
+                                                "icon": "images/iconos/excel.png"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "MyCombo",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Almacen",
+                        "anchor": "-ext-undefined-",
+                        "displayField": "nombre_almacen",
+                        "valueField": "id_almacen",
+                        "itemId": "cmbAlmacen",
+                        "autoRef": "cmbAlmacen",
+                        "name": "id_almacen",
+                        "triggerAction": "all",
+                        "editable": false,
+                        "width": 300,
+                        "forceSelection": true,
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold"
+                    }
+                },
+                {
+                    "id": "MySpacer",
+                    "cid": "spacer",
+                    "jsClass": "MySpacer",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "width": "-ext-undefined-",
+                        "height": 10
+                    }
+                },
+                {
+                    "id": "MyCombo1",
+                    "cid": "combobox",
+                    "jsClass": "MyCombo1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Linea",
+                        "anchor": "-ext-undefined-",
+                        "minListWidth": "-ext-undefined-",
+                        "width": 300,
+                        "itemId": "cmbLinea",
+                        "autoRef": "cmbLinea",
+                        "name": "id_linea",
+                        "displayField": "nombre_linea",
+                        "valueField": "id_linea",
+                        "enableKeyEvents": true,
+                        "pageSize": 20,
+                        "triggerAction": "all",
+                        "hiddenName": "id_linea",
+                        "minChars": 0,
+                        "triggerConfig": "{\n                        tag: 'span',\n                        cls: 'x-form-twin-triggers',\n                        style: 'padding-right:2px',\n                        cn: [\n                            {\n                                tag: \"img\",\n                                src: Ext.BLANK_IMAGE_URL,\n                                cls: \"x-form-trigger x-form-clear-trigger\"\n                            },\n                            {\n                                tag: \"img\",\n                                src: Ext.BLANK_IMAGE_URL,\n                                cls: \"x-form-trigger x-form-search-trigger\"\n                            }\n                        ]\n                    }"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

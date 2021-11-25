@@ -1,0 +1,133 @@
+{
+    "name": "winDescuentos.xds",
+    "projectId": "6C4BEABF-330E-4751-B60B-4128B29F703E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyWindow",
+            "cid": "window",
+            "jsClass": "winDescuentos",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Descuento General",
+                "width": 293,
+                "height": 116,
+                "modal": true,
+                "border": false,
+                "draggable": false,
+                "resizable": false
+            },
+            "userXType": "winDescuentos",
+            "cn": [
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "padding": 10,
+                        "border": false,
+                        "itemId": "formDescuento",
+                        "autoRef": "formDescuento"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyNumberField",
+                            "cid": "numberfield",
+                            "jsClass": "MyNumberField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Impote",
+                                "anchor": "-ext-undefined-",
+                                "name": "",
+                                "autoRef": "txtImporteDescuento",
+                                "allowNegative": false,
+                                "width": 100,
+                                "style": "text-align:right;",
+                                "itemId": "txtImporteDescuento"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyContainer3",
+                    "cid": "container",
+                    "jsClass": "MyContainer3",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "height": 10
+                    }
+                },
+                {
+                    "id": "MyContainer",
+                    "cid": "container",
+                    "jsClass": "MyContainer",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "layout": "hbox"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer2",
+                            "cid": "container",
+                            "jsClass": "MyContainer2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "flex": 1,
+                                "width": 70
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Cancelar",
+                                "flex": "-ext-undefined-",
+                                "itemId": "btnCancelar",
+                                "autoRef": "btnCancelar",
+                                "width": 60
+                            }
+                        },
+                        {
+                            "id": "MyContainer1",
+                            "cid": "container",
+                            "jsClass": "MyContainer1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "flex": 1,
+                                "width": 25
+                            }
+                        },
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Aceptar",
+                                "itemId": "btnAceptar",
+                                "autoRef": "btnAceptar",
+                                "width": 60
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

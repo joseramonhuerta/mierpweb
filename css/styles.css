@@ -1,0 +1,533 @@
+.x-box-mc {	
+	font-family: "Myriad Web","Tahoma","Helvetica","Arial",sans-serif;	
+}
+.cedula_grid_icon{
+	margin-left:10px;
+}
+
+.logo_header{
+	background-image: url("../images/Logo-Puntuel-Sistema2.png");
+	background-repeat: no-repeat;,
+}
+/*.file_input_images{
+	margin-left:2px;
+}
+.btn_image_upload{
+	margin-left:2px;
+}*/
+
+.pnlLogo{
+	background-image: url("../images/Logo-Puntuel-Sistema.png");
+	background-repeat: no-repeat;
+}
+
+.action-stock-1{
+	margin-left:2px;
+	margin-top:6px;	
+}
+
+.action-stock-2{
+	margin-left:8px;	
+}
+
+.grid_chico_edit{
+	background-image: url("../images/iconos/grid_chico_edit.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    margin-top: 5px;
+	position: absolute;
+    width: 16px;
+}
+
+.grid_chico_nada{	        
+    height: 16px;
+    margin-left: 24px;
+    margin-top: 5px;
+    position: absolute;
+    width: 16px;
+}
+
+.grid_chico_borrar{
+	background-image: url("../images/iconos/grid_chico_borrar.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    margin-left: 24px;
+    margin-top: 5px;
+    position: absolute;
+    width: 16px;
+}
+
+.grid_chico_bloqueado{
+	background-image: url("../images/iconos/lock.png");
+	background-repeat: no-repeat;
+    height: 16px;
+    margin-top: 5px;
+	position: absolute;
+    width: 16px;
+}
+
+.grid_chico_select{
+	background-image: url("../images/iconos/arrow_left_16.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    margin-left: 42px;
+    margin-top: 1px;
+    position: absolute;
+    width: 16px;
+}
+
+.grid_chico_agregar{
+	background-image: url("../images/iconos/grid_chico_agregar2.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    margin-left: 23px;/*margin-left: 8px;*/
+    margin-top: 5px;
+    position: absolute;
+    width: 16px;
+}
+
+.grid_chico_add{
+	background-image: url("../images/iconos/grid_chico_agregar2.png");
+    background-repeat: no-repeat;
+    height: 16px;
+   /* margin-left: 8px;*/
+    margin-top: 5px;
+    position: absolute;
+    width: 16px;
+}
+
+.x-tree-node-collapsed .x-tree-node-icon, .x-tree-node-expanded .x-tree-node-icon, .x-tree-node-leaf .x-tree-node-icon{
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 0 none;
+ 	height:auto;
+    margin: 0;
+    padding: 0;
+    width:auto;
+    vertical-align: top;
+}
+
+.clock{
+    background-image: url(../images/iconos/clock.png);
+	background-repeat: no-repeat;
+    width:16px;
+    height:16px;
+}
+
+.pensando{
+    background-image: url(../images/pensando.gif);
+	background-repeat: no-repeat;
+    width:16px;
+    height:16px;
+}
+
+.categoriaDeProductosIcon{
+	height:16px !important;
+}
+
+.dspEnToolbar a:link {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.region_norte{
+	overflow: visible !important;
+}
+.logo{
+	background-image: url("../images/logo_sistema.png");
+    background-repeat: no-repeat;
+	float:left;	
+}
+
+.dspEnToolbar a:hover {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+/*          CATALOGO DE ORDENES DE VENTA      */
+.orden_venta_tpl_nombre{
+	font-weight:bold;
+}
+.col_concepto{
+	vertical-align:middle;
+}
+.OrdVenRazSoc_img{
+    background-image: url('../images/iconos/gnome_object.png');
+    width:18px;
+    height: 18px;
+    float:left;	
+	margin-right: 5px;
+	background-repeat: no-repeat;
+}
+
+.OrdVenRazSoc_datos{
+	color:black;
+}
+
+.clear{
+    clear:both;
+}
+.clientes_tpl{
+    margin-top:5px;
+    border:1px;
+    border-style: solid;
+    
+}
+
+
+
+/* -----------------------------------------------------*/
+#userboxWrapper A:link {text-decoration: none} 
+#userboxWrapper A:visited {text-decoration: none}
+
+.texto_negrito{
+    font-weight: bold;
+}
+
+.requerido{
+    font-weight: bold;
+}
+
+.icon-add { background-image: url(/images/icons/add.png) !important; background-repeat: no-repeat; }
+	.icon-edit { background-image: url(/images/icons/application_form_edit.png) !important; background-repeat: no-repeat; }
+	.icon-save { background-image: url(/images/icons/disk.png) !important; background-repeat: no-repeat; }
+	.icon-delete { background-image: url(/images/icons/delete.png) !important; background-repeat: no-repeat; }
+	.icon-refresh { background-image: url(/images/icons/button-refresh.ico) !important; background-repeat: no-repeat; }
+.new-tab {
+            background-image:url(/images/icons/add.png) !important;
+}
+.icon-find{
+	 background-image: url(/images/icons/magnifier.png) !important; background-repeat: no-repeat;
+}
+.columna-activa { /*color:#000000;*/ }
+.columna-verde { color:green; }
+
+.columna-inactiva{ 	
+	background-color:#FFE8E8 !important; 
+	border-width:1px 1px 1px 1px;      
+    border-style:solid;    
+    border-color:#FFD1D1 ;
+    border-top:1px solid #FFE8E8;
+}
+
+.columna-inactiva-over{ 	
+    background: repeat-x left top;
+	background-color:#FFD1D1 !important; 
+	border-width:1px 1px 1px 1px;      
+    border-style:solid;    
+    border-color:#FFD1D1;
+}
+
+.columna-inactiva-sel { 
+	/*border:1px solid;
+    background: repeat-x left top;
+	
+   font-weight:bold;    
+   border-width:0 1px 1px 0;
+   */
+    background-color:#FFD1D1 !important; 
+	border-width:1px 1px 1px 1px;      
+    border-style:dotted;
+    
+    border-color: #FFB6B6;
+    /*order-top: 1px dotted #FFE8E8;*/ 
+}
+
+/*.columna-inactiva { color:red; font-weight:bold; }*/
+.form_razones_sociales{
+    
+}
+.labelAyuda{
+    font:11px tahoma,arial,helvetica,sans-serif;
+    font-style:italic;    
+}
+.displayCss{
+    margin-top:3px;
+}
+#user_header{
+    font-weight: bold;
+}
+
+.requerido{
+    font-weight:bold;
+}
+
+
+#headerContent {
+    height: 65px;	width: 100%;
+    position: relative;
+    overflow: visible;
+    margin: 0 0 10px 0;
+    /*margin: 0 auto;*/
+    text-align: left;
+    font-family: verdana,arial,helvetica,sans-serif;
+    font-size: 11px;
+    line-height: 150%;
+    color: #555555;
+}
+
+
+
+
+#userboxWrapper {
+	position: relative;
+	top: -2px;
+	right: 0px;
+	/*color: #666;*/
+	font-size: 10px;
+	width: 440px ;
+}
+
+.upload-xml{
+    background-image: url('../images/iconos/xml.png');
+    background-repeat:no-repeat;
+    height: 20px;
+    width: 20px;
+}
+
+.upload-txt{
+    /*background-image: url('../images/iconos/file-txt.png');
+    background-repeat:no-repeat;
+    height: 20px;
+    width: 80px !important;
+    position: relative;*/  
+}
+
+.x-form-file-wrap .x-form-file-toolbar {
+	float: left !important;
+    position: relative !important;
+    width: 5px
+}
+
+.x-form-file-wrap .fileinput{
+    float: left !important;
+    left: 0;
+    position: absolute !important;
+    width: 65px;
+}
+
+#userbox {
+	/*padding: 0px 8px;*/
+	/*border: 1px solid #999;
+	background: #ffffcc;*/
+	background-image: url(../images/layout/userborder.png);
+        background-repeat: no-repeat;
+	padding-bottom:8px;
+	padding-left: 10px;
+	padding-right: 2px;
+	padding-top:2px;
+	margin-right:0px;
+        height: 16px;
+        float:right;
+}
+
+#userbox ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#userbox ul li {
+	display: inline;
+	margin-right: 10px;
+}
+
+#userbox .PopupMenuWidgetDiv {
+	position: absolute;
+	border: 1px solid #666;
+	background: white;
+	padding: 5px 10px;
+	width: 140px;
+	color: #333;
+}
+
+#userbox .PopupMenuWidgetDiv p {
+	margin: 0;
+	font-weight: bolder;
+}
+
+#userbox .PopupMenuWidgetDiv ul {
+	margin-left: 12px;
+	padding-left: 5px;
+}
+
+#userbox .PopupMenuWidgetDiv ul li {
+	display: list-item;
+	font-weight: normal;
+	list-style: square;
+}
+
+
+
+/*
+.x-trigger-wrap-focus .x-form-trigger {
+    background-position: -81px 0;
+}
+*/
+#selectorDeEmpresa .x-form-focus{
+	border:0 solid;	
+}
+#selectorDeEmpresa{
+	font-family: arial, tahoma, helvetica;
+	
+	font-size: 11px;
+    position: relative;
+   /* margin-top: 10px;*/
+    padding-left: 5px;
+    padding-top: 6px;
+    height: 65px;
+    float: left;
+    color: black;
+}
+
+#tplSemaforos .datos{
+    float: left;
+    /*width: 450px;*/
+    padding: 5px 0px 5px 5px;
+    height: 50px;
+}
+
+#selectorDeEmpresa .empresa{
+    font-size: 18px;
+	font-weight: bold;
+}
+
+#selectorDeEmpresa .rfc{
+    font-size: 12px;
+}
+
+#selectorDeEmpresa .sucursal{
+    font-size: 12px;
+    font-weight: bold;
+	padding-top: 1px;
+}
+
+#selectorDeEmpresa .link-cambiar{
+	color: #15428B;
+	font-weight: bold;
+	cursor: pointer;
+	font-family: arial,tahoma,helvetica !important;
+	font-size: 11px !important;
+}
+
+#selectorDeEmpresa .num-certif,
+#selectorDeEmpresa .num-serie,
+#selectorDeEmpresa .folio-final {
+	font-size: 11px;
+    font-weight: bold;
+}
+
+#selectorDeEmpresa .folio-activo{
+	font-size: 11px;
+    font-weight: bold;
+	color: #15428B;
+}
+
+#selectorDeEmpresa .status-certificado,
+#selectorDeEmpresa .status-folios {
+	padding-left: 2px;
+	position: relative;
+	top: 1px;
+}
+
+
+#selectorDeEmpresa .trigger{
+    float: right;
+    margin-right: 10px;
+    margin-top: 2px;
+    background-position: 0 -75px !important;
+}
+
+#selectorDeEmpresa .trigger_hover{
+    background-position: -15px -75px !important;
+}
+
+
+/*#selectorDeEmpresas:hover{
+    background-color: yellowgreen;
+    color:yellow;
+}*/
+
+/*.selector-over{
+    background-color: white;
+}*/
+
+
+
+#images-view{
+    position: absolute;
+    float: left;
+    margin-left: 200px;
+}
+
+#comboSelectorDeEmpresa.x-form-focus{
+    border-color:transparent;
+	border none !important;
+	border: 0px solid !important;
+/*	border:1px solid transparent !important;*/
+}
+
+.noCombo{
+    border:none !important;
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.boton_play{
+    background-image:url('../images/iconos/control_play_blue.png') ;
+    background-repeat:no-repeat;
+    height: 16px;
+    width: 16px;
+}
+.boton_stop{
+    background-image: url('../images/iconos/control_stop.png');
+    background-repeat:no-repeat;
+    height: 16px;
+    width: 16px;
+}
+
+.SUC{
+	padding:0px 25px;
+}
+.cfd{
+    background-image:url('../images/iconos/CFD.Logo.Chico.png') ;
+    background-repeat: no-repeat;
+    float: right;
+    height: 9px;
+    margin: -20px 0 0;
+    position: relative;
+    width:20px;
+}
+.cfdi{
+    background-image: url('../images/iconos/CFDI.Logo.Chico.png');
+    background-repeat: no-repeat;
+    float: right;
+    height: 9px;
+    margin: -20px 0 0;
+    position: relative;
+    width: 32px;
+}
+.upload-icon{
+    background-image: url('../images/iconos/folder-upload.png');
+    background-repeat: no-repeat;
+    float: right;
+    height: 9px;
+    margin: -20px 0 0;
+    position: relative;
+    width: 32px;
+}
+
+.nodos-ligas-padre{
+	height: 20px;
+	padding-top: 2px;
+	background-image: url('../images/links/fondo_nodo_padre.png');
+	background-repeat: repeat-x;
+	margin-top: 1px;
+	border-top: solid 1px #DDDDDD;
+	border-bottom: solid 1px #CCCCCC;
+}
+
+.node-sin-icono {
+	display: none;
+}

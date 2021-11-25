@@ -1,0 +1,229 @@
+{
+    "name": "gridCertificados.xds",
+    "projectId": "E7B7BA05-A096-4523-9EF3-4510680B2ECE",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyGrid",
+            "cid": "grid",
+            "jsClass": "gridCertificados",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Buscar Certificados",
+                "store": "storeGridCertificados",
+                "width": "-ext-undefined-",
+                "height": 250,
+                "autoExpandColumn": "colRazonSocialCer",
+                "stripeRows": true
+            },
+            "userXType": "gridCertificados",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Nuevo",
+                                "autoRef": "btnAgregar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Editar",
+                                "autoRef": "btnEditar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MyFill",
+                            "cid": "tbfill",
+                            "jsClass": "MyFill",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyLabel",
+                            "cid": "label",
+                            "jsClass": "MyLabel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Status:",
+                                "style": "margin-right:5px;"
+                            }
+                        },
+                        {
+                            "id": "MyCombo",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 100,
+                                "id": "-ext-undefined-",
+                                "itemId": "cmbStatus",
+                                "autoRef": "cmbStatus",
+                                "name": "status",
+                                "triggerAction": "all",
+                                "mode": "local",
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "forceSelection": true,
+                                "allowBlank": false,
+                                "hiddenName": "status",
+                                "editable": false
+                            }
+                        },
+                        {
+                            "id": "MySeparator2",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator2",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 250,
+                                "autoRef": "txtFiltro",
+                                "emptyText": "Introduzca el texto a buscar"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyGridView",
+                    "cid": "gridview",
+                    "jsClass": "MyGridView",
+                    "dock": "view",
+                    "snapToGrid": 10,
+                    "dockCls": "Ext.grid.GridView"
+                },
+                {
+                    "id": "MyColumn",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "dataIndex": "rfc_certificado",
+                        "header": "RFC",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 100,
+                        "id": "colRfcCer"
+                    }
+                },
+                {
+                    "id": "MyColumn1",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Empresa",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 320,
+                        "dataIndex": "razonsocial_certificado",
+                        "id": "colRazonSocialCer"
+                    }
+                },
+                {
+                    "id": "MyColumn4",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn4",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Número Certificado",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 200,
+                        "dataIndex": "numero_certificado",
+                        "id": "colNumeroCretificado"
+                    }
+                },
+                {
+                    "id": "MyColumn2",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Fecha Solicitud",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 100,
+                        "id": "colFechaSolicitud",
+                        "dataIndex": "fecha_solicitud",
+                        "align": "right"
+                    }
+                },
+                {
+                    "id": "MyColumn3",
+                    "cid": "gridcolumn",
+                    "jsClass": "MyColumn3",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "header": "Fecha Vencimiento",
+                        "sortable": true,
+                        "resizable": "-ext-undefined-",
+                        "width": 100,
+                        "align": "right",
+                        "id": "colFechaVencimiento",
+                        "dataIndex": "fecha_vencimiento"
+                    }
+                },
+                {
+                    "id": "MyPagingToolbar",
+                    "cid": "pagingtoolbar",
+                    "jsClass": "MyPagingToolbar",
+                    "dock": "bbar",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "store": "(none)",
+                        "displayMsg": "Mostrando {0} - {1} de {2}",
+                        "emptyMsg": "No hay registros para mostrar"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

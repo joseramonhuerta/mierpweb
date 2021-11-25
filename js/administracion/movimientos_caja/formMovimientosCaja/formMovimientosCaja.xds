@@ -1,0 +1,263 @@
+{
+    "name": "formMovimientosCaja.xds",
+    "projectId": "F9897966-A373-4B80-9EF6-4F2BB2546379",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyPanel",
+            "cid": "panel",
+            "jsClass": "formMovimientosCaja",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Movimiento de Caja",
+                "width": "-ext-undefined-",
+                "height": "-ext-undefined-",
+                "autoScroll": true
+            },
+            "userXType": "formMovimientosCaja",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "autoRef": "btnGuardar",
+                                "icon": "images/iconos/facturas_add.png",
+                                "itemId": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Imprimir",
+                                "height": 22,
+                                "autoRef": "btnImprimir",
+                                "itemId": "btnImprimir",
+                                "icon": "images/iconos/pdf.png",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "disabled": true,
+                                "itemId": "btnEliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/facturas_delete.png"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "height": "-ext-undefined-",
+                        "itemId": "frmMain",
+                        "autoRef": "frmMain",
+                        "padding": 10,
+                        "border": false
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "hbox"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer1",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "flex": 1,
+                                        "width": 220
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDateField",
+                                            "cid": "datefield",
+                                            "jsClass": "MyDateField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Fecha",
+                                                "width": 100,
+                                                "disabled": "-ext-undefined-",
+                                                "itemId": "txtFecha",
+                                                "name": "fecha",
+                                                "autoRef": "txtFecha",
+                                                "labelStyle": "font-weight:bold"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer2",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "labelWidth": 50,
+                                        "flex": 1
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTimeField",
+                                            "cid": "timefield",
+                                            "jsClass": "MyTimeField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Hora",
+                                                "anchor": "-ext-undefined-",
+                                                "width": 100,
+                                                "disabled": true,
+                                                "name": "hora",
+                                                "itemId": "txtHora",
+                                                "autoRef": "txtHora",
+                                                "format": "g:i:s A"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyCombo",
+                            "cid": "combobox",
+                            "jsClass": "MyCombo1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Tipo",
+                                "anchor": "-ext-undefined-",
+                                "displayField": "nombre",
+                                "valueField": "id",
+                                "itemId": "cmbTipo",
+                                "autoRef": "cmbTipo",
+                                "name": "tipo",
+                                "width": 120,
+                                "labelStyle": "font-weight:bold",
+                                "mode": "local",
+                                "triggerAction": "all",
+                                "forceSelection": true,
+                                "allowBlank": false,
+                                "hiddenName": "tipo"
+                            }
+                        },
+                        {
+                            "id": "MyTextField",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Concepto",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "txtConcepto",
+                                "autoRef": "txtConcepto",
+                                "name": "concepto",
+                                "width": 350,
+                                "labelStyle": "font-weight:bold",
+                                "submitValue": false
+                            }
+                        },
+                        {
+                            "id": "MyTextField4",
+                            "cid": "numberfield",
+                            "jsClass": "MyTextField3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "fieldLabel": "Importe",
+                                "anchor": "-ext-undefined-",
+                                "itemId": "txtTotal",
+                                "autoRef": "txtTotal",
+                                "name": "total",
+                                "width": 100,
+                                "labelStyle": "font-weight:bold",
+                                "allowNegative": false,
+                                "decimalPrecision": "-ext-undefined-",
+                                "style": "text-align:right;"
+                            }
+                        },
+                        {
+                            "id": "MyTextField2",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "id_movimiento_caja",
+                                "autoRef": "txtIdMovimientoCaja",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "",
+                                "bubbleEvents": "[ 'cambioDeId' ]"
+                            }
+                        },
+                        {
+                            "id": "MyTextField3",
+                            "cid": "textfield",
+                            "jsClass": "MyHiddenField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "-ext-undefined-",
+                                "autoRef": "txtStatus",
+                                "hidden": true,
+                                "hideLabel": true,
+                                "submitValue": false,
+                                "fieldLabel": "Label",
+                                "anchor": "100%",
+                                "name": "status",
+                                "bubbleEvents": "-ext-undefined-",
+                                "value": "A"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

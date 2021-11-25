@@ -1,0 +1,2 @@
+<script type="text/javascript" src="formReporteVentasProductosCostos.ui.js"></script>
+<script type="text/javascript" src="formReporteVentasProductosCostos.js"></script>

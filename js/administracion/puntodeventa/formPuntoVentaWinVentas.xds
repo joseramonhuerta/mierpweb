@@ -1,0 +1,269 @@
+{
+    "name": "formPuntoVentaWinVentas.xds",
+    "projectId": "6C4BEABF-330E-4751-B60B-4128B29F703E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyWindow",
+            "cid": "window",
+            "jsClass": "formPuntoVentaWinVentas",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Ventas",
+                "width": 590,
+                "height": 303,
+                "modal": true,
+                "border": false,
+                "draggable": false,
+                "resizable": false
+            },
+            "userXType": "formPuntoVentaWinVentas",
+            "cn": [
+                {
+                    "id": "MyPanel",
+                    "cid": "panel",
+                    "jsClass": "MyPanel",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "layout": "-ext-undefined-"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "height": 35,
+                                "layout": "column",
+                                "style": "margin-top:10px;margin-left:10px"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer1",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer3",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "width": 220
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDateField",
+                                            "cid": "datefield",
+                                            "jsClass": "MyDateField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Fecha Inicio",
+                                                "anchor": "-ext-undefined-",
+                                                "itemId": "txtFechaInicio",
+                                                "autoRef": "txtFechaInicio"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer2",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form",
+                                        "width": 220,
+                                        "style": "-ext-undefined-"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDateField1",
+                                            "cid": "datefield",
+                                            "jsClass": "MyDateField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Fecha Fin",
+                                                "anchor": "-ext-undefined-",
+                                                "itemId": "txtFechaFin",
+                                                "autoRef": "txtFechaFin"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyContainer3",
+                            "cid": "container",
+                            "jsClass": "MyContainer4",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "column",
+                                "style": "margin-left:10px"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer4",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer5",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "layout": "form"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyTextField",
+                                            "cid": "textfield",
+                                            "jsClass": "MyTextField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "fieldLabel": "Folio",
+                                                "anchor": "100%",
+                                                "width": 150,
+                                                "itemId": "txtSerieFolioBusqueda",
+                                                "autoRef": "txtSerieFolioBusqueda"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer6",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer6",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "width": 10,
+                                        "height": 1
+                                    }
+                                },
+                                {
+                                    "id": "MyContainer5",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "cn": [
+                                        {
+                                            "id": "MyButton",
+                                            "cid": "button",
+                                            "jsClass": "MyButton",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "Buscar",
+                                                "itemId": "btnFiltro",
+                                                "autoRef": "btnFiltro",
+                                                "icon": "images/iconos/buscar.png"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyGrid",
+                            "cid": "grid",
+                            "jsClass": "MyGrid",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "store": "(none)",
+                                "itemId": "gridVentas",
+                                "autoRef": "gridVentas",
+                                "height": 200,
+                                "border": false,
+                                "hideBorders": true
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyColumn",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Serie Folio",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 100,
+                                        "dataIndex": "serie_folio"
+                                    }
+                                },
+                                {
+                                    "id": "MyColumn1",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Fecha Venta",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 80,
+                                        "dataIndex": "fecha_venta"
+                                    }
+                                },
+                                {
+                                    "id": "MyColumn2",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Cliente",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 270,
+                                        "dataIndex": "nombre_cliente"
+                                    }
+                                },
+                                {
+                                    "id": "MyColumn3",
+                                    "cid": "gridcolumn",
+                                    "jsClass": "MyColumn3",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "header": "Total Venta",
+                                        "sortable": true,
+                                        "resizable": "-ext-undefined-",
+                                        "width": 100,
+                                        "dataIndex": "total_venta",
+                                        "align": "right",
+                                        "id": "colTotalVenta"
+                                    }
+                                },
+                                {
+                                    "id": "MyGridView",
+                                    "cid": "gridview",
+                                    "jsClass": "MyGridView",
+                                    "dock": "view",
+                                    "snapToGrid": 10,
+                                    "dockCls": "Ext.grid.GridView"
+                                },
+                                {
+                                    "id": "MyPagingToolbar",
+                                    "cid": "pagingtoolbar",
+                                    "jsClass": "MyPagingToolbar",
+                                    "dock": "bbar",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "store": "(none)",
+                                        "height": "-ext-undefined-",
+                                        "itemId": "bottomToolbar",
+                                        "autoRef": "bottomToolbar"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

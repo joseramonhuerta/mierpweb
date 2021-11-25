@@ -1,0 +1,2 @@
+<script type="text/javascript" src="gridMovimientosBancos.ui.js"></script>
+<script type="text/javascript" src="gridMovimientosBancos.js"></script>

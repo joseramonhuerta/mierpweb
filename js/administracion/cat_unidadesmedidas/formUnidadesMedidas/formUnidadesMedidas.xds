@@ -1,0 +1,148 @@
+{
+    "name": "formUnidadesMedidas.xds",
+    "projectId": "417A4210-BD16-488B-9DBC-D8A005BC7775",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formUnidadesMedidas",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Unidade de Medida",
+                "width": 820,
+                "height": 580,
+                "padding": 10,
+                "autoScroll": true,
+                "labelWidth": 120
+            },
+            "userXType": "formUnidadesMedidas",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "icon": "images/iconos/unidades_medida_add.png",
+                                "autoRef": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "icon": "images/iconos/unidades_medida_todos.png",
+                                "autoRef": "btnDesactivar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/unidades_medida_delete.png",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField3",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField3",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Codigo",
+                        "anchor": "-ext-undefined-",
+                        "width": 100,
+                        "labelStyle": "font-weight:bold;",
+                        "name": "codigo_unidad",
+                        "autoRef": "txtCodigoUnidad",
+                        "allowBlank": false
+                    }
+                },
+                {
+                    "id": "MyTextField",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Descripcion",
+                        "anchor": "-ext-undefined-",
+                        "width": 400,
+                        "name": "descripcion_unidad",
+                        "autoRef": "txtDescripcionUnidad",
+                        "bubbleEvents": "[\n            'cambioDeNombre'\n        ]",
+                        "style": "-ext-undefined-",
+                        "labelStyle": "font-weight:bold;",
+                        "allowBlank": false
+                    }
+                },
+                {
+                    "id": "MyTextField1",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "name": "id_unidadmedida",
+                        "autoRef": "txtIdUnidadMedida",
+                        "bubbleEvents": "[\n            'cambioDeId'\n        ]",
+                        "hidden": true,
+                        "value": "-ext-undefined-"
+                    }
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "name": "status",
+                        "autoRef": "txtStatus",
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]",
+                        "value": "A"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

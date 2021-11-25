@@ -1,0 +1,344 @@
+{
+    "name": "winAuditoria.xds",
+    "projectId": "6C4BEABF-330E-4751-B60B-4128B29F703E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyWindow",
+            "cid": "window",
+            "jsClass": "winAuditoria",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Auditoria",
+                "width": 490,
+                "height": 295,
+                "modal": true,
+                "border": false,
+                "draggable": false,
+                "resizable": false
+            },
+            "userXType": "winAuditoria",
+            "cn": [
+                {
+                    "id": "MyForm",
+                    "cid": "form",
+                    "jsClass": "MyForm",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "padding": 10,
+                        "border": false,
+                        "itemId": "formAuditoria",
+                        "autoRef": "formAuditoria",
+                        "width": 470
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer",
+                            "cid": "container",
+                            "jsClass": "MyContainer",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "vbox",
+                                "height": 180,
+                                "width": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyContainer1",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer5",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": 1,
+                                        "layout": "column",
+                                        "width": 400,
+                                        "height": 90
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyContainer2",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "width": 350,
+                                                "height": "-ext-undefined-",
+                                                "layout": "column"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer3",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer4",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "height": 80,
+                                                        "width": 80
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyPanel",
+                                                            "cid": "panel",
+                                                            "jsClass": "MyPanel",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "title": "-ext-undefined-",
+                                                                "height": 80,
+                                                                "width": 80,
+                                                                "tpl": "-ext-undefined-",
+                                                                "html": "<img border=\"0\" src=\"images/iconos/foto_user.png\" width=\"80\" height=\"80\">"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "MyContainer4",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "form",
+                                                        "width": 270,
+                                                        "style": "padding-left:5px;"
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "-ext-undefined-",
+                                                                "fieldLabel": "Usuario Alta",
+                                                                "anchor": "100%",
+                                                                "style": "font-style: italic;",
+                                                                "labelStyle": "font-style: italic;font-weight: bold;",
+                                                                "itemId": "dspUsuarioAlta",
+                                                                "autoRef": "dspUsuarioAlta"
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField1",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "-ext-undefined-",
+                                                                "fieldLabel": "Fecha Alta",
+                                                                "anchor": "100%",
+                                                                "style": "font-style: italic;",
+                                                                "labelStyle": "font-style: italic;font-weight: bold;",
+                                                                "itemId": "dspFechaAlta",
+                                                                "autoRef": "dspFechaAlta"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyContainer5",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer14",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "height": 90,
+                                                "width": 100
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyContainer6",
+                                    "cid": "container",
+                                    "jsClass": "MyContainer2",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "flex": 1,
+                                        "height": 100,
+                                        "width": "-ext-undefined-",
+                                        "layout": "column"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyContainer7",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer13",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "width": 100,
+                                                "height": 90
+                                            }
+                                        },
+                                        {
+                                            "id": "MyContainer8",
+                                            "cid": "container",
+                                            "jsClass": "MyContainer1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "width": 350,
+                                                "height": 90,
+                                                "layout": "column"
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyContainer9",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer3",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "layout": "form",
+                                                        "width": 270,
+                                                        "style": "padding-right:5px;"
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField2",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "-ext-undefined-",
+                                                                "fieldLabel": "Usuario Modif",
+                                                                "anchor": "100%",
+                                                                "style": "text-align:right;font-style: italic;",
+                                                                "labelStyle": "text-align:right;font-style: italic;font-weight: bold;",
+                                                                "itemId": "dspUsuarioModif",
+                                                                "autoRef": "dspUsuarioModif"
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField3",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "-ext-undefined-",
+                                                                "fieldLabel": "Fecha Modif",
+                                                                "anchor": "100%",
+                                                                "style": "text-align:right;font-style: italic;",
+                                                                "labelStyle": "text-align:right;font-style: italic;font-weight: bold;",
+                                                                "itemId": "dspFechaModif",
+                                                                "autoRef": "dspFechaModif"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "MyContainer10",
+                                                    "cid": "container",
+                                                    "jsClass": "MyContainer4",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "height": 80,
+                                                        "width": 80
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyPanel1",
+                                                            "cid": "panel",
+                                                            "jsClass": "MyPanel1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "title": "-ext-undefined-",
+                                                                "height": 80,
+                                                                "width": 80,
+                                                                "html": "<img border=\"0\" src=\"images/iconos/foto_user.png\" width=\"80\" height=\"80\">"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyContainer14",
+                            "cid": "container",
+                            "jsClass": "MyContainer14",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "layout": "form"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyDisplayField4",
+                                    "cid": "displayfield",
+                                    "jsClass": "MyDisplayField4",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "value": "-ext-undefined-",
+                                        "fieldLabel": "ID Registro",
+                                        "anchor": "100%",
+                                        "labelStyle": "font-style: italic;font-weight: bold;",
+                                        "style": "font-style: italic;",
+                                        "itemId": "dspIdReg",
+                                        "autoRef": "dspIdReg"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "MyContainer11",
+                    "cid": "container",
+                    "jsClass": "MyContainer9",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "height": 10
+                    }
+                },
+                {
+                    "id": "MyContainer12",
+                    "cid": "container",
+                    "jsClass": "MyContainer6",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "layout": "hbox",
+                        "height": 33
+                    },
+                    "cn": [
+                        {
+                            "id": "MyContainer13",
+                            "cid": "container",
+                            "jsClass": "MyContainer8",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "width": 370
+                            }
+                        },
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Aceptar",
+                                "autoRef": "btnAceptar",
+                                "flex": "-ext-undefined-",
+                                "width": 100,
+                                "itemId": "btnAceptar"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

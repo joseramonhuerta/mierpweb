@@ -1,0 +1,2 @@
+<script type="text/javascript" src="formReporteExistencia.ui.js"></script>
+<script type="text/javascript" src="formReporteExistencia.js"></script>

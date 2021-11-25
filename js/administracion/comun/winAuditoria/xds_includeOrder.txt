@@ -1,0 +1,2 @@
+<script type="text/javascript" src="winAuditoria.ui.js"></script>
+<script type="text/javascript" src="winAuditoria.js"></script>

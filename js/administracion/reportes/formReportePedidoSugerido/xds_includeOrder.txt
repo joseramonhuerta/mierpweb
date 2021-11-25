@@ -1,0 +1,2 @@
+<script type="text/javascript" src="formReportePedidoSugerido.ui.js"></script>
+<script type="text/javascript" src="formReportePedidoSugerido.js"></script>

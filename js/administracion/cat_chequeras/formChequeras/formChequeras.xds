@@ -1,0 +1,132 @@
+{
+    "name": "formChequeras.xds",
+    "projectId": "BEAA8D3D-911E-4B29-93AE-971AEFFC391E",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "form",
+            "jsClass": "formChequeras",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Chequeras",
+                "width": 820,
+                "height": 580,
+                "padding": 10,
+                "autoScroll": true,
+                "labelWidth": 120
+            },
+            "userXType": "formChequeras",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "autoRef": "btnGuardar",
+                                "icon": "images/iconos/razon_edit.png"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "icon": "images/iconos/razon_red.png",
+                                "disabled": true,
+                                "autoRef": "btnDesactivar"
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "icon": "images/iconos/razon_delete.png",
+                                "disabled": true,
+                                "autoRef": "btnEliminar"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyTextField",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "Descripcion",
+                        "anchor": "-ext-undefined-",
+                        "width": 300,
+                        "name": "descripcion",
+                        "allowBlank": false,
+                        "labelStyle": "font-weight:bold;",
+                        "autoRef": "txtDescripcion",
+                        "bubbleEvents": "[\n            'cambioDeNombre'\n        ]",
+                        "itemId": "txtDescripcion"
+                    }
+                },
+                {
+                    "id": "MyTextField1",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "name": "id_chequera",
+                        "hidden": true,
+                        "bubbleEvents": "[\n                    'cambioDeId'\n                ]",
+                        "autoRef": "txtIdChequera"
+                    }
+                },
+                {
+                    "id": "MyTextField2",
+                    "cid": "textfield",
+                    "jsClass": "MyTextField2",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "fieldLabel": "-ext-undefined-",
+                        "anchor": "100%",
+                        "hidden": true,
+                        "name": "status",
+                        "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]",
+                        "value": "A",
+                        "autoRef": "txtStatus"
+                    }
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,524 @@
+{
+    "name": "main.xds",
+    "projectId": "601BBC7D-3196-4D19-A72F-5862B2AE00E9",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyViewport",
+            "cid": "viewport",
+            "jsClass": "Main",
+            "snapToGrid": 10,
+            "userConfig": {
+                "layout": "fit",
+                "hideBorders": "-ext-undefined-",
+                "style": ""
+            },
+            "cn": [
+                {
+                    "id": "MyPanel",
+                    "cid": "panel",
+                    "jsClass": "MyPanel5",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "layout": "border",
+                        "style": "border-width:0px;",
+                        "border": false
+                    },
+                    "cn": [
+                        {
+                            "id": "MyPanel1",
+                            "cid": "panel",
+                            "jsClass": "MyPanel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "height": 85,
+                                "frame": "-ext-undefined-",
+                                "border": false,
+                                "hideBorders": true,
+                                "unstyled": true,
+                                "region": "north",
+                                "cls": "x-panel-mc",
+                                "itemId": "pnlHeader",
+                                "layout": "border",
+                                "width": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyPanel2",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel1",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "region": "west",
+                                        "width": 100,
+                                        "margins": "-ext-undefined-",
+                                        "html": "-ext-undefined-",
+                                        "style": "margin-left:3px",
+                                        "itemId": "pnlLogo",
+                                        "autoRef": "pnlLogo",
+                                        "padding": "-ext-undefined-",
+                                        "height": "-ext-undefined-"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyBoxComponent",
+                                            "cid": "boxcomponent",
+                                            "jsClass": "MyBoxComponent",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "itemId": "boxImagen",
+                                                "autoRef": "boxImagen",
+                                                "style": "{\\n   width: 100%;\\n   max-height: 100%;\\n}",
+                                                "autoEl": "{\n                    tag: 'img',\n                    alt: '',\n                    border: 0,\n                    src: 'Imagenes/nofoto.png'\n                }",
+                                                "height": 80,
+                                                "width": 100
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel3",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel6",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "region": "east",
+                                        "width": 400,
+                                        "unstyled": "-ext-undefined-",
+                                        "height": 74,
+                                        "style": "margin-left:106px;"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyDisplayField",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "Corporativo:",
+                                                "width": 400,
+                                                "style": "font-size: 18px;\nfont-style:italic;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyDisplayField1",
+                                            "cid": "displayfield",
+                                            "jsClass": "MyDisplayField1",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "value": "{nombre_corporativo}",
+                                                "width": 400,
+                                                "style": "font-size: 18px;\n    font-weight: bold;",
+                                                "itemId": "lblNombreCorporativo",
+                                                "id": "lblNombreCorporativo",
+                                                "autoRef": "lblNombreCorporativo"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel4",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel8",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "region": "center",
+                                        "height": "-ext-undefined-",
+                                        "width": "-ext-undefined-",
+                                        "layout": "-ext-undefined-"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyPanel5",
+                                            "cid": "panel",
+                                            "jsClass": "MyPanel12",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "height": 74,
+                                                "width": "-ext-undefined-",
+                                                "style": "float:right; border-width:0 1px 0 0;border-style:solid;margin-right:1px;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyPanel6",
+                                            "cid": "panel",
+                                            "jsClass": "MyPanel11",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "width": 250,
+                                                "height": 74,
+                                                "style": "float:right;margin-right:10px;",
+                                                "layout": "-ext-undefined-",
+                                                "labelWidth": 60
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyPanel7",
+                                                    "cid": "panel",
+                                                    "jsClass": "MyPanel16",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "title": "-ext-undefined-",
+                                                        "layout": "hbox",
+                                                        "height": 25
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField2",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField2",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "Nombre Usr:     ",
+                                                                "flex": 1,
+                                                                "style": "font-size: 12px;\nfont-style:italic;\ntext-align:right;",
+                                                                "width": 75
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField3",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField3",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "{nombre_usuario}",
+                                                                "flex": 1,
+                                                                "style": "font-size: 12px;\n    font-weight: bold;\nmargin-left:10px;",
+                                                                "id": "lblNombreUsuario",
+                                                                "itemId": "lblNombreUsuario",
+                                                                "autoRef": "lblNombreUsuario"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "MyPanel8",
+                                                    "cid": "panel",
+                                                    "jsClass": "MyPanel17",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "title": "-ext-undefined-",
+                                                        "layout": "hbox"
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyDisplayField4",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField4",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "Usuario:",
+                                                                "flex": 1,
+                                                                "style": "font-size: 12px;\nfont-style:italic;\ntext-align:right;",
+                                                                "width": 75
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyDisplayField5",
+                                                            "cid": "displayfield",
+                                                            "jsClass": "MyDisplayField5",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "value": "{usuario}",
+                                                                "flex": 1,
+                                                                "style": "font-size: 12px;\n    font-weight: bold;\nmargin-left:10px;",
+                                                                "id": "lblUsuario",
+                                                                "itemId": "lblUsuario",
+                                                                "autoRef": "lblUsuario"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "MyPanel9",
+                                            "cid": "panel",
+                                            "jsClass": "MyPanel10",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "width": 2,
+                                                "height": 74,
+                                                "style": "float:right; border-width:0 1px 0 0;border-style:solid;margin-right:11px;"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyPanel10",
+                                            "cid": "panel",
+                                            "jsClass": "MyPanel9",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "width": 300,
+                                                "style": "float:right;margin-right:11px",
+                                                "height": 74
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyPanel11",
+                                                    "cid": "panel",
+                                                    "jsClass": "MyPanel14",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "title": "-ext-undefined-",
+                                                        "layout": "form",
+                                                        "labelWidth": 60,
+                                                        "autoWidth": "-ext-undefined-",
+                                                        "style": "margin-left:5px"
+                                                    },
+                                                    "cn": [
+                                                        {
+                                                            "id": "MyCombo",
+                                                            "cid": "combobox",
+                                                            "jsClass": "MyCombo",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Empresa",
+                                                                "anchor": "100%",
+                                                                "width": "-ext-undefined-",
+                                                                "autoWidth": "-ext-undefined-",
+                                                                "emptyText": "Seleccione una empresa",
+                                                                "itemId": "cmbEmpresas",
+                                                                "valueField": "id_empresa",
+                                                                "displayField": "nombre_fiscal",
+                                                                "autoRef": "cmbEmpresas",
+                                                                "id": "cmbEmpresas",
+                                                                "name": "id_empresa",
+                                                                "store": "mainStoreEmpresas",
+                                                                "editable": false,
+                                                                "hiddenName": "id_empresa",
+                                                                "mode": "-ext-undefined-",
+                                                                "enableKeyEvents": true,
+                                                                "forceSelection": true
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyCombo1",
+                                                            "cid": "combobox",
+                                                            "jsClass": "MyCombo1",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Sucursal",
+                                                                "anchor": "100%",
+                                                                "width": 150,
+                                                                "itemId": "cmbSucursales",
+                                                                "valueField": "id_sucursal",
+                                                                "emptyText": "Seleccione una sucursal",
+                                                                "autoRef": "cmbSucursales",
+                                                                "id": "cmbSucursales",
+                                                                "name": "id_sucursal",
+                                                                "store": "mainStoreSucursales",
+                                                                "displayField": "nombre_sucursal",
+                                                                "editable": false,
+                                                                "enableKeyEvents": true,
+                                                                "itemSelector": "-ext-undefined-",
+                                                                "forceSelection": true,
+                                                                "mode": "-ext-undefined-",
+                                                                "triggerAction": "-ext-undefined-"
+                                                            }
+                                                        },
+                                                        {
+                                                            "id": "MyCombo2",
+                                                            "cid": "combobox",
+                                                            "jsClass": "MyCombo2",
+                                                            "snapToGrid": 10,
+                                                            "userConfig": {
+                                                                "fieldLabel": "Almacen",
+                                                                "anchor": "100%",
+                                                                "itemId": "cmbAlmacenes",
+                                                                "valueField": "id_almacen",
+                                                                "emptyText": "Seleccione un almacen",
+                                                                "autoRef": "cmbAlmacenes",
+                                                                "id": "cmbAlmacenes",
+                                                                "name": "id_almacen",
+                                                                "store": "mainStoreAlmacenes",
+                                                                "displayField": "nombre_almacen",
+                                                                "editable": false,
+                                                                "enableKeyEvents": true,
+                                                                "forceSelection": true
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "MyPanel12",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel7",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "-ext-undefined-",
+                                        "region": "east",
+                                        "width": 85,
+                                        "height": "-ext-undefined-",
+                                        "style": ""
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyPanel13",
+                                            "cid": "panel",
+                                            "jsClass": "MyPanel13",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "title": "-ext-undefined-",
+                                                "style": "margin-right:2px;float:right;margin-top:0px;padding:4px 0 0 4px;",
+                                                "height": 74,
+                                                "width": 74
+                                            },
+                                            "cn": [
+                                                {
+                                                    "id": "MyPanel14",
+                                                    "cid": "panel",
+                                                    "jsClass": "MyPanel15",
+                                                    "snapToGrid": 10,
+                                                    "userConfig": {
+                                                        "title": "-ext-undefined-",
+                                                        "tpl": "'<img src='../images/exit_64.png' />'",
+                                                        "html": "<a href=\"logout.php\" target=\"_self\">\n<img border=\"0\" alt=\"Cerrar Sesion\" src=\"images/iconos/exit_64.png\" width=\"64\" height=\"64\">\n</a>",
+                                                        "width": 65,
+                                                        "height": 65
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyPanel15",
+                            "cid": "panel",
+                            "jsClass": "MyPanel2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "region": "west",
+                                "width": 200,
+                                "layout": "border",
+                                "autoRef": "panelIzquierdo",
+                                "collapseMode": "mini",
+                                "split": true,
+                                "margins": "-ext-undefined-",
+                                "border": false,
+                                "style": "border-width: 1px 0px 0px 0px",
+                                "activeItem": 0,
+                                "hideBorders": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyTreePanel",
+                                    "cid": "treepanel",
+                                    "jsClass": "MyTreePanel",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "<b>Menu Principal</b>",
+                                        "autoRef": "pnlMenu",
+                                        "id": "menu_principal",
+                                        "border": "-ext-undefined-",
+                                        "autoScroll": true,
+                                        "singleExpand": "-ext-undefined-",
+                                        "data": "-ext-undefined-",
+                                        "rootVisible": false,
+                                        "animCollapse": "-ext-undefined-",
+                                        "region": "center"
+                                    },
+                                    "cn": [
+                                        {
+                                            "id": "MyAsyncTreeNode",
+                                            "cid": "asynctreenode",
+                                            "jsClass": "MyAsyncTreeNode",
+                                            "dock": "root",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "text": "-ext-undefined-",
+                                                "singleClickExpand": "-ext-undefined-",
+                                                "leaf": "-ext-undefined-",
+                                                "expanded": "-ext-undefined-",
+                                                "expandable": "-ext-undefined-",
+                                                "draggable": "-ext-undefined-"
+                                            }
+                                        },
+                                        {
+                                            "id": "MyTreeLoader",
+                                            "cid": "treeloader",
+                                            "jsClass": "MyTreeLoader",
+                                            "dock": "loader",
+                                            "snapToGrid": 10,
+                                            "userConfig": {
+                                                "baseParams": "{\n\t\t\t\t\t\t\t\tcode: 'TreeNodeMenuP'\n\t\t\t\t\t\t\t}",
+                                                "url": "app.php/menusmanager/getmenus"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyTabPanel",
+                            "cid": "tabpanel",
+                            "jsClass": "MyTabPanel",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "activeTab": 0,
+                                "region": "center",
+                                "id": "tabContainer",
+                                "autoRef": "tabContainer",
+                                "itemId": "tabContainer",
+                                "enableTabScroll": true,
+                                "tabPosition": "-ext-undefined-"
+                            },
+                            "cn": [
+                                {
+                                    "id": "MyPanel16",
+                                    "cid": "panel",
+                                    "jsClass": "MyPanel3",
+                                    "snapToGrid": 10,
+                                    "userConfig": {
+                                        "title": "Home",
+                                        "width": 74
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "MyPanel17",
+                            "cid": "panel",
+                            "jsClass": "MyPanel3",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "title": "-ext-undefined-",
+                                "region": "south",
+                                "width": 100,
+                                "height": 5,
+                                "unstyled": true
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}

@@ -1,0 +1,164 @@
+{
+    "name": "formHorarios.xds",
+    "projectId": "417A4210-BD16-488B-9DBC-D8A005BC7775",
+    "settings": {
+        "urlPrefix": "http://localhost/",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "extPath": "http://extjs.cachefly.net/ext-3.3.1/",
+        "exportPath": ".",
+        "lineEnding": "CRLF",
+        "instantiateStore": true,
+        "exportXDSFiles": true,
+        "genTimestamps": true
+    },
+    "xdsVersion": "1.1.2",
+    "components": [
+        {
+            "id": "MyForm",
+            "cid": "panel",
+            "jsClass": "formHorarios",
+            "snapToGrid": 10,
+            "userConfig": {
+                "title": "Horario",
+                "width": "-ext-undefined-",
+                "height": "-ext-undefined-",
+                "padding": "-ext-undefined-",
+                "autoScroll": true,
+                "labelWidth": 120,
+                "itemId": "-ext-undefined-"
+            },
+            "userXType": "formHorarios",
+            "cn": [
+                {
+                    "id": "MyToolbar",
+                    "cid": "toolbar",
+                    "jsClass": "MyToolbar",
+                    "dock": "tbar",
+                    "snapToGrid": 10,
+                    "cn": [
+                        {
+                            "id": "MyButton",
+                            "cid": "button",
+                            "jsClass": "MyButton",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Guardar",
+                                "icon": "images/iconos/calendar_add.png",
+                                "autoRef": "btnGuardar"
+                            }
+                        },
+                        {
+                            "id": "MyButton1",
+                            "cid": "button",
+                            "jsClass": "MyButton1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Desactivar",
+                                "icon": "images/iconos/calendar_todos.png",
+                                "autoRef": "btnDesactivar",
+                                "disabled": true
+                            }
+                        },
+                        {
+                            "id": "MySeparator",
+                            "cid": "tbseparator",
+                            "jsClass": "MySeparator",
+                            "snapToGrid": 10
+                        },
+                        {
+                            "id": "MyButton2",
+                            "cid": "button",
+                            "jsClass": "MyButton2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "text": "Eliminar",
+                                "autoRef": "btnEliminar",
+                                "icon": "images/iconos/calendar_delete.png",
+                                "disabled": true
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "MyForm1",
+                    "cid": "form",
+                    "jsClass": "MyForm1",
+                    "snapToGrid": 10,
+                    "userConfig": {
+                        "title": "-ext-undefined-",
+                        "border": false,
+                        "padding": 10,
+                        "itemId": "frmMain",
+                        "autoRef": "frmMain"
+                    },
+                    "cn": [
+                        {
+                            "id": "MyTimeField",
+                            "cid": "timefield",
+                            "jsClass": "MyTimeField",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "itemId": "txtHoraInicio",
+                                "autoRef": "txtHoraInicio",
+                                "editable": false,
+                                "name": "hora_inicio",
+                                "increment": 10,
+                                "width": 100,
+                                "allowBlank": false,
+                                "bubbleEvents": "[\n            'cambioDeNombre'\n        ]",
+                                "format": "g:i:s A",
+                                "fieldLabel": "Hora Inicio",
+                                "labelStyle": "font-weight:bold"
+                            }
+                        },
+                        {
+                            "id": "MyTimeField1",
+                            "cid": "timefield",
+                            "jsClass": "MyTimeField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "name": "hora_fin",
+                                "autoRef": "txtHoraFin",
+                                "width": 100,
+                                "editable": false,
+                                "allowBlank": false,
+                                "increment": 10,
+                                "itemId": "txtHoraFin",
+                                "format": "g:i:s A",
+                                "fieldLabel": "Hora Fin",
+                                "labelStyle": "font-weight:bold"
+                            }
+                        },
+                        {
+                            "id": "MyTextField1",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField1",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "name": "id_horario",
+                                "autoRef": "txtIdHorario",
+                                "bubbleEvents": "[\n            'cambioDeId'\n        ]",
+                                "hidden": true
+                            }
+                        },
+                        {
+                            "id": "MyTextField2",
+                            "cid": "textfield",
+                            "jsClass": "MyTextField2",
+                            "snapToGrid": 10,
+                            "userConfig": {
+                                "hidden": true,
+                                "name": "status",
+                                "autoRef": "txtStatus",
+                                "bubbleEvents": "[\n                    'cambioDeStatus'\n                ]",
+                                "value": "A"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "stores": []
+}
