@@ -56,7 +56,7 @@ define("DB_MASTER", "erp_master");
 define("MASTER", "erp_master");
 
 /*==================================================================================================================
-	REVISAR LO SIGUIENTE:cccc
+	REVISAR LO SIGUIENTE:
 	
 Deberia omitir declarar la constante DB_NAME y buscar el nombre de la base de datos en $_SESSION['dbcorp'].
 Creo que esto hará mas sencilla la logica al momento de logearse en un corporativo (al momento de switchear de DB).
