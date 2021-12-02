@@ -28,7 +28,12 @@ formLineas = Ext.extend(formLineasUi, {
 		},this);
 		
 	},
+	inicializarStores: function(){
+		this.cmbSucursal.store =  new miErpWeb.storeFormLineasSucursales();
+		this.cmbSucursal.store.load();
+	},
 	inicializarEventos: function(){
+		var me = this;
 		this.on('cambioDeStatus',function(params){			
 			var status=params.status;
 			switch(status){
@@ -53,6 +58,57 @@ formLineas = Ext.extend(formLineasUi, {
 				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_edit.png');
 			}			
 		},this);
+
+		this.cmbSucursal.getStore().on('beforeload',function(){
+			this.cmbSucursal.store.baseParams.id_sucursal= Ext.num(miErpWeb.Sucursal[0].id_sucursal, 0);
+		},this);
+
+		this.cmbSucursal.onTriggerClick = function(a, e){
+			if(e){
+				if(e.getAttribute('class').indexOf('x-form-clear-trigger') > -1){
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}
+					if(!Ext.isEmpty(me.cmbSucursal.getValue())){
+						this.reset();
+						
+						// this.deshabilitarBtns(true);
+						// this.cntActivo.setVisible(false);
+						// this.spExcel.setVisible(false);
+						//this.reloadGrid(null, 0);
+					}
+				}else{
+					if(this.readOnly || this.disabled){
+						return;
+					}
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}else {
+						this.onFocus({});
+						if(this.triggerAction == 'all') {
+							this.doQuery(this.allQuery, true);
+						} else {
+							this.doQuery(this.getRawValue());
+						}
+						this.el.focus();
+					}
+				} 
+			}
+		};
+	},
+	inizializaTpls:function(){
+		this.cmbSucursal.tpl = new Ext.XTemplate(
+			'<tpl for=".">'+
+				'<div class="x-combo-list-item">'+
+					'<div><b>{nombre_sucursal}</b></div>'+
+					'<div><i>{nombre_empresa}</i></div>'+
+				'</div>'+
+			'</tpl>'
+		);
+		
+		
 	},
     initComponent: function() {
         formLineas.superclass.initComponent.call(this);
@@ -74,7 +130,9 @@ formLineas = Ext.extend(formLineasUi, {
 		};
 		
 		this.configurarToolBar();
+		this.inicializarStores();
 		this.inicializarEventos();
+		this.inizializaTpls();
     },
 	cancelar:function(){
 		this.el.mask(mew.mensajeDeEspera);
@@ -162,7 +220,7 @@ formLineas = Ext.extend(formLineasUi, {
 		});
 	},
 	load:function(){
-		var params={idLin:this.txtIdLinea.getValue()};
+		var params={idLin:this.txtIdLinea.getValue(), idSuc:miErpWeb.Sucursal[0].id_sucursal};
 		this.el.mask(mew.mensajeDeEspera);
 		this.getForm().load({
 			params:params,
@@ -195,6 +253,12 @@ formLineas = Ext.extend(formLineasUi, {
     		var respuesta=Ext.decode(action.response.responseText);			
 			if (respuesta.success==true){
 				var linea = respuesta.data.Linea;
+				var sucursales=respuesta.data.Sucursal
+
+				if (sucursales!=undefined){
+					this.cmbSucursal.store.loadData({data:sucursales});
+				} 
+
 				linea.nombre_linea=miErpWeb.formatearTexto(linea.nombre_linea);
 				
 				form.setValues(linea);

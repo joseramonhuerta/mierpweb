@@ -1,6 +1,6 @@
 <?php
 require ('eko_framework/app/models/linea.php');       //MODELO
-
+require ('eko_framework/app/models/sucursal.php');
 class Lineas extends ApplicationController {
     function getModelObject(){
     	if (empty($this->model)) {
@@ -46,12 +46,16 @@ class Lineas extends ApplicationController {
 
 	function obtenerlinea(){
 		$lineaModel = new LineaModel();
-						
+		$sucursalModel=new Sucursal();
+
 		$id=$_POST['idLin'];
 		$datos = $lineaModel->getById($id);
+
+		$sucursales=$sucursalModel->readAll(0, 1000000, '', false);
+
 		$response['success'] = true;
 		$response['data']['Linea'] = $datos['Linea'];
-			
+		$response['data']['Sucursales']=$sucursales['data'];	
 		return $response;			
 	}
 
@@ -176,6 +180,47 @@ class Lineas extends ApplicationController {
 	        }
         }
         return $where;
-    }	
+    }
+	
+	function obtenersucursales(){
+		try {
+			$filtro_query= ( empty($_POST['query']) )? '' : $_POST['query']; 
+			$id_sucursal= ( empty($_POST['id_sucursal']) )? '' : $_POST['id_sucursal']; 
+			// $filtro="";
+			$filtro=$this->filtroToSQL($filtro_query,array('nombre_sucursal'));
+			// throw new Exception($filtro);		
+			$filtro.= ($filtro) ? " AND su.status = 'A' AND su.id_sucursal != $id_sucursal" : " WHERE su.status = 'A' AND su.id_sucursal != $id_sucursal";
+			
+			$IDUsu = $_SESSION['Auth']['User']['IDUsu'];
+			$query = "SELECT COUNT(su.id_sucursal) AS totalrows FROM cat_sucursales su $filtro ";
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+				
+			$limit = (empty($_POST['limit'])) ? 20 : $_POST['limit'];
+			$start = (empty($_POST['start'])) ?  0 : $_POST['start'];
+			
+			$query = " SELECT su.id_sucursal,su.nombre_sucursal,su.id_empresa,e.nombre_fiscal as nombre_empresa FROM cat_sucursales su ";
+			$query.= " INNER JOIN cat_usuarios_privilegios p ON p.id_usuario=$IDUsu AND p.id_privilegio=su.id_sucursal AND p.tipo_privilegio=2";		
+			$query.= " inner join cat_empresas e on e.id_empresa = su.id_empresa $filtro ";
+			$query.= " ORDER BY su.nombre_sucursal LIMIT $start, $limit ";
+			
+			// throw new Exception($query);	
+			$res = mysqlQuery($query);
+			if (!$res)  throw new Exception(mysql_error()." ".$query);
+				
+			$response = ResulsetToExt::resToArray($res);
+			$response['totalRows'] = $total_rows;
+		} catch (Exception $e) {
+			$response['totalRows'] = $total_rows;
+			$response['success']    = false;
+			$response['msg']       = $e->getMessage();
+		}
+		echo json_encode($response);
+		
+	}
 }
 ?>

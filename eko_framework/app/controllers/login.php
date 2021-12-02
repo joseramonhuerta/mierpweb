@@ -403,7 +403,7 @@ class Login extends ApplicationController {
          	throw $e;
          }catch(Exception $e){         	
          	$corpName=$_SESSION['identificado']['NomCor'];
-         	throw new Exception("No pudo seleccionarse el corporativo: $corpName");
+         	throw new Exception("No pudo seleccionarse el corporativo.: $corpName");
          }
         $_SESSION['identificado']['IDUsu'] = $userId;
 		switch ($tipoUser) {
@@ -431,7 +431,7 @@ class Login extends ApplicationController {
          	throw $e;
          }catch(Exception $e){         	
          	$corpName=$_SESSION['identificado']['NomCor'];
-         	throw new Exception("No pudo seleccionarse el corporativo: $corpName");
+         	throw new Exception("No pudo seleccionarse el corporativo..: $corpName");
          }
 		 
         $_SESSION['identificado']['IDUsu'] = $userId;
@@ -560,7 +560,7 @@ class Login extends ApplicationController {
 			 $emp['maneja_inventario']=$empresa['maneja_inventario'];	
 			 // throw new Exception($IDEmp);
              $sucursales=$this->getSucursales($IDEmp);
-			 // throw new Exception('11');
+			 //throw new Exception('11');
 			/*
             $query="SELECT keyid as respuesta,
 		IF(Origen='EMP',(SELECT ComEmp FROM cat_empresas WHERE IDEmp=KEYID),(select NomSuc FROM cat_sucursales WHERE IDSuc=KEYID) ) as Nombre,

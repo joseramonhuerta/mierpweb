@@ -148,6 +148,7 @@ function getJsFiles($modoProduccion=true){
 				//------------------       Form Catalogo de Lineas     ------------------//
 	$arrayFiles[]="js/administracion/cat_lineas/formLineas/formLineas.ui.js";
 	$arrayFiles[]="js/administracion/cat_lineas/formLineas/formLineas.js";
+	$arrayFiles[]="js/administracion/cat_lineas/formLineas/storeFormLineasSucursales.js";
 	
 	//------------------       Grid Catalogo de Unidades de Medida    ------------------//
 	$arrayFiles[]="js/administracion/cat_unidadesmedidas/gridUnidadesMedidas/gridUnidadesMedidas.ui.js";
