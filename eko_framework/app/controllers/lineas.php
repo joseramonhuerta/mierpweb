@@ -51,7 +51,7 @@ class Lineas extends ApplicationController {
 		$id=$_POST['idLin'];
 		$datos = $lineaModel->getById($id);
 
-		$sucursales=$sucursalModel->readAll(0, 1000000, '', false);
+		$sucursales=$sucursalModel->readAll(0, 100000, '', false);
 
 		$response['success'] = true;
 		$response['data']['Linea'] = $datos['Linea'];
