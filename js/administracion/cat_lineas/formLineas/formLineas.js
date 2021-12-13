@@ -30,7 +30,7 @@ formLineas = Ext.extend(formLineasUi, {
 	},
 	inicializarStores: function(){
 		this.cmbSucursal.store =  new miErpWeb.storeFormLineasSucursales();
-		this.cmbSucursal.store.load();
+		//this.cmbSucursal.store.load();
 	},
 	inicializarEventos: function(){
 		var me = this;
@@ -259,7 +259,7 @@ formLineas = Ext.extend(formLineasUi, {
 					this.cmbSucursal.store.loadData({data:sucursales});
 				} 
 
-				linea.nombre_linea=miErpWeb.formatearTexto(linea.nombre_linea);
+				linea.nombre_linea=miErpWeb.formatearTexto(linea.nombre_linea); 
 				
 				form.setValues(linea);
 				

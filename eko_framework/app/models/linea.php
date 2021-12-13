@@ -105,10 +105,12 @@ class LineaModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
-    	$query="SELECT id_linea,nombre_linea,status
-		FROM cat_lineas
-		WHERE id_linea=$id ";
+	function getById($id, $id_suc){
+    	$query="SELECT l.id_linea,l.nombre_linea,l.status,ls.id_sucursal_surtido, s.nombre_sucursal
+		FROM cat_lineas l
+		LEFT JOIN cat_lineas_sucursales ls ON l.id_linea = ls.id_linea AND id_sucursal = $id_suc
+        LEFT JOIN cat_sucursales s ON s.id_sucursal = ls.id_sucursal_surtido
+		WHERE l.id_linea=$id ";
     	$arrResult=$this->query($query);
     	
     	return array('Linea'=>$arrResult[0]);

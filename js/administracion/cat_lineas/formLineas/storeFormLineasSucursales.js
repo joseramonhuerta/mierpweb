@@ -5,7 +5,7 @@ miErpWeb.storeFormLineasSucursales = Ext.extend(Ext.data.JsonStore, {
         cfg = cfg || {};
         miErpWeb.storeFormLineasSucursales.superclass.constructor.call(this, Ext.apply({
             storeId: 'storeFormLineasSucursales',
-			autoDestroy: true,
+			//autoDestroy: true,
             idProperty: 'id_linea',
 			messageProperty: 'msg',
             root: 'data',

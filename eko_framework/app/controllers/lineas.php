@@ -49,13 +49,14 @@ class Lineas extends ApplicationController {
 		$sucursalModel=new Sucursal();
 
 		$id=$_POST['idLin'];
-		$datos = $lineaModel->getById($id);
+		$id_suc=$_POST['idSuc'];
+		$datos = $lineaModel->getById($id, $id_suc);
 
-		$sucursales=$sucursalModel->readAll(0, 100000, '', false);
+		//$sucursales=$sucursalModel->readAll(0, 100000, '', false);
 
 		$response['success'] = true;
 		$response['data']['Linea'] = $datos['Linea'];
-		$response['data']['Sucursales']=$sucursales['data'];	
+		//$response['data']['Sucursales']=$sucursales['data'];	
 		return $response;			
 	}
 
@@ -204,7 +205,6 @@ class Lineas extends ApplicationController {
 			$start = (empty($_POST['start'])) ?  0 : $_POST['start'];
 			
 			$query = " SELECT su.id_sucursal,su.nombre_sucursal,su.id_empresa,e.nombre_fiscal as nombre_empresa FROM cat_sucursales su ";
-			$query.= " INNER JOIN cat_usuarios_privilegios p ON p.id_usuario=$IDUsu AND p.id_privilegio=su.id_sucursal AND p.tipo_privilegio=2";		
 			$query.= " inner join cat_empresas e on e.id_empresa = su.id_empresa $filtro ";
 			$query.= " ORDER BY su.nombre_sucursal LIMIT $start, $limit ";
 			
