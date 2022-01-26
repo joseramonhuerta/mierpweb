@@ -480,10 +480,10 @@ class ReporteVentaTicketPDF extends PDF_JavaScript{
 		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode("EXPEDIDO EN")),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
-		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($direccion)),$border,0,'C');	#	Valor
+		$this->Cell($ancho,$alto,mb_strtoupper(utf8_decode($direccion)),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
-		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($colonia)),$border,0,'C');	#	Valor
+		$this->Cell($ancho,$alto,utf8_decode($colonia),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
 		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($localidad)),$border,0,'C');	#	Valor

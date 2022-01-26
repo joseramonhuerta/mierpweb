@@ -67,13 +67,20 @@ class ReporteVentaTicket{
 		$id_empresa =  $_SESSION['Auth']['User']['id_empresa'];
 		$id_sucursal =  $_SESSION['Auth']['User']['id_sucursal'];
 
-		 $query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,e.calle,e.numext,e.numint,e.colonia,e.cp,c.nom_ciu,es.nom_est,p.nom_pai,e.logotipo,
+		/* $query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,e.calle,e.numext,e.numint,e.colonia,e.cp,c.nom_ciu,es.nom_est,p.nom_pai,e.logotipo,
 					e.regimen_fiscal,e.telefono,e.email,ifnull(e.logotipo_sucursal,0) as logotipo_sucursal
 					FROM cat_empresas e
 					INNER JOIN cat_ciudades c ON c.id_ciu = e.id_ciu
 					INNER JOIN cat_estados es ON es.id_est = e.id_est
 					INNER JOIN cat_paises p ON p.id_pai = e.id_pai
-					WHERE e.id_empresa  = $id_empresa";	
+					WHERE e.id_empresa  = $id_empresa";*/
+
+
+		$query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,s.calle,s.numext,s.numint,s.colonia,s.cp,s.ciudad AS nom_ciu,s.estado AS nom_est,s.pais AS nom_pai,e.logotipo,
+					e.regimen_fiscal,e.telefono,e.email,IFNULL(e.logotipo_sucursal,0) AS logotipo_sucursal
+					FROM cat_sucursales s
+					INNER JOIN cat_empresas e ON e.id_empresa = s.id_empresa
+					WHERE s.id_sucursal = $id_sucursal";	
         
 		$resArrEmpresa = $model->query($query);
 		if ( empty($resArrEmpresa) ){
