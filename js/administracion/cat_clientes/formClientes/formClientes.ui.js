@@ -289,6 +289,47 @@ formClientesUi = Ext.extend(Ext.form.FormPanel, {
                 ]
             },
             {
+                xtype: 'fieldset',
+                title: 'Información de Ventas',
+                height: 60,
+                width: 500,
+                items: [
+                    {
+                        xtype: 'combo',
+                        fieldLabel: 'Lista Precio',
+                        width: 250,
+                        name: 'id_listaprecio',
+                        hiddenName: 'id_listaprecio',
+                        displayField: 'descripcion_listaprecio',
+                        valueField: 'id_listaprecio',
+                        enableKeyEvents: true,
+                        pageSize: 20,
+                        triggerAction: 'all',
+                        minChars: 0,
+                        allowBlank: true,
+                        forceSelection: false,
+                        triggerConfig: {
+                            tag: 'span',
+                            cls: 'x-form-twin-triggers',
+                            style: 'padding-right:2px',
+                            cn: [
+                                {
+                                    tag: "img",
+                                    src: Ext.BLANK_IMAGE_URL,
+                                    cls: "x-form-trigger x-form-clear-trigger"
+                                },
+                                {
+                                    tag: "img",
+                                    src: Ext.BLANK_IMAGE_URL,
+                                    cls: "x-form-trigger x-form-search-trigger"
+                                }
+                            ]
+                        },
+                        ref: '../cmbListaPrecio'
+                    }
+                ]
+            },
+            {
                 xtype: 'textfield',
                 anchor: '100%',
                 hidden: true,

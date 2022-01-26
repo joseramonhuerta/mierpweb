@@ -165,7 +165,13 @@ class ClienteModel extends Model{
         $query.=",telefono_contacto='".$this->EscComillas($datos['telefono_contacto'])."'";
         $query.=",celular_contacto='".$this->EscComillas($datos['celular_contacto'])."'";
 		
-		  $query.=",status='".$this->EscComillas($datos['status'])."'";
+		$query.=",status='".$this->EscComillas($datos['status'])."'";
+
+        if (is_numeric($datos['id_listaprecio'])){	
+			$query.=",id_listaprecio='".$datos['id_listaprecio']."'";
+		}else{
+            $query.=",id_listaprecio=NULL";
+        }
 		
         /*LOG dEL MOVIMIENTO*/
 
@@ -189,7 +195,7 @@ class ClienteModel extends Model{
     }
 	
 	public function getcliente($IDValue){	
-		 $query = "SELECT id_cliente,nombre_fiscal,nombre_comercial,estilista,foraneo,nombre_contacto,email_contacto,telefono_contacto,celular_contacto,status,tipo_cliente,rfc_cliente,id_ciu,id_est,id_pai,calle,numext,numint,localidad,colonia,cp FROM $this->useTable
+		 $query = "SELECT id_cliente,nombre_fiscal,nombre_comercial,estilista,foraneo,nombre_contacto,email_contacto,telefono_contacto,celular_contacto,status,tipo_cliente,rfc_cliente,id_ciu,id_est,id_pai,calle,numext,numint,localidad,colonia,cp,id_listaprecio FROM $this->useTable
          WHERE id_cliente = $IDValue ;";
 		
 		// $res=$this->query($query);

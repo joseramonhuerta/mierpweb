@@ -1,0 +1,122 @@
+<?php
+class ListaPrecioModel extends Model{
+    var $useTable = 'cat_listaprecios';
+    var $name='ListaPrecio';
+    var $primaryKey = 'id_listaprecio';
+    var $specific = true;
+    var $camposAfiltrar = array('descripcion');
+
+
+    function readAll($start, $limit, $filtro, $filtroStatus) {
+        
+        if ($filtro != '') {
+            $filtroSql = $this->filtroToSQL($filtro);
+        } else {
+            $filtroSql = '';
+        }
+		
+		 if (strlen($filtroSql) > 0) {
+				if ($filtroStatus=='A')
+					$filtroSql.=" AND status='A' ";
+				if ($filtroStatus=='I')
+                $filtroSql.=" AND status='I' ";				
+            }else {
+				if ($filtroStatus=='A')
+					$filtroSql.="WHERE status='A' ";
+				if ($filtroStatus=='I')
+                $filtroSql.="WHERE status='I' ";
+				
+            }
+
+        $query = "select count($this->primaryKey) as totalrows  FROM $this->useTable
+        $filtroSql";
+        $res = mysqlQuery($query);
+        if (!$res)
+            throw new Exception(mysql_error() . " " . $query);
+
+        $resultado = mysql_fetch_array($res, MYSQL_ASSOC);
+        $totalRows = $resultado['totalrows'];
+
+        $query = "SELECT id_listaprecio,descripcion,status FROM $this->useTable
+				  $filtroSql ORDER BY descripcion limit $start,$limit ;";
+		// throw new Exception($query);
+        $res = mysqlQuery($query);
+        if (!$res)
+            throw new Exception(mysql_error() . " " . $query);
+
+        $response = ResulsetToExt::resToArray($res);
+        $response['totalRows'] = $totalRows;
+		
+        return $response;
+    }
+/*
+   public function guardar($datos){
+        //----------------------
+    	// if(empty($datos['nombre_fiscal'])){
+        	// throw new Exception("Debe especificar un nombre para el cliente");	
+        // }
+        //---------------------
+    	$registroNuevo=false;
+		 $IDUsu=$_SESSION['Auth']['User']['IDUsu'];     
+		 
+		 // throw new Exception($datos['tipo_cliente']);
+		 
+			
+        
+          
+        if (@$datos[$this->primaryKey]){//UPDATE
+            $query="UPDATE $this->useTable SET ";
+            
+            $query.="usermodif=$IDUsu";    //LOG
+            $query.=",fechamodif=now()";
+            $where=" WHERE $this->primaryKey = ".$datos[$this->primaryKey];
+        }else{  //INSERT
+            $query="INSERT INTO $this->useTable SET ";
+            $query.="usercreador=$IDUsu";    //LOG
+            $query.=",fechacreador=now()";
+          
+            $registroNuevo=true;
+			$where='';
+        }
+		
+       
+        $query.=",nombre_linea='".$this->EscComillas(strtoupper($datos['nombre_linea']))."'";
+        $query.=",status='".$this->EscComillas($datos['status'])."'";
+		
+        $query=$query.$where;
+		
+		try{
+            if ($registroNuevo) {
+                $id = $this->insert($query);
+            } else {
+                $this->update($query);
+                $id = $datos[$this->primaryKey];
+            }
+            $this->id = $id;
+            $data = $this->getById($id);
+            return $data['Linea'];
+        }catch(Exception $e){            
+            return false;
+        }                    
+
+    }
+	
+	public function delete($id){
+        return parent::delete($id);
+    }
+	
+	function getById($id, $id_suc){
+    	$query="SELECT l.id_linea,l.nombre_linea,l.status,ls.id_sucursal_surtido, s.nombre_sucursal
+		FROM cat_lineas l
+		LEFT JOIN cat_lineas_sucursales ls ON l.id_linea = ls.id_linea AND id_sucursal = $id_suc
+        LEFT JOIN cat_sucursales s ON s.id_sucursal = ls.id_sucursal_surtido
+		WHERE l.id_linea=$id ";
+    	$arrResult=$this->query($query);
+    	
+    	return array('Linea'=>$arrResult[0]);
+    }
+
+*/
+
+}
+?>

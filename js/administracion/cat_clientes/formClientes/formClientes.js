@@ -76,6 +76,9 @@ formClientes = Ext.extend(formClientesUi, {
 		this.cmbCiudades.tpl=tplCatCiudades;
 		
 		this.cmbCiudades.store = new miErpWeb.storeClientesCiudades();
+
+		this.cmbListaPrecio.store = new miErpWeb.storeClientesListaPrecio();
+		this.cmbListaPrecio.store.load();
 		
 		this.seleccionarCiudadDefault();
 		
@@ -102,6 +105,7 @@ formClientes = Ext.extend(formClientesUi, {
 		
 	},
 	inicializarEventos(){
+		var me = this;
 		this.cmbCiudades.on('select',function(combo, record, index){	
 			var estado={
                     id:record.get('id_est'),
@@ -177,6 +181,41 @@ formClientes = Ext.extend(formClientesUi, {
 				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_edit.png');
 			}			
 		},this);
+
+		this.cmbListaPrecio.onTriggerClick = function(a, e){
+			if(e){
+				if(e.getAttribute('class').indexOf('x-form-clear-trigger') > -1){
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}
+					if(!Ext.isEmpty(me.cmbListaPrecio.getValue())){
+						this.reset();
+						
+						// this.deshabilitarBtns(true);
+						// this.cntActivo.setVisible(false);
+						// this.spExcel.setVisible(false);
+						//this.reloadGrid(null, 0);
+					}
+				}else{
+					if(this.readOnly || this.disabled){
+						return;
+					}
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}else {
+						this.onFocus({});
+						if(this.triggerAction == 'all') {
+							this.doQuery(this.allQuery, true);
+						} else {
+							this.doQuery(this.getRawValue());
+						}
+						this.el.focus();
+					}
+				} 
+			}
+		};
 		
 	},
 	cancelar:function(){
@@ -336,6 +375,7 @@ formClientes = Ext.extend(formClientesUi, {
 			if (respuesta.success==true){
 				var cliente = respuesta.data.Cliente;
 				var ciudad=respuesta.data.Ciudad;
+				var listaprecio=respuesta.data.ListaPrecios;
                
                 this.cmbCiudades.store.loadData({data:ciudad});
 
@@ -343,7 +383,11 @@ formClientes = Ext.extend(formClientesUi, {
 				this.txtEstado.setValue(miErpWeb.formatearTexto(ciudad.nom_est));
 			
 				this.txtIdPais.setValue(ciudad.id_pai);
-				this.txtPais.setValue(miErpWeb.formatearTexto(ciudad.nom_pai));               
+				this.txtPais.setValue(miErpWeb.formatearTexto(ciudad.nom_pai));
+				
+				if (listaprecio!=undefined){
+					this.cmbListaPrecio.store.loadData({data:listaprecio});
+				}  
 				
 				cliente.nombre_comercial=miErpWeb.formatearTexto(cliente.nombre_comercial);
 				cliente.calle=miErpWeb.formatearTexto(cliente.calle);

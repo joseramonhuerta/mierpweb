@@ -102,7 +102,8 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeTipoCliente.js";
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeEstilista.js";
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeForaneo.js";
-	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesCiudades.js";	
+	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesCiudades.js";
+	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesListaPrecio.js";		
 
 		//------------------       Grid Catalogo de Productos     ------------------//
 	$arrayFiles[]="js/administracion/cat_productos/gridProductos/gridProductos.ui.js";

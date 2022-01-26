@@ -3,6 +3,7 @@ require ('eko_framework/app/models/cliente.php');       //MODELO
 // require ('eko_framework/app/models/razon_social.php');
 require ('eko_framework/app/models/ciudad.php');
 require ('eko_framework/app/models/pais.php');
+require ('eko_framework/app/models/lista_precio.php');
 require_once "eko_framework/app/models/reporte_ventas_clientes.php";
 require_once "eko_framework/app/models/reporte_cartera_clientes.php";
 class Clientes extends ApplicationController {
@@ -78,7 +79,8 @@ class Clientes extends ApplicationController {
 			'email_contacto'=>$_POST['email_contacto'],
 			'telefono_contacto'=>$_POST['telefono_contacto'],
 			'celular_contacto'=>$_POST['celular_contacto'],
-			'status'=>$_POST['status']			
+			'status'=>$_POST['status'],
+			'id_listaprecio'=>$_POST['id_listaprecio']		
 			);		
 			
 			
@@ -113,12 +115,20 @@ class Clientes extends ApplicationController {
 			 $ciudadId=$clienteGuardado['id_ciu'];
             $paisId=$clienteGuardado['id_pai'];
             $estadoId=$clienteGuardado['id_est'];
+			$listaprecioId=$clienteGuardado['id_listaprecio'];
             $ciudadModel=new CiudadModel();
+			
             if (is_numeric($ciudadId)){
                 $ciudad=$ciudadModel->getCiudadEstadoYpais($ciudadId,$estadoId,$paisId);               
             }
 			$response['data']['Ciudad'] = $ciudad[0];
-				 
+			
+			$listaPrecioModel=new ListaPrecioModel();
+			$listaprecio=$listaPrecioModel->readAll(0, 200, ''); 
+			
+			
+			$response['data']['Unidades']=$unidades['data'];
+			$response['data']['ListaPrecios']=$listaprecio['data'];	 
 			
          
 
@@ -139,12 +149,20 @@ class Clientes extends ApplicationController {
             $ciudadId=$datos['Cliente']['id_ciu'];
             $paisId=$datos['Cliente']['id_pai'];
             $estadoId=$datos['Cliente']['id_est'];
+			$listaprecioId=$datos['Cliente']['id_listaprecio'];
             $ciudadModel=new CiudadModel();
             if (is_numeric($ciudadId)){
                 $ciudad=$ciudadModel->getCiudadEstadoYpais($ciudadId,$estadoId,$paisId);               
             }
 			$response['data']['Ciudad'] = $ciudad[0];
+
+			$listaPrecioModel=new ListaPrecioModel();
 				 
+			if (is_numeric($listaprecioId)){
+				$listaprecio=$listaPrecioModel->readAll(0, 200, ''); 
+			}
+
+			$response['data']['ListaPrecio'] = $listaprecio[0];
 			return $response;  
 			
 		}
@@ -382,5 +400,43 @@ class Clientes extends ApplicationController {
         }
         return $where;
     }	
+
+	function obtenerlistasprecios(){
+		try {
+			$filtro_query= ( empty($_POST['query']) )? '' : $_POST['query']; 
+			// $filtro = (isset($_POST['query'])) ? $this->filtroToSQL($_POST['query']) : '';
+			// $filtro = $this->filtroToSQL($_POST['query'],);
+			$filtro=$this->filtroToSQL($filtro_query,array('descripcion'));
+			// throw new Exception($filtro);		
+			$filtro.= ($filtro) ? " AND status = 'A'" : " WHERE status = 'A' ";
+			
+			$filtro.= ($filtro) ? " AND status = 'A'" : " WHERE status = 'A' ";
+			
+			$query = "SELECT COUNT(id_listaprecio) AS totalrows FROM cat_listaprecios $filtro ";
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+				
+			$limit = (empty($_POST['limit'])) ? 20 : $_POST['limit'];
+			$start = (empty($_POST['start'])) ?  0 : $_POST['start'];
+				
+			$query = " SELECT id_listaprecio,descripcion AS descripcion_listaprecio, status FROM cat_listaprecios $filtro ";
+			$query.= " ORDER BY id_listaprecio LIMIT $start, $limit ";
+			$res = mysqlQuery($query);
+			if (!$res)  throw new Exception(mysql_error()." ".$query);
+				
+			$response = ResulsetToExt::resToArray($res);
+			$response['totalRows'] = $total_rows;
+		} catch (Exception $e) {
+			$response['totalRows'] = $total_rows;
+			$response['success']    = false;
+			$response['msg']       = $e->getMessage();
+		}
+		echo json_encode($response);
+	}
+
 }
 ?>
