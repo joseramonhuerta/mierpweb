@@ -464,6 +464,12 @@ function getJsFiles($modoProduccion=true){
 			//------------------       Form Checador     ------------------//
 	$arrayFiles[]="js/administracion/checador/formChecador.ui.js";
 	$arrayFiles[]="js/administracion/checador/formChecador.js";
+
+	//------------------       Grid Catalogo de Listas de Precios     ------------------//
+	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/gridListaPrecios.ui.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/gridListaPrecios.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/storeGridListaPrecios.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/storeGridListaPreciosStatus.js";
 	
 	//------------------          Main		     ------------------//
 	$arrayFiles[]="js/administracion/main/Main.ui.js";

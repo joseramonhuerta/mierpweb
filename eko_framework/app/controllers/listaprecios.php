@@ -8,15 +8,15 @@ class ListaPrecios extends ApplicationController {
     	}
     	return $this->model;
     } 
-    function obtenerlineas(){ //<----------------PARA EL GRID
+    function obtenerlistaprecios(){ //<----------------PARA EL GRID
 
 			$limit = (empty($_POST['limit'])) ? 20 : $_POST['limit'];
             $start = (empty($_POST['start'])) ?  0 : $_POST['start'];
             $filtro = (empty($_POST['filtro'])) ?  '': $_POST['filtro']; 
 			$filtroStatus = (empty($_POST['filtroStatus'])) ?  'A': $_POST['filtroStatus'];			
 		  			
-            $lineaModel=new LineaModel();
-            $response = $lineaModel->readAll($start,$limit,$filtro,$filtroStatus);
+            $listaprecioModel=new ListaPrecioModel();
+            $response = $listaprecioModel->readAll($start,$limit,$filtro,$filtroStatus);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
