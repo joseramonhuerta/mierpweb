@@ -20,6 +20,8 @@ class ListaPrecios extends ApplicationController {
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
+
+		
 	/*
 	function guardar(){
        

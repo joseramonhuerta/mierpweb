@@ -470,6 +470,12 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/gridListaPrecios.js";
 	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/storeGridListaPrecios.js";
 	$arrayFiles[]="js/administracion/cat_listaprecios/gridListaPrecios/storeGridListaPreciosStatus.js";
+
+	//------------------       Form Catalogo de Listas de Precios     ------------------//
+	$arrayFiles[]="js/administracion/cat_listaprecios/formListaPrecios/formListaPrecios.ui.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/formListaPrecios/formListaPrecios.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/formListaPrecios/storeFormListaPreciosGrid.js";
+	$arrayFiles[]="js/administracion/cat_listaprecios/formListaPrecios/storeFormListaPreciosProductos.js";
 	
 	//------------------          Main		     ------------------//
 	$arrayFiles[]="js/administracion/main/Main.ui.js";

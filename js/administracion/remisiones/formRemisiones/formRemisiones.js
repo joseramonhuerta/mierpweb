@@ -358,7 +358,7 @@ formRemisiones = Ext.extend(formRemisionesUi, {
 			}, this);
 		}, this);	
 	
-		this.btnAuditoria.on('click',function(){
+		/*this.btnAuditoria.on('click',function(){
 			
 			this.winAuditoria = new winAuditoria();
 			this.winAuditoria.IdRegistro = Ext.num(this.txtIdRemision.getValue(),0);
@@ -366,7 +366,7 @@ formRemisiones = Ext.extend(formRemisionesUi, {
 			this.winAuditoria.show();
 			
 			
-		}, this);	
+		}, this);*/	
 	},
 	inicializarRenders:function(){
 		var colMod=this.gridDetalles.getColumnModel();
