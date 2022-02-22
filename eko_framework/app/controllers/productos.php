@@ -508,5 +508,44 @@ class Productos extends ApplicationController {
 		
 		return $productosGuardado;
 	}
+
+	function obtenerproductosbusqueda(){		
+		try {
+			$filtro_query= ( empty($_POST['filtro']) )? '' : $_POST['filtro']; 
+			// throw new Exception($filtro_query);	
+			//$filtro="";
+			$filtro=$this->filtroToSQL($filtro_query,array('descripcion'));
+			// throw new Exception($filtro);		
+			$filtro.= ($filtro) ? " AND status = 'A' AND tipo_producto ='P' " : " WHERE status = 'A' AND tipo_producto ='P'";
+			
+			$query = "SELECT COUNT(id_producto) AS totalrows FROM cat_productos $filtro ";
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+				
+			$id_almacen = $_SESSION['Auth']['User']['id_almacen'];
+				
+			$query = " SELECT p.id_producto,p.descripcion,p.codigo_barras,p.codigo,IFNULL(s.stock,0) as stock";
+			$query.= " FROM cat_productos p";
+			$query.= " left join cat_productos_stocks s on s.id_producto = p.id_producto and s.id_almacen = $id_almacen ";
+			$query.= " $filtro ORDER BY p.descripcion";
+			
+			// throw new Exception($query);		
+			$res = mysqlQuery($query);
+			if (!$res)  throw new Exception(mysql_error()." ".$query);
+				
+				$response = ResulsetToExt::resToArray($res);
+				$response['totalRows'] = $total_rows;
+			} catch (Exception $e) {
+				$response['totalRows'] = $total_rows;
+				$response['success']    = false;
+				$response['msg']       = $e->getMessage();
+			}
+		echo json_encode($response);
+		
+	}
 }
 ?>

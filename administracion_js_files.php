@@ -89,6 +89,11 @@ function getJsFiles($modoProduccion=true){
 	//-----------------          Autorizacion Cancelacion Movimientos    ---------------------//
 	$arrayFiles[]="js/administracion/comun/winAutorizacionCancelacion/winCancelaciones.ui.js";
 	$arrayFiles[]="js/administracion/comun/winAutorizacionCancelacion/winCancelaciones.js";	
+
+	//-----------------          ventana busqueda productos    ---------------------//
+	$arrayFiles[]="js/administracion/comun/winBuscadorProductos/winBuscadorProductos.ui.js";
+	$arrayFiles[]="js/administracion/comun/winBuscadorProductos/winBuscadorProductos.js";
+	$arrayFiles[]="js/administracion/comun/winBuscadorProductos/winBuscadorProductosStore.js";		
 	
 		//------------------       Grid Catalogo de Clientes     ------------------//
 	$arrayFiles[]="js/administracion/cat_clientes/gridClientes/gridClientes.ui.js";

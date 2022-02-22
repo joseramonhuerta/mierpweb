@@ -21,7 +21,42 @@ class ListaPrecios extends ApplicationController {
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
 
+	function obtenerproducto(){
+		try {
+			$producto = $_POST['Descripcion'];
+			$id_producto = $_POST['ID'];
+			
+			$query = "SELECT COUNT(id_producto) AS totalrows FROM cat_productos WHERE (descripcion = '$producto' OR codigo = '$producto' OR codigo_barras = '$producto') OR id_producto = $id_producto";
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+			
+			if ($total_rows > 0){
+				$query = " SELECT p.id_producto, p.descripcion, p.codigo_barras, p.codigo, u.codigo_unidad, p.precio_venta, p.valor_puntos FROM cat_productos p";
+				$query.= " INNER JOIN cat_unidadesdemedida u on u.id_unidadmedida = p.id_unidadmedida";
+				$query.= " WHERE (p.descripcion = '$producto' OR p.codigo = '$producto' OR p.codigo_barras = '$producto') OR p.id_producto = $id_producto";
+				$query.= " ORDER BY p.descripcion;";
+				$res = mysqlQuery($query);
+				if (!$res)  throw new Exception(mysql_error()." ".$query);
+					
+				$response = ResulsetToExt::resToArray($res);
+			}else{
+				$response['success']    = false;
+			}
+				
+		} catch (Exception $e) {
+			$response['success']    = false;
+			$response['msg']       = $e->getMessage();
+		}
 		
+		echo json_encode($response);
+		
+	}	
+
+	
 	/*
 	function guardar(){
        

@@ -112,16 +112,15 @@ formListaPreciosUi = Ext.extend(Ext.Panel, {
                                         width: 210,
                                         items: [
                                            {
-                                                xtype: 'combo',
+                                                xtype: 'trigger',
                                                 fieldLabel: 'Producto',
-                                                anchor: '100%',
                                                 labelSeparator: ' ',
+                                                width: 200,
                                                 itemId: 'cmbProducto',
-                                                name: 'id_producto',
-                                                valueField: 'id_producto',
-                                                displayField: 'descripcion',
-                                                editable: false,
-                                                triggerAction: 'all',
+                                                triggerClass: 'x-form-search-trigger',
+                                                enableKeyEvents: true,
+                                                selectOnFocus: true,
+                                                name: 'descripcion',
                                                 ref: '../../../../cmbProducto'
                                             }
                                         ]
@@ -215,7 +214,7 @@ formListaPreciosUi = Ext.extend(Ext.Panel, {
                                 xtype: 'gridcolumn',
                                 header: 'Descripcion',
                                 sortable: true,
-                                width: 150,
+                                width: 225,
                                 dataIndex: 'descripcion',
                                 id: 'colDescripcion'
                             },

@@ -39,7 +39,7 @@ miErpWeb.storeFormListaPreciosGrid = Ext.extend(Ext.data.JsonStore, {
                     type: 'float'
                 },
 				{
-                    name: 'puntos',
+                    name: 'valor_puntos',
                     type: 'float'
                 }
 				

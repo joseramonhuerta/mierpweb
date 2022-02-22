@@ -13,40 +13,48 @@
 Ext.ns('miErpWeb');
 Ext.ns('mew');
 formListaPrecios = Ext.extend(formListaPreciosUi, {
-	total:0.00,
-	renderPrecio:function(val,x,rec){
-		return "$"+Ext.util.Format.monedaConSeparadorDeMiles(val);
+	edicion:false,
+	edicionDetalle:false,
+	indexDetalle:0,
+	id_producto:0,
+	inicializaStores: function(){
+		this.gridDetalles.store = new miErpWeb.storeFormListaPreciosGrid();
 	},
-	inicializarRenders:function(){
-		var colModel=this.gridDetalles.getColumnModel();
+	inicializaEvents:function(){
+		var me = this;
 
-		var columna=colModel.getColumnById('colPrecio');
-        columna.renderer=this.renderPrecio
+		this.cmbProducto.updateAlways = true;
 		
-	},	
-	inicializarStores:function(){
-			this.gridDetalles.store=new miErpWeb.storeFormListaPreciosGrid();
-			//this.cmbDenominacion.store =  new miErpWeb.storeFormTurnosDenominaciones();
-			//this.cmbFormaPago.store =  new miErpWeb.storeFormTurnosFormasPagos();
-	},
-	inicializarEvents:function(){
-		this.frmMain.on('actioncomplete',function(form,action){
-			 if (action.result.success){
-				 this.cargarDatos(action.result.data);				 
-			 }else{				
-				return false;
-			}			
-		}, this);	
-		
-		this.btnAgregar.on('click', function(){
-			this.agregarDetalle();
-		}, this);		
+		this.cmbProducto.on("keydown", function(cmb, e){
+			if(e.getKey()==13){
+				this.id_producto = 0;
+				this.aceptaProducto();
+			}
+		}, this);
+
+		this.cmbProducto.onTriggerClick = function(){
+				
+			this.busquedaProducto = new winBuscadorProductos();
+			this.busquedaProducto.show();
 			
+			this.busquedaProducto.on("productoSeleccionado", function(Id){
+				
+				me.id_producto = Id;
+				me.cmbProducto.setValue('');
+				me.aceptaProducto();
+			}, this);
+			
+		}
+
+		this.btnAgregar.on("click", function(){
+			this.agregarProducto();
+		}, this);
+
 		this.gridDetalles.getColumnModel().getColumnById("colDelete").renderer = function(v, m, rec){
 			value = "<img class='btnEliminarDetalle' src='images/iconos/grid_chico_borrar.png' style='cursor:pointer;' />";
 			return value;
 		}
-		
+
 		this.gridDetalles.on("cellclick", function(Grid, rowIndex, columnIndex, e){
 			var imgEl = Ext.get(e.getTarget());
 
@@ -63,151 +71,65 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 						if(btn == "yes"){
 							this.gridDetalles.getStore().removeAt(rowIndex);
 							this.gridDetalles.getSelectionModel().selectRow(0);
-													
+							this.cmbProducto.focus(false, true);
+							
+						}else{
+							this.cmbProducto.focus(false, true);	
 						}
 						
 					}
-				});				
+				});			
 			}
 				
-		}, this);	
-
-		this.btnGuardar.on('click', function(){
-			this.guardar();
-		}, this );
-		
-		this.btnEliminar.on('click',function(){	
-			this.eliminar();
-			
-		},this);
-	
-		this.btnImprimir.on('click', function(){
-			this.imprimir();
 		}, this);
+		
+		this.gridDetalles.on("celldblclick", function(Grid, rowIndex, columnIndex, e){
+				var record = this.gridDetalles.getStore().getAt(rowIndex);
+				this.indexDetalle = rowIndex;
+				this.id_producto = record.data.id_producto;
+				this.cmbProducto.setValue(record.data.id_producto);
+				this.cmbProducto.setRawValue(record.data.descripcion);
+				this.txtPrecio.setValue(Ext.util.Format.number(record.data.precio,'0.00'));
+				this.txtPuntos.setValue(Ext.util.Format.number(record.data.puntos,'0.00'));
+				this.edicionDetalle = true;
+				this.cmbProducto.setDisabled(true);
+		}, this);
+
+		this.txtPrecio.setValue=function(value){
+			if (value!=''){
+				value=miErpWeb.formatearMoneda(value);
+			}			
+			Ext.form.TextField.prototype.setValue.apply(this,arguments);
+		};
+
+		this.txtPuntos.setValue=function(value){
+			if (value!=''){
+				value=miErpWeb.formatearMoneda(value);
+			}			
+			Ext.form.TextField.prototype.setValue.apply(this,arguments);
+		};
+
+	},
+	inicializaRenders:function(){
+		var colMod=this.gridDetalles.getColumnModel();
+		
+		var column=colMod.getColumnById("colPuntos");
+		column.renderer=function(val){
+			return Ext.util.Format.cantidadConSeparadorDeMiles(val);
+		};	
+		
+		column=colMod.getColumnById("colPrecio");
+		column.renderer=this.renderMoneda;
 		
 	},
 	initComponent: function() {
         formListaPrecios.superclass.initComponent.call(this);
 		
-		this.txtStatus.setValue=function(value){        	
-        	Ext.form.TextField.prototype.setValue.apply(this,arguments);
-        	this.fireEvent('cambioDeStatus',{status:value});
-		};
+		this.inicializaStores();
+		this.inicializaEvents();
+		this.inicializaRenders();
 		
-		 this.txtIdTurno.setValue=function(value){
-			Ext.form.TextField.prototype.setValue.apply(this,arguments);
-        	this.fireEvent('cambioDeId',{id:value});
-			
-        };
-		
-		this.inicializarStores();
-		this.inicializarEvents();
-		this.inicializarRenders();
     },
-	cargarDatos:function(data){
-		if (data.Turno==undefined ){
-			Ext.Msg.show({
-				   title:'Error ',
-				   msg: 'Error en los datos del turno',
-				   buttons: Ext.Msg.OK,				   				   
-				   icon: Ext.MessageBox.WARNING
-				});
-			return;
-		}
-		var turno=data.Turno;
-		
-		var form=this.frmMain.getForm();		
-        this.txtIdTurno.setValue(turno.id_turno);
-		// this.txtStatus.setValue(turno.status);
-		var fechaTur=turno.fechainicio;
-		var dt = Date.parseDate(fechaTur, "d/m/Y H:i:s");
-	    this.txtFecha.setValue(dt);
-		this.txtHora.setValue(dt.format('H:i:s A'));
-       
-		this.txtConcepto.setValue(turno.concepto);		
-	
-		var total = turno.total;
-				
-		this.lblTotal.setValue("$"+Ext.util.Format.monedaConSeparadorDeMiles(total));
-		
-		if (turno.id_turno>0){				
-			this.btnEliminar.setDisabled(false);
-			this.btnImprimir.setDisabled(false);
-			this.setTitle(turno.id_turno+"-"+turno.concepto);
-		}
-		
-		var detalles=data.Detalles;
-        if(detalles!=undefined){			
-            this.gridDetalles.store.loadData({
-                data:detalles
-            });
-            
-        }	
-
-		this.el.unmask();	
-	},
-	agregarDetalle: function(){		
-			if(this.cmbFormaPago.getRawValue()==""){
-				Ext.Msg.alert('Aviso', 'Seleccione la forma de pago.', function(){
-					// this.btnAgregar.enable();
-					this.cmbFormaPago.focus(false, true);
-				}, this);
-				return;
-			}
-			
-			if(this.txtCantidad.getValue()=="" || this.txtCantidad.getValue() == 0){
-				Ext.Msg.alert('Aviso', 'Introduzca la cantidad.', function(){
-					// this.btnAgregar.enable();
-					this.txtCantidad.focus(false, true);
-				}, this);
-				return;
-			}
-			var existe = false;
-			var denominacion = this.cmbDenominacion.getRawValue();
-			var formapago = this.cmbFormaPago.getValue();
-			var cantidad = 0;
-			var total = 0;
-			
-			var detalles = this.gridDetalles.getStore().getRange();
-			indexDetalle = detalles.length;
-			
-			for(var x = 0; x<detalles.length; x++){
-				if(detalles[x].data.id_formapago == formapago && detalles[x].data.denominacion == denominacion ){
-					existe = true;
-					indexDetalle = x;
-					cantidad = detalles[x].data.cantidad;				
-					total = detalles[x].data.total;					
-				}	
-			}			
-			
-			if(existe == false){			
-				var record = new this.gridDetalles.store.recordType({
-					id_formapago: this.cmbFormaPago.getValue(),
-					nombre_formapago: this.cmbFormaPago.getRawValue(), 
-					id_denominacion: this.cmbDenominacion.getValue(),
-					denominacion: this.cmbDenominacion.getRawValue(), 
-					cantidad: this.txtCantidad.getValue(),
-					total: 	 this.cmbDenominacion.getRawValue() * this.txtCantidad.getValue()	
-				}, Ext.id());			
-				this.gridDetalles.getStore().insert(0,record);
-			}else{
-				var record = this.gridDetalles.getStore().getAt(indexDetalle);
-				
-				var can = cantidad + this.txtCantidad.getValue();
-				var tot = total + (this.cmbDenominacion.getRawValue() * this.txtCantidad.getValue());
-								
-				record.set("cantidad",can);			
-				record.set("total",tot);
-				
-			
-											
-				this.gridDetalles.getStore().commitChanges();	
-				
-			}
-			this.frmDetalles.getForm().reset();
-			this.cmbFormaPago.focus(true, 0);
-			this.txtCantidad.setValue(0);		
-	},
 	renderMoneda:function(val){
 		if (val<0){
 			return "-$" + Ext.util.Format.monedaConSeparadorDeMiles(val*-1);
@@ -216,189 +138,112 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 		}
 		
 	},
-	guardar:function(){
-		if (this.frmMain.getForm().isValid()){
-			var detalles=gridToJson(this.gridDetalles);
-			var fecha = this.txtFecha.getValue();
-			fecha=fecha.format('Y-m-d');   
-;   
-			var params={};
-			params['Turno[id_turno]'] = this.txtIdTurno.getValue();
-			params['Turno[id_empresa]'] = miErpWeb.Empresa[0].id_empresa;
-			params['Turno[id_sucursal]'] = miErpWeb.Sucursal[0].id_sucursal;
-			params['Turno[fecha]'] = fecha; 
-			params['Turno[hora]'] =this.txtHora.getValue();
-			params['Turno[concepto]'] = this.txtConcepto.getValue();
-			params['Turno[total]'] = this.txtTotal.getValue();
-			params['Turno[status]'] = this.txtStatus.getValue();
-			params['Detalles']=detalles;
-			
-			
-			this.el.mask('Guardando...');
-			this.frmMain.getForm().submit({
-				params:params,
-				scope:this,
-				url:'app.php/turnos/save',
-				success:function(data, options){
-					this.el.unmask();
-					
-					
+	
+	aceptaProducto:function(){
+		if(this.cmbProducto.getValue != "" || this.id_producto > 0 ){
+			//this.id_producto = 0;
+			Ext.Ajax.request({
+				scope: this,
+				url: 'app.php/listaprecios/obtenerproducto',
+				params: {
+					ID: this.id_producto,
+					Descripcion: this.cmbProducto.getValue()
 				},
-				failure:function(form, action){
+				success: function(data, options){
+					var respuesta = Ext.decode(data.responseText);
 					
-					this.el.unmask();
-					}
-				});
-				
+					if(respuesta.success==true){
+						this.id_producto = respuesta.data[0].id_producto;
+						//this.cmbProducto.setValue(respuesta.data[0].id_producto);
+						this.cmbProducto.setRawValue(respuesta.data[0].descripcion);
+						this.txtPrecio.setValue(miErpWeb.formatearMoneda(respuesta.data[0].precio_venta));
+						this.txtPuntos.setValue(miErpWeb.formatearMoneda(respuesta.data[0].valor_puntos));
 			
-		}else{
-			return;
-			
-		}	
-	},
-	limpiar: function(){
-		Ext.MessageBox.show({
-			scope: this,
-			title: "Aviso",
-			msg: "Est&aacute; seguro que desea borrar la captura?",
-			width: 320,
-			buttons: Ext.Msg.YESNO,
-			fn: function(btn){
-				if(btn == "yes"){
-					this.setConfiguracionInicial();							
-				}else{
-					this.cmbProducto.focus(false, true);	
-				}						
-			}
-		});
-				
-		
-	},
-	obtenerTurno: function(Id){
-		Ext.Ajax.request({
-			scope: this,
-			url: 'app.php/turnos/obtenerturno',
-			params: {
-				idTur: Id					
-			},
-			success: function(data, options){
-				var respuesta = Ext.decode(data.responseText);					
-				if(respuesta.success==true){
-					this.cargarDatos(respuesta.data);						
-				}else {
-					Ext.Msg.alert('Aviso', 'El turno no existe, verifique por favor.', function(){}, this);
-				}					
-			}
-		});
-	},
-	getParamsImprimir:function(){
-		return {
-			IDTur:this.txtIdTurno.getValue()
-		};
-	},
-	imprimir:function(){
-		var params=this.getParamsImprimir();
-		Ext.Ajax.request({
-			params: params,
-			   url: 'app.php/turnos/generarreporteturno',
-			   success: function(response, opts){					
-					var obj = Ext.decode(response.responseText);
-					if (!obj.success){	
-						return;
-					}
-					var identificador=obj.data.identificador;
-					window.open("app.php/turnos/getpdfturno?identificador="+identificador,'rep_tur',"height=600,width=800");							
-				},
-			   failure: function(){
-					alert("El servidor ha respondido con un mensaje de error");
-				}						   
-			   
-			});
-	},
-	eliminar:function(btn){
-		switch(btn){	
-    	case 'no':
-    		return;
-    	break;
-    	case 'yes':
-    		this.eliminar('borrar');
-    		return;
-    		break;
-    	case 'borrar':
-    		break;		
-    	case undefined:
-    	case false:    		
-    	default:
-    		var me=this;    		
-    		Ext.Msg.show({
- 			   title:'Confirme por favor',
- 			   msg: "¿Desea borrar el turno?",
- 			   buttons: Ext.Msg.YESNO,
- 			   fn: function(btn){	    				
-    				me.eliminar(btn);
-    			},
- 			   scope:this,
- 			   icon: Ext.MessageBox.QUESTION
- 			});
-    		return;
-		} 
-		this.el.mask(mew.mensajeDeEspera);
-		Ext.Ajax.request({
-			params: { id_turno: this.txtIdTurno.getValue() },
-			scope:this,
-		   	url: 'app.php/turnos/eliminar',
-		   	success: function(response,options){	
-				var respuesta=Ext.decode(response.responseText);
-				if (respuesta.success==false){
-					this.el.unmask();
-					return;
+						this.txtPrecio.focus(true,100);
+						// this.id_producto = 0;
+						} else {
+							Ext.Msg.alert('Aviso', 'El Producto no existe, verifique por favor.', function(){
+							this.id_producto = 0;	
+							this.cmbProducto.focus(true, 0);
+						}, this);
+						
+					}					
 				}
-				
-				this.fireEvent('eliminado',options.params.id_turno);
-				MainContainer.tabContainer.remove(this);
-		   	},
-		   	failure: function(){
-		   		this.el.unmask();
-		   	}		   
-		});
-	},
-	listeners:{
-    	activate:function(){
-			
-    		if (this.activado==true){
-    			return;
-    		}
-    		this.activado=true;
-    	
-			if (this.idValue!=undefined && this.idValue!=0){
-    			this.txtIdTurno.setValue(this.idValue);
-				//this.el.mask(mfw.mensajeDeEspera);    			
-    		}
-                          
-			this.frmMain.load({
-				params:{idTur:this.idValue,
-						id_empresa:miErpWeb.Empresa[0].id_empresa,
-						id_sucursal:miErpWeb.Sucursal[0].id_sucursal				
-				},
-				url:'app.php/turnos/obtenerturno'
 			});
-			
-			return false;
-					
-    	},
-    	cambioDeNombre:function(nombre){
-    		this.setTitle(Ext.util.Format.ellipsis(this.idValue+'-'+nombre,25,true));
-		},
-    	cambioDeId:function(params){
-    		var id=params.id;
-    		this.idValue=id;
-    		if (id==0){
-				this.setIconClass(Ext.ux.TDGi.iconMgr.getIcon(this.iconMaster+"_add"));
-			}else if (id>0){
-				this.setIconClass(Ext.ux.TDGi.iconMgr.getIcon(this.iconMaster+"_edit"));				
+		}
+	},
+	agregarProducto: function(){
+		if(this.cmbProducto.getRawValue()==""){
+				Ext.Msg.alert('Aviso', 'Capture el Producto.', function(){
+					this.btnAgregar.enable();
+					this.cmbProducto.focus(false, true);
+				}, this);
+				return;
 			}
-					
-    	}
-    }
+			
+			if (!this.frmDetalles.getForm().isValid()) {	//<---Si hay errores informa al usuario
+			  Ext.Msg.show({
+				   title:'Error al agregar el Producto',
+				   msg: 'Por favor revise los campos marcados',
+				   buttons: Ext.Msg.OK,
+				   fn: function(){
+						this.cmbProducto.focus();
+						this.cmbProducto.allowBlank=true;
+				   },			   
+				   scope:this,
+				   icon: Ext.MessageBox.WARNING
+				});			
+				return false;
+			}
+			
+			var prec = this.txtPrecio.getValue();
+			var punt = this.txtPuntos.getValue();
+									
+			var id_producto = this.id_producto;
+			var existe = false;
+			var indexDetalle = 0;
+			var precio = this.txtPrecio.getValue();
+			var puntos = this.txtPuntos.getValue();		
+			
+			var detalles = this.gridDetalles.getStore().getRange();
+			indexDetalle = detalles.length;
+			
+			for(var x = 0; x<detalles.length; x++){
+				if(detalles[x].data.id_producto == id_producto){
+					existe = true;
+					indexDetalle = x;
+					precio = detalles[x].data.precio;
+					puntos = detalles[x].data.puntos;								
+				}	
+			}
+			
+			if(existe == false){
+				var record = new this.gridDetalles.store.recordType({
+					id_producto: this.id_producto,
+					descripcion: this.cmbProducto.getRawValue(), 
+					precio: this.txtPrecio.getValue(),
+					puntos: this.txtPuntos.getValue()
+				}, Ext.id());
+				
+				this.gridDetalles.getStore().insert(0,record);
+			}else{
+				var record = this.gridDetalles.getStore().getAt(indexDetalle);
+				if(this.edicionDetalle){					
+					var prec = this.txtPrecio.getValue();
+					var punt = this.txtPuntos.getValue();					
+				}
+				record.set("precio",prec);
+				record.set("puntos",punt);				
+											
+				this.gridDetalles.getStore().commitChanges();				
+			}
+			this.frmDetalles.getForm().reset();
+			this.cmbProducto.setDisabled(false);
+			this.cmbProducto.focus(true, 0);
+			this.id_producto = 0;
+			this.edicionDetalle=false;
+			this.indexDetalle = 0;			
+		
+	}
 });
 Ext.reg('formListaPrecios', formListaPrecios);
