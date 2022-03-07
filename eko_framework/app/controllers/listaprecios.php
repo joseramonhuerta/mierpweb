@@ -54,33 +54,81 @@ class ListaPrecios extends ApplicationController {
 		
 		echo json_encode($response);
 		
-	}	
-
+	}		
 	
-	/*
-	function guardar(){
-       
-        $empresa=array();
-        $response=array();
-    		
-		$Linea=array(
-		'id_linea'=>$_POST['id_linea'],
-		'nombre_linea'=>$_POST['nombre_linea'],
-		'status'=>$_POST['status']			
-		);		
+	function save(){
+		$params = $_POST;
 		
-		$lineaModel=new LineaModel();
+		$listaprecioModel=new ListaPrecioModel();
 		
-		$lineaGuardado=$lineaModel->guardar($Linea);
-		if (!$lineaGuardado)throw new Exception("Error al guardar los datos del Linea");
+		$resp = $listaprecioModel->guardar($params);
 		
-		$response['success'] = true;
-		$response['msg'] = array('titulo'=>'Lineas','mensaje'=> 'La información del Linea han sido guardada satisfactoriamente') ;            
-		$response['data']['Linea']= $lineaGuardado; 
-			
-		return $response;
-    }
+		$response=array();
+        $response['success']=true;
+        $response['msg'] = array('titulo'=>'Lista Precios','mensaje'=> 'La información de la Lista de Precios ha sido guardada satisfactoriamente') ;            
+        $response['data']=$resp;
+		
+        return $response;
+	}
 
+	function obtenerlista(){
+		$listaprecioModel=new  ListaPrecioModel();
+
+		$id=$_POST['idLis'];
+				
+		if($id==0){
+			$data=array();
+			$data['ListaPrecio']=$listaprecioModel->getInitialInfo();
+					
+		}else{
+			$data=$listaprecioModel->getById($id);
+		}
+	
+		$response=array();
+        $response['success']=true;
+        $response['data']=$data;
+		
+        return $response;
+		
+	}
+
+	function eliminar(){
+		$listaprecioModel=new ListaPrecioModel();
+		$titulo=$listaprecioModel->name;
+		
+		if ( empty($_POST['id_listaprecio']) ){
+			return array(
+				'success'=>false,
+				'msg'=>array('titulo'=>"Error en la solicitud de borrado",'mensaje'=>"Debe proporcionar la referencia a la lista de precios que desea eliminar"),
+				'data'=>$data
+			);	
+		}
+		
+		$id=$_POST['id_listaprecio'];	
+	
+		$listaprecioModel->delete($id);
+		
+		$affected=mysql_affected_rows();
+		
+		if (empty($affected)){
+			$success=false;
+			$mensaje="La lista de precios no fue eliminado";
+		}else{
+			$success=true;
+			$mensaje="Lista de precios eliminado de la base de datos";
+		}	
+		$data=array('id_listaprecio'=>$id);
+		
+		return array(
+			'success'=>true,
+			'msg'=>array(
+					'titulo'=>'Lista Precio',
+					'mensaje'=>$mensaje
+				),
+			'data'=>$data
+		);
+	}
+	/*
 	function obtenerlinea(){
 		$lineaModel = new LineaModel();
 		$sucursalModel=new Sucursal();

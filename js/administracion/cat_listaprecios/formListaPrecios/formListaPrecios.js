@@ -23,6 +23,25 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 	inicializaEvents:function(){
 		var me = this;
 
+		this.frmMain.on('actioncomplete',function(form,action){
+			if (action.result.success){
+				this.cargarDatos(action.result.data);				
+			}else{				
+			   return false;
+		   }			
+	   }, this);
+	   
+	   this.on('cambioDeId',function(params){	
+			var id=params.id;
+			if (id==0){
+				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_add.png');
+			}else if (id>0){
+				this.btnEliminar.setDisabled(false);
+				//this.btnDesactivar.setDisabled(false);
+				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_edit.png');
+			}			
+		},this);
+
 		this.cmbProducto.updateAlways = true;
 		
 		this.cmbProducto.on("keydown", function(cmb, e){
@@ -45,6 +64,13 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 			}, this);
 			
 		}
+
+		this.txtDescripcion.setValue=function(value){
+			value=miErpWeb.formatearTexto(value);
+        	Ext.form.TextField.prototype.setValue.apply(this,arguments);
+        	//this.cambioDeNombre(value);
+			this.fireEvent('cambioDeNombre',value);
+		}; 
 
 		this.btnAgregar.on("click", function(){
 			this.agregarProducto();
@@ -90,7 +116,7 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 				this.cmbProducto.setValue(record.data.id_producto);
 				this.cmbProducto.setRawValue(record.data.descripcion);
 				this.txtPrecio.setValue(Ext.util.Format.number(record.data.precio,'0.00'));
-				this.txtPuntos.setValue(Ext.util.Format.number(record.data.puntos,'0.00'));
+				this.txtPuntos.setValue(Ext.util.Format.number(record.data.valor_puntos,'0.00'));
 				this.edicionDetalle = true;
 				this.cmbProducto.setDisabled(true);
 		}, this);
@@ -109,6 +135,15 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 			Ext.form.TextField.prototype.setValue.apply(this,arguments);
 		};
 
+		this.btnGuardar.on('click', function(){
+			this.guardar();
+		}, this );
+		
+		this.btnEliminar.on('click',function(){	
+			this.eliminar();
+			
+		},this);
+
 	},
 	inicializaRenders:function(){
 		var colMod=this.gridDetalles.getColumnModel();
@@ -125,6 +160,17 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 	initComponent: function() {
         formListaPrecios.superclass.initComponent.call(this);
 		
+		this.txtStatus.setValue=function(value){        	
+        	Ext.form.TextField.prototype.setValue.apply(this,arguments);
+        	this.fireEvent('cambioDeStatus',{status:value});
+		};
+		
+		 this.txtIdListaPrecio.setValue=function(value){
+			Ext.form.TextField.prototype.setValue.apply(this,arguments);
+        	this.fireEvent('cambioDeId',{id:value});
+			
+        };
+
 		this.inicializaStores();
 		this.inicializaEvents();
 		this.inicializaRenders();
@@ -138,7 +184,105 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 		}
 		
 	},
-	
+	guardar:function(){
+		if (this.frmMain.getForm().isValid()){
+			var conceptos=gridToJson(this.gridDetalles);
+			
+			var params={};
+			params['ListaPrecio[id_listaprecio]'] = this.txtIdListaPrecio.getValue();
+			params['ListaPrecio[descripcion]'] = this.txtDescripcion.getValue();
+			params['ListaPrecio[status]'] = this.txtStatus.getValue();
+
+			params['Conceptos']=conceptos;
+			
+			this.el.mask('Guardando...');
+			this.frmMain.getForm().submit({
+				params:params,
+				scope:this,
+				url:'app.php/listaprecios/save',
+				success:function(){
+					this.el.unmask();
+				},
+				failure:function(form, action){
+					this.el.unmask();
+					switch (action.failureType) {
+		            case Ext.form.Action.CLIENT_INVALID:		                
+		                msg="Favor de revisar los campos marcados";
+		                icon=Ext.MessageBox.WARNING;
+		                break;
+		            case Ext.form.Action.CONNECT_FAILURE:		                
+		                msg="Error en la comunicación ajax, intente de nuevo";
+		                icon=Ext.MessageBox.ERROR;
+		                break;
+		            case Ext.form.Action.SERVER_INVALID:
+		                icon=Ext.MessageBox.ERROR;
+		                msg=action.result.msg;
+					}
+					Ext.Msg.show({
+					   title:'Error',
+					   msg: msg,
+					   buttons: Ext.Msg.OK,						  						   
+					   icon: icon
+					});
+					
+					}
+				});
+				
+			
+		}else{
+			return;
+			
+		}	
+		
+		
+	},
+	eliminar:function(btn){
+		switch(btn){	//ESTE SWITCH ES USADO PARA ANALIZAR LO QUE TRATA DE HACER EL USUARIO, LA PRIERA VEZ DEBE ENTRAR A default:
+			case 'no':
+				return;
+			break;
+			case 'yes':
+				this.eliminar('borrar');
+				return;
+				break;
+			case 'borrar':
+				break;		//SALE DEL SWITCH Y SIGUE EJECUTANDOSE LA FUNCI�N
+			case undefined:	//AQUI ENTRA LA PRIMERA VEZ
+			case false:    		
+			default:
+				var me=this;    		
+				Ext.Msg.show({
+					title:'Confirme por favor',
+					msg: "¿Desea borrar la lista de precios?",
+					buttons: Ext.Msg.YESNO,
+					fn: function(btn){	    				
+						me.eliminar(btn);
+					},
+					scope:this,
+					icon: Ext.MessageBox.QUESTION
+				 });
+				return;
+			} 
+			this.el.mask(mew.mensajeDeEspera);
+			Ext.Ajax.request({
+				params: { id_listaprecio: this.txtIdListaPrecio.getValue() },
+				scope:this,
+				   url: 'app.php/listaprecios/eliminar',
+				   success: function(response,options){	
+					var respuesta=Ext.decode(response.responseText);
+					if (respuesta.success==false){
+						this.el.unmask();
+						return;
+					}
+					
+					this.fireEvent('eliminado',options.params.id_listaprecio);
+					MainContainer.tabContainer.remove(this);
+				   },
+				   failure: function(){
+					   this.el.unmask();
+				   }		   
+			});
+	},
 	aceptaProducto:function(){
 		if(this.cmbProducto.getValue != "" || this.id_producto > 0 ){
 			//this.id_producto = 0;
@@ -213,7 +357,7 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 					existe = true;
 					indexDetalle = x;
 					precio = detalles[x].data.precio;
-					puntos = detalles[x].data.puntos;								
+					valor_puntos = detalles[x].data.puntos;								
 				}	
 			}
 			
@@ -222,7 +366,7 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 					id_producto: this.id_producto,
 					descripcion: this.cmbProducto.getRawValue(), 
 					precio: this.txtPrecio.getValue(),
-					puntos: this.txtPuntos.getValue()
+					valor_puntos: this.txtPuntos.getValue()
 				}, Ext.id());
 				
 				this.gridDetalles.getStore().insert(0,record);
@@ -233,7 +377,7 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 					var punt = this.txtPuntos.getValue();					
 				}
 				record.set("precio",prec);
-				record.set("puntos",punt);				
+				record.set("valor_puntos",punt);				
 											
 				this.gridDetalles.getStore().commitChanges();				
 			}
@@ -244,6 +388,81 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 			this.edicionDetalle=false;
 			this.indexDetalle = 0;			
 		
-	}
+	},
+	cargarDatos:function(data){
+		if (data.ListaPrecio==undefined ){
+			Ext.Msg.show({
+				   title:'Error ',
+				   msg: 'Error en los datos de la lista de precio',
+				   buttons: Ext.Msg.OK,				   				   
+				   icon: Ext.MessageBox.WARNING
+				});
+			// miErpWeb.tabContainer.remove(this);	
+			
+			return;
+		}
+		var listaprecio=data.ListaPrecio;
+		var form=this.frmMain.getForm();		
+        // form.setValues(movimiento);
+		this.txtIdListaPrecio.setValue(listaprecio.id_listaprecio);
+        
+		this.txtDescripcion.setValue(listaprecio.descripcion);				
+		
+		if (listaprecio.id_listaprecio==0){
+						
+		}else{/*	SI LA FACTURA YA EXISTE EN EL SERVIDOR, SE ESTABLECE UN NUEVO TITULO Y EL ICONO DEL TAB			*/
+			this.btnEliminar.setDisabled(false);		
+			
+			this.setTitle(listaprecio.id_listaprecio+"-"+listaprecio.descripcion);
+						
+		}		
+		
+		//Cargar detalles
+		var detalles=data.Detalles;
+        if(detalles!=undefined){			
+            this.gridDetalles.store.loadData({
+                data:detalles
+            });
+           
+        }	
+
+		this.el.unmask();	
+	},
+	listeners:{
+    	activate:function(){
+			
+    		if (this.activado==true){
+    			return;
+    		}
+    		this.activado=true;
+    	
+			if (this.idValue!=undefined && this.idValue!=0){
+    			this.txtIdListaPrecio.setValue(this.idValue);
+				//this.el.mask(mfw.mensajeDeEspera);    			
+    		}
+                          
+			this.frmMain.load({
+				params:{idLis:this.idValue				
+				},
+				url:'app.php/listaprecios/obtenerlista'
+			});
+			
+			return false;
+					
+    	},
+    	cambioDeNombre:function(nombre){
+    		this.setTitle(Ext.util.Format.ellipsis(this.idValue+'-'+nombre,25,true));
+		},
+    	cambioDeId:function(params){
+    		var id=params.id;
+    		this.idValue=id;
+    		if (id==0){
+				this.setIconClass(Ext.ux.TDGi.iconMgr.getIcon(this.iconMaster+"_add"));
+			}else if (id>0){
+				this.setIconClass(Ext.ux.TDGi.iconMgr.getIcon(this.iconMaster+"_edit"));				
+			}
+					
+    	}
+    }
 });
 Ext.reg('formListaPrecios', formListaPrecios);

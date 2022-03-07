@@ -232,7 +232,7 @@ formListaPreciosUi = Ext.extend(Ext.Panel, {
                                 header: 'Puntos',
                                 sortable: true,
                                 width: 90,
-                                dataIndex: 'puntos',
+                                dataIndex: 'valor_puntos',
                                 align: 'right',
                                 id: 'colPuntos'
                             }
