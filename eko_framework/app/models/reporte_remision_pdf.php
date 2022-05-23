@@ -67,7 +67,7 @@ class ReporteRemisionPDF extends FPDF{
 		$serie=$datos['remision']['serie'];
 		$folio=$datos['remision']['folio'];
 		$fecha=$datos['remision']['fecha'];
-		$nombre_movimiento="VENTA DE MAYOREO";
+		$nombre_movimiento="VENTA DE ".$datos['remision']['condicion_pago'];
 		$concepto=$datos['remision']['concepto'];
 		$condicion_pago=$datos['remision']['condicion_pago'];
 		$aplicado=$datos['remision']['aplicado'];
@@ -349,7 +349,7 @@ class ReporteRemisionPDF extends FPDF{
 			
 		// $hCell=5;
 		// $PageBreakTrigger=$this->h-$this->bMargin;
-		// $this->despuesdelosdetalles();
+		$this->despuesdelosdetalles();
 	}
 	
 	function despuesdelosdetalles(){
@@ -360,6 +360,38 @@ class ReporteRemisionPDF extends FPDF{
 		// if ($y>$limite){
 			// $this->AddPage();
 		// }
+		$this->Ln();
+		$this->Ln();	
+		$border = 0;
+		$columna = 10;
+		$alto   = 6;
+		$y = $this->GetY();
+		$this->SetXY($columna,$y);
+		$this->SetFont('Arial','B',9);
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "ABONOS", $border, 0, 'L');
+		$this->Ln();
+		$this->Cell(150, $alto, "FECHA             	     ABONO             	    SALDO            	    FIRMA VENDEDOR", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+		$this->Ln();
+		$this->SetX($columna);
+		$this->Cell(150, $alto, "____________      ____________      ____________      ___________________", $border, 0, 'L');
+
+
 	}
 	
 	function jsDateToMysql($jsDate){
@@ -443,28 +475,31 @@ class ReporteRemisionPDF extends FPDF{
 		$this->aceptarSalto=false;
 	}
 	public function Footer() {
-		$this->SetY(-63);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
+		$this->SetY(-68);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
 		$y = $this->GetY() + 3;
 		$this->SetY($y);
 		$y=$this->GetY();
 		
 		
-		$border = 0;
+		$border = 1;
 		$columna = 10;
 		$alto   = 4;
 		$y = $this->GetY();
 		$this->SetXY($columna,$y);
 		$this->SetFont('Arial','B',9);
 		$this->SetX($columna);
-		$this->Cell(150, $alto, "SI PAGA SU FACTURA ANTES DEL VENCIMIENTO, RECIBE PRECIO DE CONTADO.", $border, 0, 'L');
-		$this->Ln();
+		$this->MultiCell(150, $alto, "LLEVE EL CONTROL DE PAGOS EN ESTA MISMA NOTA Y CONSERVELA PARA FUTURAS ACLARACIONES, CONSERVE SU CREDITO SANO PARA SEGUIR INCREMENTANDO SUS BENEFICIOS.", $border, 'L');
+		//$this->Ln();
+		//$this->Cell(150, $alto, "", $border, 0, 'L');
+		
+		$alto   = 4;
+		$border = 0;
 		$this->SetX($columna);
 		$this->Cell(150, $alto, "FAVOR DE AVISAR A SU AGENTE DE VENTAS PARA REALIZAR SU PAGO", $border, 0, 'L');
 		$this->Ln();
 		$this->SetX($columna);
-		$this->Cell(150, $alto, "CUALQUIER DUDA LLAMAR AL TEL. 6691 54 57 71", $border, 0, 'C');
+		$this->Cell(150, $alto, "CUALQUIER DUDA LLAMAR AL TEL. 6691 54 57 71 Y 6692 89 67 35", $border, 0, 'C');
 		$this->SetFont('Arial','B',11);
-		$this->Ln();
 		$this->Ln();
 		$this->SetX($columna);
 		$this->Cell(150, $alto, "POR ESTE PAGARE ME OBLIGO  INCONDICIONALMENTE A PAGAR A LA ORDEN DE", $border, 0, 'L');
@@ -496,15 +531,7 @@ class ReporteRemisionPDF extends FPDF{
 		
 		if ($this->imprimirSubtotalesDesdeFooter==true){
 			$this->imprimirTotales();
-		}
-		
-		
-		
-		
-		
-		
-		
-		
+		}		
 		
 		$yFooter = -11;
 		$wFooter = 10;

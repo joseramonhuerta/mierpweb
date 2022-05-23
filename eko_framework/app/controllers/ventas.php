@@ -442,6 +442,7 @@ class Ventas extends ApplicationController {
 		try {
 			$producto = $this->EscComillas($_POST['Descripcion']);
 			$id_producto = $_POST['ID'];
+			$id_cliente = $_POST['ID_Cliente'];
 			
 			$query = "SELECT COUNT(id_producto) AS totalrows FROM cat_productos WHERE (descripcion = '$producto' OR codigo = '$producto' OR codigo_barras = '$producto') OR id_producto = $id_producto";
 			$res = mysqlQuery($query);
@@ -452,7 +453,7 @@ class Ventas extends ApplicationController {
 			$total_rows = $resultado['totalrows'];
 			
 			if ($total_rows > 0){
-				$query = " SELECT p.id_producto, p.descripcion, p.codigo_barras, p.codigo, u.codigo_unidad, p.precio_venta,p.precio_estilista FROM cat_productos p";
+				$query = " SELECT p.id_producto, p.descripcion, p.codigo_barras, p.codigo, u.codigo_unidad, getPrecioProducto(p.id_producto, $id_cliente) AS precio_venta,p.precio_estilista FROM cat_productos p";
 				$query.= " INNER JOIN cat_unidadesdemedida u on u.id_unidadmedida = p.id_unidadmedida";
 				$query.= " WHERE (p.descripcion = '$producto' OR p.codigo = '$producto' OR p.codigo_barras = '$producto') OR p.id_producto = $id_producto";
 				$query.= " ORDER BY p.descripcion;";

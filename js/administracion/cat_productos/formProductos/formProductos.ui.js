@@ -159,6 +159,7 @@ formProductosUi = Ext.extend(Ext.form.FormPanel, {
                         xtype: 'textfield',
                         fieldLabel: 'Precio de Venta',
                         width: 100,
+                        allowBlank: false,
                         labelStyle: 'font-weight:bold;',
                         name: 'precio_venta',
                         style: 'text-align:right;margin-left:3px;',
@@ -168,6 +169,7 @@ formProductosUi = Ext.extend(Ext.form.FormPanel, {
                         xtype: 'textfield',
                         fieldLabel: 'Precio de Compra',
                         width: 100,
+                        allowBlank: false,
                         labelStyle: 'font-weight:bold;',
                         name: 'precio_compra',
                         style: 'text-align:right;margin-left:3px;',
@@ -177,6 +179,7 @@ formProductosUi = Ext.extend(Ext.form.FormPanel, {
                         xtype: 'textfield',
                         fieldLabel: 'Precio Estilista',
                         width: 100,
+                        allowBlank: false,
                         labelStyle: 'font-weight:bold;',
                         style: 'text-align:right;margin-left:3px;',
                         name: 'precio_estilista',
@@ -199,6 +202,16 @@ formProductosUi = Ext.extend(Ext.form.FormPanel, {
                         name: 'costo_promedio',
                         style: 'text-align:right;margin-left:3px;',
                         ref: '../txtCostoPromedio'
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Valor Puntos',
+                        width: 100,
+                        allowBlank: false,
+                        labelStyle: 'font-weight:bold;',
+                        style: 'text-align:right;margin-left:3px;',
+                        name: 'valor_puntos',
+                        ref: '../txtValorPuntos'
                     }
                 ]
             },

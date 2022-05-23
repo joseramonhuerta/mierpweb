@@ -129,7 +129,14 @@ formReportePedidoSugeridoUi = Ext.extend(Ext.form.FormPanel, {
                     ]
                 },
                 ref: 'cmbLinea'
-            }
+            },
+            { 
+                xtype: 'checkbox', //defining the type of component
+                fieldLabel: 'Productos TOP',//assigning a label
+                name: 'chkProductosTop', //and a "name" so we can retrieve it in the server... 
+                id: 'id-active',// ...when the form is sent
+                ref: 'chkProductosTop'
+            } 
         ];
         formReportePedidoSugeridoUi.superclass.initComponent.call(this);
     }

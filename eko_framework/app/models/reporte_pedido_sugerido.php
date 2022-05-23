@@ -91,6 +91,7 @@ class ReportePedidoSugerido{
 		$fechaInicio.=" 00:00:00"; 
 		$fechaFin.=" 23:59:59";
 		$fechaFinFiltro=(empty($params['FechaFin'])) ?  '': $params['FechaFin'];
+		$productosTop = (empty($params['ProductosTop'])) ?  0: $params['ProductosTop'];
 		
 		$query = "SELECT DATE_FORMAT('$fechaInicio','%d/%m/%Y') as fecha_inicio,DATE_FORMAT('$fechaFinFiltro','%d/%m/%Y') as fecha_fin";
 		
@@ -99,7 +100,7 @@ class ReportePedidoSugerido{
 			return array();
 		}
 		
-		$query ="CALL spPedidoSugerido($idSucOrigen,$idSuc,'$fechaInicio','$fechaFin',$id_lin,0);";
+		$query ="CALL spPedidoSugerido($idSucOrigen,$idSuc,'$fechaInicio','$fechaFin',$id_lin,0, $productosTop);";
 				
 		$resArrVentas = $model->query($query);
 		if ( empty($resArrVentas) ){

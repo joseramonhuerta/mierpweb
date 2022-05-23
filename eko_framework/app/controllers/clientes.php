@@ -81,30 +81,10 @@ class Clientes extends ApplicationController {
 			'celular_contacto'=>$_POST['celular_contacto'],
 			'status'=>$_POST['status'],
 			'id_listaprecio'=>$_POST['id_listaprecio']		
-			);		
-			
-			
-			
-			// if ( empty($_POST['id_cliente']) ){
-				// $idEmp=$_SESSION['Auth']['User']['IDEmp'];
-				// $idSuc=$_SESSION['Auth']['User']['IDSuc'];	
-				// $params['KEYEmpAlm']=$idEmp;
-				// $params['KEYSucAlm']=$idSuc;
-			// }
+			);							
 		
-            $clienteModel=new ClienteModel();
+            $clienteModel=new ClienteModel();			
 			
-			// $clienteModel=$this->getModelObject();
-            /*if (!empty($cliente['pass']) || !empty($cliente['retype'])){
-				$pass=$cliente['pass'];
-				$retype=$cliente['retype'];
-				unset($cliente['retype']);
-				unset($cliente['pass']);
-				if ($pass!=$retype){
-					throw new Exception("Las contraseñas no coinciden");
-				}
-				$cliente['ConConCli']=$pass;
-			}*/
             $clienteGuardado=$clienteModel->guardar($Cliente);
             if (!$clienteGuardado)throw new Exception("Error al guardar los datos del cliente");
             
@@ -112,7 +92,7 @@ class Clientes extends ApplicationController {
             $response['msg'] = array('titulo'=>'Clientes','mensaje'=> 'La información del Cliente ha sido guardada satisfactoriamente') ;            
             $response['data']['Cliente']= $clienteGuardado; 
 			
-			 $ciudadId=$clienteGuardado['id_ciu'];
+			$ciudadId=$clienteGuardado['id_ciu'];
             $paisId=$clienteGuardado['id_pai'];
             $estadoId=$clienteGuardado['id_est'];
 			$listaprecioId=$clienteGuardado['id_listaprecio'];
@@ -128,7 +108,7 @@ class Clientes extends ApplicationController {
 			
 			
 			$response['data']['Unidades']=$unidades['data'];
-			$response['data']['ListaPrecios']=$listaprecio['data'];	 
+			$response['data']['ListaPrecios']=$listaprecio[0];	 
 			
          
 

@@ -131,7 +131,8 @@ formReportePedidoSugerido = Ext.extend(formReportePedidoSugeridoUi, {
 			IDSuc:Ext.num(this.cmbSucursal.getValue(),0),
 			FechaIni:this.txtFechaInicio.getValue().dateFormat('Y-m-d'),
 			FechaFin:this.txtFechaFin.getValue().dateFormat('Y-m-d'),
-			IDLin:Ext.num(this.cmbLinea.getValue(),0)
+			IDLin:Ext.num(this.cmbLinea.getValue(),0),
+			ProductosTop:this.chkProductosTop.checked ? 1 : 0
 		};
 		
 		

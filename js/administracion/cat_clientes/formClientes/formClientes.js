@@ -396,12 +396,9 @@ formClientes = Ext.extend(formClientesUi, {
 				cliente.colonia=miErpWeb.formatearTexto(cliente.colonia);
 				cliente.localidad=miErpWeb.formatearTexto(cliente.localidad);
 				cliente.nombre_contacto=miErpWeb.formatearTexto(cliente.nombre_contacto);
-				cliente.email_contacto=miErpWeb.formatearCorreo(cliente.email_contacto);
+				cliente.email_contacto=miErpWeb.formatearCorreo(cliente.email_contacto);				
 				
-				
-				form.setValues(cliente);
-				
-				
+				form.setValues(cliente);				
 			}
 					
     	},

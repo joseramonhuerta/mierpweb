@@ -78,12 +78,7 @@ formProductos = Ext.extend(formProductosUi, {
 						this.el.focus();
 					}
 					if(!Ext.isEmpty(me.cmbLineas.getValue())){
-						this.reset();
-						
-						// this.deshabilitarBtns(true);
-						// this.cntActivo.setVisible(false);
-						// this.spExcel.setVisible(false);
-						//this.reloadGrid(null, 0);
+						this.reset();					
 					}
 				}else{
 					if(this.readOnly || this.disabled){
@@ -160,8 +155,8 @@ formProductos = Ext.extend(formProductosUi, {
 				value="$"+Ext.util.Format.monedaConSeparadorDeMiles(value);				
 			}
 			Ext.form.DisplayField.prototype.setValue.apply(this,arguments);
-		};
-		
+		};		
+
 		this.txtPrecioCompra.on('change',function(){
 			var idProd=this.txtIdProducto.getValue();
 			if (idProd==='' || idProd===0){
@@ -270,6 +265,25 @@ formProductos = Ext.extend(formProductosUi, {
         };
 		
 		this.txtMaximo.getErrors=function(){
+        	var errors = Ext.form.TextField.superclass.getErrors.apply(this, arguments);
+            var msg='';
+            
+            var valor=this.getValue();
+            
+            if (isNaN(this.getValue())){		
+                msg = "Numero incorrecto";
+                errors.push(msg);
+            }else{	//Si es un numero, se verifica que no exceda el maximo de la base de datos decimal 14,6
+          	  var maximo=99999999.999999;
+          	  if (valor>maximo){
+              	  msg = "El número debe ser menor a "+Ext.util.Format.separarMiles(maximo);
+                    errors.push(msg);
+                }
+            }
+            return errors;
+        };
+
+		this.txtValorPuntos.getErrors=function(){
         	var errors = Ext.form.TextField.superclass.getErrors.apply(this, arguments);
             var msg='';
             
@@ -426,6 +440,7 @@ formProductos = Ext.extend(formProductosUi, {
 				producto.descripcion=miErpWeb.formatearTexto(producto.descripcion);
 				producto.detalles=miErpWeb.formatearTexto(producto.detalles);
 				producto.precio_venta=miErpWeb.formatearMoneda(producto.precio_venta);
+				producto.valor_puntos=miErpWeb.formatearMoneda(producto.valor_puntos);
 				producto.precio_estilista=miErpWeb.formatearMoneda(producto.precio_estilista);
 				producto.precio_compra=miErpWeb.formatearMoneda(producto.precio_compra);
 				// producto.ultimo_costo=miErpWeb.monedaConSeparadorDeMiles(producto.ultimo_costo);

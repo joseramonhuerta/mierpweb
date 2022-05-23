@@ -39,7 +39,7 @@ class ProductoModel extends Model{
         $resultado = mysql_fetch_array($res, MYSQL_ASSOC);
         $totalRows = $resultado['totalrows'];
 
-        $query = "SELECT p.id_producto,p.codigo,p.descripcion,p.tipo_producto,p.id_linea,l.nombre_linea,u.descripcion_unidad as unidad_medida,p.precio_venta,p.precio_estilista,p.status FROM $this->useTable p
+        $query = "SELECT p.id_producto,p.codigo,p.descripcion,p.tipo_producto,p.id_linea,l.nombre_linea,u.descripcion_unidad as unidad_medida,p.precio_venta,p.precio_estilista,p.status, p.valor_puntos FROM $this->useTable p
 				LEFT JOIN cat_unidadesdemedida u ON u.id_unidadmedida=p.id_unidadmedida
 				LEFT JOIN cat_lineas l ON l.id_linea=p.id_linea
                 $filtroSql ORDER BY p.descripcion limit $start,$limit ;";
@@ -96,6 +96,7 @@ class ProductoModel extends Model{
 		$query.=",precio_venta=".$datos['precio_venta']."";	
         $query.=",precio_estilista=".$datos['precio_estilista']."";
 		$query.=",precio_compra=".$datos['precio_compra']."";
+		$query.=",valor_puntos=".$datos['valor_puntos']."";
 		
 		$query.=",iva=".$datos['iva']."";
 		$query.=",ret_iva=".$datos['ret_iva']."";
@@ -220,7 +221,7 @@ class ProductoModel extends Model{
 		$id_almacen = $_SESSION['Auth']['User']['id_almacen'];
     	$query="SELECT p.id_producto,p.codigo,p.codigo_barras,p.descripcion,p.detalles,p.id_unidadmedida,u.descripcion_unidad,p.precio_venta,p.precio_estilista,p.precio_compra,p.costo_promedio,
 		p.ultimo_costo,p.status,p.tipo_producto,p.id_linea,l.nombre_linea,p.iva,p.ret_iva,p.ret_isr,
-		IFNULL(s.stock_min,0) as stock_min,	IFNULL(s.stock_max,0) as stock_max
+		IFNULL(s.stock_min,0) as stock_min,	IFNULL(s.stock_max,0) as stock_max, p.valor_puntos
 		FROM cat_productos p
 		LEFT JOIN cat_unidadesdemedida u ON p.id_unidadmedida=u.id_unidadmedida 
 		LEFT JOIN cat_lineas l ON p.id_linea=l.id_linea 

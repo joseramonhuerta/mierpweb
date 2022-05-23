@@ -418,7 +418,8 @@ formRemisiones = Ext.extend(formRemisionesUi, {
 				url: 'app.php/remisiones/obtenerproducto',
 				params: {
 					ID: this.id_producto,
-					Descripcion: this.cmbProducto.getValue()
+					Descripcion: this.cmbProducto.getValue(),
+					ID_Cliente: this.cmbCliente.getValue()
 				},
 				success: function(data, options){
 					var respuesta = Ext.decode(data.responseText);

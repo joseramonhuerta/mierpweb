@@ -47,6 +47,7 @@ class Productos extends ApplicationController {
 			'precio_venta'=>$_POST['precio_venta'],
 			'precio_estilista'=>$_POST['precio_estilista'],
 			'precio_compra'=>$_POST['precio_compra'],
+			'valor_puntos'=>$_POST['valor_puntos'],
 			'iva'=>$_POST['iva'],
 			'ret_iva'=>$_POST['ret_iva'],
 			'ret_isr'=>$_POST['ret_isr'],

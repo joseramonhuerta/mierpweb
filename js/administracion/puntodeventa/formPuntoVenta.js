@@ -204,7 +204,8 @@ formPuntoVenta = Ext.extend(formPuntoVentaUi, {
 				url: 'app.php/ventas/obtenerproducto',
 				params: {
 					ID: this.id_producto,
-					Descripcion: this.cmbProducto.getValue()
+					Descripcion: this.cmbProducto.getValue(),
+					ID_Cliente: this.cmbCliente.getValue()
 				},
 				success: function(data, options){
 					var respuesta = Ext.decode(data.responseText);
@@ -545,15 +546,15 @@ formPuntoVenta = Ext.extend(formPuntoVentaUi, {
 		}, this);	
 		
 		this.btnCancelar.on('click',function(){
-			//this.cancelar();
-			this.winAutorizarCancelacion = new winCancelaciones();
-			this.winAutorizarCancelacion.id_moviento = Ext.num(this.id_venta,0);
-			this.winAutorizarCancelacion.tipo_moviento = 1;			
-			this.winAutorizarCancelacion.show();
+			this.cancelar();
+			//this.winAutorizarCancelacion = new winCancelaciones();
+			//this.winAutorizarCancelacion.id_moviento = Ext.num(this.id_venta,0);
+			//this.winAutorizarCancelacion.tipo_moviento = 1;			
+			//this.winAutorizarCancelacion.show();
 			
-			this.winAutorizarCancelacion.on("movimientocancelado", function(){
+			//this.winAutorizarCancelacion.on("movimientocancelado", function(){
 				//this.cancelar();				
-			}, this);
+			//}, this);
 		}, this);	
 		
 		this.cmbProducto.on("keydown", function(cmb, e){
