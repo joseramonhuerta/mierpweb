@@ -98,7 +98,7 @@ class ReporteCorteTicket{
 		
         $query = "SELECT t.id_corte,t.consecutivo,t.concepto,DATE_FORMAT(t.fecha_corte,'%d/%m/%y %H:%i') as fecha,
 		t.total_liquidado,t.total_retenido,t.total_corte,t.total_turno,t.total_ventas,t.total_depositos,t.total_retiros,t.diferencia_corte,
-		s.nombre_sucursal
+		s.nombre_sucursal, t.total_apartados, t.total_deudores
 		FROM cortes t 
 		inner join cat_sucursales s on s.id_sucursal = t.id_sucursal
 		WHERE t.id_corte = $id";

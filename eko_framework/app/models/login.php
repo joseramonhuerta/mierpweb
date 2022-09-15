@@ -30,12 +30,13 @@ class LoginModel extends Model{
       @see         ver mas...
      */
     
-    public function identificar($user, $pass) {        
+    public function identificar($user, $pass) {    
+        
        $query="SELECT r.id_usuario,if (u.esadmin=0,r.esadmin,u.esadmin ) as esadmin,u.nombre_usuario FROM cat_usuarios_corporativos r
         LEFT JOIN cat_usuarios u ON r.id_usuario=u.id_usuario
         LEFT JOIN cat_corporativos c ON r.id_corporativo=c.id_corporativo
         WHERE r.id_usuario='$user' AND r.pass=AES_ENCRYPT('$pass','asdf');";
-
+          
         $arrayResult=$this->query($query, DB_MASTER);
 		if (sizeof($arrayResult)>0){
 			return $arrayResult[0];	

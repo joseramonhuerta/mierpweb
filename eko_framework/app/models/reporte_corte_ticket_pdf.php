@@ -561,7 +561,9 @@ class ReporteCorteTicketPDF extends PDF_JavaScript{
 		$total_turno = number_format ($datos['corte']['total_turno'] ,$decimales ,  '.' , ',' );
 		$total_ventas = number_format ($datos['corte']['total_ventas'] ,$decimales ,  '.' , ',' );
 		$total_depositos = number_format ($datos['corte']['total_depositos'] ,$decimales ,  '.' , ',' );
-		
+		$total_apartados = number_format ($datos['corte']['total_apartados'] ,$decimales ,  '.' , ',' );
+		$total_deudores = number_format ($datos['corte']['total_deudores'] ,$decimales ,  '.' , ',' );
+
 		$total_retiros = number_format ($datos['corte']['total_retiros'] ,$decimales ,  '.' , ',' );
 		$total_liquidado = number_format ($datos['corte']['total_liquidado'] ,$decimales ,  '.' , ',' );
 		$total_retenido = number_format ($datos['corte']['total_retenido'] ,$decimales ,  '.' , ',' );
@@ -592,7 +594,15 @@ class ReporteCorteTicketPDF extends PDF_JavaScript{
 		$this->SetX($columna);
 		$this->Cell(51, $alto, "(+) Depositos:", $border, 0, 'L');
 		$this->Cell(15, $alto, $total_depositos, $border, 1, 'R');
+
+		$this->SetX($columna);
+		$this->Cell(51, $alto, "(+) Apartados:", $border, 0, 'L');
+		$this->Cell(15, $alto, $total_apartados, $border, 1, 'R');
 		
+		$this->SetX($columna);
+		$this->Cell(51, $alto, "(+) Deudores Diversos:", $border, 0, 'L');
+		$this->Cell(15, $alto, $total_deudores, $border, 1, 'R');
+
 		$this->SetX($columna);
 		$this->Cell(51, $alto, "(-) Retiros:", $border, 0, 'L');
 		$this->Cell(15, $alto, $total_retiros, $border, 1, 'R');

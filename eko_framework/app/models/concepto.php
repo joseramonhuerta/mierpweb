@@ -147,5 +147,9 @@ class ConceptoModel extends Model{
     	return array('Concepto'=>$arrResult[0]);
     }
 
+    function getTiposGastos(){
+        return array();
+    }
+
 }
 ?>

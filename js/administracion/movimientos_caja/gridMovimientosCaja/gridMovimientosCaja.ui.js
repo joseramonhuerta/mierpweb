@@ -124,7 +124,7 @@ gridMovimientosCajaUi = Ext.extend(Ext.grid.GridPanel, {
                 xtype: 'gridcolumn',
                 header: 'Tipo',
                 sortable: true,
-                width: 100,
+                width: 150,
                 dataIndex: 'tipo'
             },
             {

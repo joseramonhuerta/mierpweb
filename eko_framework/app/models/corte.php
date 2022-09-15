@@ -211,16 +211,28 @@ class Corte extends Model{
 			$res = mysqlQuery($queryDepositos);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalDepositos = $resultado['totaldepositos'];
+
+			$queryApartados = "select IFNULL(SUM(total),0) as totalapartados  FROM movimientos_caja where id_turno = $id_turno and Tipo = 3";
+			$res = mysqlQuery($queryApartados);
+			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
+			$totalApartados = $resultado['totalapartados'];
+
+			$queryDeudores = "select IFNULL(SUM(total),0) as totaldeudores  FROM movimientos_caja where id_turno = $id_turno and Tipo = 4";
+			$res = mysqlQuery($queryDeudores);
+			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
+			$totalDeudores = $resultado['totaldeudores'];
 			
 			$queryRetiros = "select IFNULL(SUM(total),0) as totalretiros FROM movimientos_caja where id_turno = $id_turno and Tipo = 2";
 			$res = mysqlQuery($queryRetiros);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalRetiros = $resultado['totalretiros'];
 			
-			$diferencia_corte = ($totalRetiros + $total_liquidado + $total_retenido) - ($total_turno + $totalVentas + $totalDepositos);		
+			$diferencia_corte = ($totalRetiros + $total_liquidado + $total_retenido) - ($total_turno + $totalVentas + $totalDepositos + $totalApartados + $totalDeudores);		
 			
 			$query.=",total_ventas='".$this->EscComillas($totalVentas)."'";
 			$query.=",total_depositos='".$this->EscComillas($totalDepositos)."'";
+			$query.=",total_apartados='".$this->EscComillas($totalApartados)."'";
+			$query.=",total_deudores='".$this->EscComillas($totalDeudores)."'";
 			$query.=",total_retiros='".$this->EscComillas($totalRetiros)."'";
 			$query.=",diferencia_corte='".$this->EscComillas($diferencia_corte)."'";
 			
@@ -250,16 +262,28 @@ class Corte extends Model{
 			$res = mysqlQuery($queryDepositos);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalDepositos = $resultado['totaldepositos'];
+
+			$queryApartados = "select IFNULL(SUM(total),0) as totalapartados  FROM movimientos_caja where id_turno = $id_turno and Tipo = 3";
+			$res = mysqlQuery($queryApartados);
+			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
+			$totalApartados = $resultado['totalapartados'];
+
+			$queryDeudores = "select IFNULL(SUM(total),0) as totaldeudores  FROM movimientos_caja where id_turno = $id_turno and Tipo = 4";
+			$res = mysqlQuery($queryDeudores);
+			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
+			$totalDeudores = $resultado['totaldeudores'];
 			
 			$queryRetiros = "select IFNULL(SUM(total),0) as totalretiros FROM movimientos_caja where id_turno = $id_turno and Tipo = 2";
 			$res = mysqlQuery($queryRetiros);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalRetiros = $resultado['totalretiros'];
 			
-			$diferencia_corte = ($totalRetiros + $total_liquidado + $total_retenido) - ($total_turno + $totalVentas + $totalDepositos);		
+			$diferencia_corte = ($totalRetiros + $total_liquidado + $total_retenido) - ($total_turno + $totalVentas + $totalDepositos + $totalApartados + $totalDeudores);
 			
 			$query.=",total_ventas='".$this->EscComillas($totalVentas)."'";
 			$query.=",total_depositos='".$this->EscComillas($totalDepositos)."'";
+			$query.=",total_apartados='".$this->EscComillas($totalApartados)."'";
+			$query.=",total_deudores='".$this->EscComillas($totalDeudores)."'";
 			$query.=",total_retiros='".$this->EscComillas($totalRetiros)."'";
 			$query.=",diferencia_corte='".$this->EscComillas($diferencia_corte)."'";
 						

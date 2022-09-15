@@ -280,8 +280,14 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/formReporteChecadas.ui.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/formReporteChecadas.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/storeFormReporteChecadasEmpleados.js";
+
+	//----- Reporte Flujos de Efectivo------//	
 	
-	
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/formReporteFlujoEfectivo.ui.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/formReporteFlujoEfectivo.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoEmpresas.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoSucursales.js";
+
 	
 	//------------------       Grid Turnos     ------------------//
 	$arrayFiles[]="js/administracion/turnos/gridTurnos/gridTurnos.ui.js";
@@ -411,7 +417,8 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/cat_conceptos/formConceptos/formConceptos.ui.js";
 	$arrayFiles[]="js/administracion/cat_conceptos/formConceptos/formConceptos.js";
 	$arrayFiles[]="js/administracion/cat_conceptos/formConceptos/storeFormConceptosTipo.js";
-	
+	$arrayFiles[]="js/administracion/cat_conceptos/formConceptos/storeFormConceptosTiposGastos.js";
+
 		//------------------       Grid Catalogo de Chequeras     ------------------//
 	$arrayFiles[]="js/administracion/cat_chequeras/gridChequeras/gridChequeras.ui.js";
 	$arrayFiles[]="js/administracion/cat_chequeras/gridChequeras/gridChequeras.js";

@@ -3,7 +3,7 @@
  *	Esta clase deberia analizar y preparar toda la informacion, dejarla lista para que el PDF imprima usando solamente ciclos
  * por el momento hay logica repartida en esta clase y en reporte_de_facturacion_pdf.php
  */
-class ReporteVentasProductosExcel{
+class ReporteFlujoEfectivoExcel{
 	function generarReporte($params,$formatos){
 		
 		$datos=$this->obtenerDatos($params);					//Obtiene los datos de la base de datos
@@ -84,12 +84,17 @@ class ReporteVentasProductosExcel{
 		
 		$idEmp = $params['IDEmp'];	  
 		$idSuc = $params['IDSuc'];
-		$id_lin=(empty($params['IDLin'])) ?  0: $params['IDLin'];
 		$fechaInicio=(empty($params['FechaIni'])) ?  '': $params['FechaIni'];
 		$fechaFin=(empty($params['FechaFin'])) ?  '': $params['FechaFin'];
 		$fechaInicio.=" 00:00:00"; 
 		$fechaFin.=" 23:59:59";
 		$fechaFinFiltro=(empty($params['FechaFin'])) ?  '': $params['FechaFin'];
+		$perdidas_ganancias = $params['perdidas_ganancias'];
+		$nombre_empresa=(empty($params['nombre_empresa'])) ?  'TODAS': $params['nombre_empresa'];
+		$nombre_sucursal=(empty($params['nombre_sucursal'])) ?  'TODAS': $params['nombre_sucursal'];
+
+		$params['nombre_empresa'] = $nombre_empresa;
+		$params['nombre_sucursal'] = $nombre_sucursal;
 		// $filtros = array();
 		// $filtros['fechaInicio'] = ;
 		/*
@@ -187,7 +192,7 @@ class ReporteVentasProductosExcel{
 				*/
 				
 				
-				$query ="CALL spReporteVentas(0,$idSuc,'$fechaInicio','$fechaFin',$id_lin,0,0);";
+				$query ="CALL spReporteFlujoEfectivo('$fechaInicio','$fechaFin',$idEmp,$idSuc, $perdidas_ganancias);";
 				
 				// throw new Exception($query);
 				$resArrVentas = $model->query($query);
@@ -305,7 +310,7 @@ class ReporteVentasProductosExcel{
 		// exit;
 		// Comienzo
 		
-			// print_r($informes);
+			 print_r($preparados);
 			
 			$informes = $preparados["data"];
 			foreach($res as $row){
@@ -326,7 +331,12 @@ class ReporteVentasProductosExcel{
 			require_once 'eko_framework/includes/phpexcel/PHPExcel.php';
 			include 'eko_frameworkincludes/phpexcel/PHPExcel/IOFactory.php';
 			//Reporte de Saldos de Folios
-			$nombreReporte = "Reporte de Ventas de Productos ";
+			
+			if($params['perdidas_ganancias'] == 1)
+				$nombreReporte = "Reporte Perdidas y Ganancias ";
+			else
+				$nombreReporte = "Reporte de Flujos de Efectivo ";
+
 			$objPHPExcel = new PHPExcel();
 			$objPHPExcel->getProperties()->setCreator("")
             	->setLastModifiedBy("")
@@ -361,6 +371,19 @@ class ReporteVentasProductosExcel{
 			    )
 			);
 
+			$moneda = array(			    
+			    'alignment' => array(
+			        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_RIGHT
+			    )
+			);
+
+			$subtitulo = array(
+				'font'  => array(
+			        'bold' => true,
+			        'size'  => 12,
+			    )
+			);
+
 			$_GET['empresasText'] = trim($_GET['empresasText'], " ");
 			$_GET['empresasText'] = trim($_GET['empresasText'], ",");
 			$_GET['empresasText'] = trim($_GET['empresasText'], "undefined");
@@ -369,38 +392,13 @@ class ReporteVentasProductosExcel{
 			$fechaNueva = $_GET['dateDesde']; //1234 6789
 			$fechaNueva = date("dm", strtotime($fechaNueva));
 			$fechaNuevaY = date("Y", strtotime($fechaNueva));
-			// $fechaNueva2 = $rest = substr($fechaNueva, 2, 2);
-			// $fechaNueva = $rest = substr($fechaNueva, 0, 2);
 			
-			
-			// $fechaNueva = $fechaNueva.' '.$fechaNueva2.' '.$fechaNuevaY;
-
-			//setlocale(LC_ALL,"es_ES");
-			//$fechaNueva = $_GET['dateDesde'];
-			//$fechaNueva = DateTime::createFromFormat("Y d F", $fechaNueva);
-			//$fechaNueva = strftime("%Y %d %B",$fechaNueva);
-
 			$objPHPExcel->getActiveSheet()->mergeCells('A1:F1');
-			// $objPHPExcel->getActiveSheet()->mergeCells('C1:H1');
-
-			// $objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(120);
+			
 			$objPHPExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(40);
-
-			// $objDrawing = new PHPExcel_Worksheet_Drawing();
-			// $objDrawing->setName('Logo');
-			// $objDrawing->setDescription('Logo');
-			// // $logo = $_SERVER['DOCUMENT_ROOT']. '
-			// $logo = 'images/productos/7/2/329_Puntuel Logo.png'; // Provide path to your logo file
-			// $objDrawing->setPath($logo);
-			// $objDrawing->setOffsetX(50);    // setOffsetX works properly
-			// $objDrawing->setOffsetY(10);  //setOffsetY has no effect
-			// $objDrawing->setCoordinates('A1');
-			// $objDrawing->setHeight(120); // logo height
-			// $objDrawing->setWidth(120);      
-			// $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());  //save
-			// $objPHPExcel->getActiveSheet()->getStyle('C1:E1')->applyFromArray($titulo);
-			// $objPHPExcel->getActiveSheet()->SetCellValue('C1', "REPORTE DE SALDOS DE FOLIOS ");
+			
 			$objPHPExcel->getActiveSheet()->getStyle('A1:E1')->applyFromArray($titulo);
+			$objPHPExcel->getActiveSheet()->getStyle('B7:B51')->applyFromArray($moneda);
 			
 			$fechaNueva = $rest = substr($fechaNueva, 0, 7);
 			setlocale(LC_ALL,"es_ES");
@@ -438,8 +436,11 @@ class ReporteVentasProductosExcel{
 			
 			$objPHPExcel->getActiveSheet()->SetCellValue('A1', $nombreReporte.$day.' '.$month.' '.$year);
 			
+			$objPHPExcel->getActiveSheet()->SetCellValue('A2', 'EMPRESA');
+			$objPHPExcel->getActiveSheet()->SetCellValue('B2', $params['nombre_empresa']);
+			$objPHPExcel->getActiveSheet()->SetCellValue('A3', 'SUCURSAL');
+			$objPHPExcel->getActiveSheet()->SetCellValue('B3', $params['nombre_sucursal']);
 			
-			$objPHPExcel->getActiveSheet()->mergeCells('A2:F3');
 			// $objPHPExcel->getActiveSheet()->mergeCells('B2:H2');
 			// $objPHPExcel->getActiveSheet()->mergeCells('A3:H3');
 			
@@ -453,45 +454,15 @@ class ReporteVentasProductosExcel{
 			    )
 			);
 			
-			$objRichText = new PHPExcel_RichText();
-
-			// $objBold = $objRichText->createTextRun('EMPRESA:  ');
-			// $objBold->getFont()->setBold(true);
-			// $objBold->getFont()->setSize(13);
-			
-			// $objoNotBold = $objRichText->createTextRun($params['NombreCliente']);
-			// $objoNotBold->getFont()->setBold(false);
-			// $objoNotBold->getFont()->setSize(13);
-			// $objRichText->createText($params['NombreCliente']);
-			
-
-			// $objPHPExcel->getActiveSheet()->getStyle('A2')->applyFromArray($filtrosFormat);
-			// $objPHPExcel->getActiveSheet()->SetCellValue('A2', "EMPRESA: ");
-			// $objPHPExcel->getActiveSheet()->SetCellValue('A2', "EMPRESA: ".$params['NombreCliente']);
-			// $objPHPExcel->getActiveSheet()->SetCellValue('A2', $objRichText);
-
-			// $objPHPExcel->getActiveSheet()->getStyle('A2')->applyFromArray($filtrosFormat);
-			// $objPHPExcel->getActiveSheet()->SetCellValue('B2', $params['NombreCliente']);
+			$objRichText = new PHPExcel_RichText();		
 			
 			$rowCount = 4;
 
-            $objPHPExcel->getActiveSheet()->getStyle('A4:F4')->applyFromArray($encabezado);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(60);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(40);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
             
-			
-			// NOMBRE CLIENTE, RFC, FECHA ULT. REGISTRO, MES DE OPERACIÓN, AÑO DE OPERACIÓN, SALDO, CONSUMO CALCULADO, SALDO 
-            $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, "CODIGO")
-							  ->SetCellValue('B'.$rowCount, "DESCRIPCION")
-							  ->SetCellValue('C'.$rowCount, "LINEA")
-							  ->SetCellValue('D'.$rowCount, "SUCURSAL")
-							  ->SetCellValue('E'.$rowCount, "VENTAS")
-							  ->SetCellValue('F'.$rowCount, "EXISTENCIA");
-			$rowCount++;
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(30);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+		
+            $rowCount++;
 			$filablanca = array(
 			    'fill' => array(
 			        'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -507,55 +478,190 @@ class ReporteVentasProductosExcel{
 			);
 			//ciclo
 			$blanco = 1;
-			
+			$totalIngresos = 0;
+			$totalEgresos = 0;
 			foreach ($informes as $key => $value) {
-				// if($blanco==1){
-					// $objPHPExcel->getActiveSheet()->getStyle('A'.($rowCount).':I'.($rowCount))->applyFromArray($filablanca);
-					// $blanco = 0;
-				// }else{
-					// $objPHPExcel->getActiveSheet()->getStyle('A'.($rowCount).':I'.($rowCount))->applyFromArray($filagris);
-					// $blanco = 1;
-				// }
 				
-				// Nombre,RFC,FechaLastRegistro,Mes,Anio,Saldo,ConsumoCalculado,SaldoCalculado,FechaCalculo,UsuarioCalculo
-								
+				$ventas_tienda =  $value['ventas_tienda'];
+				$cobranza_vendedores =  $value['cobranza_vendedores'];
+				$ventas_remision =  $value['ventas_remision'];
+				$anticipos_compras = $value['anticipos_compras'];
+				$deudores_diversos = $value['deudores_diversos'];
+
+				$totalIngresos = $ventas_tienda + $cobranza_vendedores + $ventas_remision + $anticipos_compras + $deudores_diversos;
+
+				$pagos_proveedores =  $value['pagos_proveedores'];
+				$pagos_rentas =  $value['pagos_rentas'];
+				$pagos_sueldos =  $value['pagos_sueldos'];
+				$pagos_imss_infonavit =  $value['pagos_imss_infonavit'];
+				$pagos_impuestos =  $value['pagos_impuestos'];
+				$pagos_paqueteria =  $value['pagos_paqueteria'];
+				$pagos_servicios =  $value['pagos_servicios'];
+				$pagos_papeleria =  $value['pagos_papeleria'];
+				$pagos_productos_limpieza =  $value['pagos_productos_limpieza'];
+				$pagos_mantenimiento_tiendas =  $value['pagos_mantenimiento_tiendas'];
+				$pagos_mantenimiento_vehiculos =  $value['pagos_mantenimiento_vehiculos'];
+				$pagos_gasolina =  $value['pagos_gasolina'];
+				$pagos_despensa  =  $value['pagos_despensa'];
+				$pagos_viaticos =  $value['pagos_viaticos'];
+				$pagos_comida =  $value['pagos_comida'];
+				$pagos_comisiones_bonos =  $value['pagos_comisiones_bonos'];
+				$pagos_mermas =  $value['pagos_mermas'];
+				$pagos_prestamos =  $value['pagos_prestamos'];
+				$pagos_gastos_bancarios =  $value['pagos_gastos_bancarios'];
+				$pagos_publicidad =  $value['pagos_publicidad'];
+				$pagos_servicios_digitales =  $value['pagos_servicios_digitales'];
+				$pagos_promotoria_eventos =  $value['pagos_promotoria_eventos'];
+				$pagos_patrocinios =  $value['pagos_patrocinios'];
+				$pagos_mobiliario =  $value['pagos_mobiliario'];
+				$pagos_equipo_reparto =  $value['pagos_equipo_reparto'];
+				$pagos_equipo_computo =  $value['pagos_equipo_computo'];
+				$pagos_herramientas =  $value['pagos_herramientas'];
+				$pagos_gastos_importacion =  $value['pagos_gastos_importacion'];
+				$pagos_acreedores_diversos =  $value['pagos_acreedores_diversos'];
+				$pagos_gastos_administrativos =  $value['pagos_gastos_administrativos'];
+
+				$totalEgresos = $pagos_proveedores + $pagos_rentas + $pagos_sueldos + $pagos_imss_infonavit + $pagos_impuestos + $pagos_paqueteria +
+								$pagos_servicios + $pagos_papeleria + $pagos_productos_limpieza + $pagos_mantenimiento_tiendas + $pagos_mantenimiento_vehiculos +
+								$pagos_gasolina + $pagos_despensa + $pagos_viaticos + $pagos_comida + $pagos_comisiones_bonos + $pagos_mermas +
+								$pagos_prestamos + $pagos_gastos_bancarios + $pagos_publicidad + $pagos_servicios_digitales + $pagos_promotoria_eventos +
+								$pagos_patrocinios + $pagos_mobiliario + $pagos_equipo_reparto + $pagos_equipo_computo + $pagos_herramientas +
+								$pagos_gastos_importacion + $pagos_acreedores_diversos + $pagos_gastos_administrativos;
+
 				$colorBackGround = 'A3F3B2';
 				$colorLetra = '359C33';
 				if($value['SaldoCalculado'] < 1) {
 					$colorBackGround = 'F59A9C';
 					$colorLetra = '790000';
 				} 
-				// $colorBackGround = '#'.$colorBackGround;
+				/* INGRESOS*/
 				
-				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $value['codigo'])
-							  ->SetCellValue('B'.$rowCount, $value['descripcion'])
-							  ->SetCellValue('C'.$rowCount, $value['nombre_linea'])
-							  ->SetCellValue('D'.$rowCount, $value['nombre_sucursal'])
-							  ->SetCellValue('E'.$rowCount, $value['ventas'])
-							  ->SetCellValue('F'.$rowCount, $value['stock']);
-			  // echo $colorBackGround;
-			  // exit;
-			  // $objPHPExcel->getActiveSheet()
-				// ->getStyle('H'.$rowCount)
-				// ->applyFromArray(
-					// array(
-						// 'fill' => array(
-							// 'type' => PHPExcel_Style_Fill::FILL_SOLID,
-							// 'color' => array('rgb' => $colorBackGround)
-						// ),
-						// 'font'  => array(
-							// 'color' => array('rgb' => $colorLetra)
-						// ),
-						// 'borders' => array(
-							  // 'allborders' => array(
-								  // 'style' => PHPExcel_Style_Border::BORDER_THIN,
-								  // 'color' => array('rgb' => $colorLetra)
-							  // )
-						  // )
-					// )
-				// );
-				// $objPHPExcel->getActiveSheet()->getStyle('H'.$rowCount)->getAlignment()->setIndent(1);
-							  // UsuarioCalculo FechaCalculo
+				$objPHPExcel->getActiveSheet()->getStyle('A6:B6')->applyFromArray($subtitulo);
+
+				$objPHPExcel->getActiveSheet()->mergeCells('A6:B6');
+				$objPHPExcel->getActiveSheet()->SetCellValue('A6', 'INGRESOS');
+				
+				$objPHPExcel->getActiveSheet()->SetCellValue('A8', 'VENTAS TIENDAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B8','$ '.number_format($ventas_tienda, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A9', 'COBRANZA VENDEDORES');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B9','$ '.number_format($cobranza_vendedores, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A10', 'VENTAS DE REMISION');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B10','$ '.number_format($ventas_remision, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A11', 'ANTICIPO VENDEDORES');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B11','$ '.number_format($anticipos_compras, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A12', 'DEUDORES DIVERSOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B12','$ '.number_format($deudores_diversos, 2, '.', ','));
+						  
+				$objPHPExcel->getActiveSheet()->SetCellValue('A14', 'TOTAL INGRESOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B14','$ '.number_format($totalIngresos, 2, '.', ','));	
+
+
+				/* EGRESOS */		
+				$objPHPExcel->getActiveSheet()->getStyle('A16:B16')->applyFromArray($subtitulo);
+				$objPHPExcel->getActiveSheet()->mergeCells('A16:B16');
+				$objPHPExcel->getActiveSheet()->SetCellValue('A16', 'EGRESOS');
+				
+				$objPHPExcel->getActiveSheet()->SetCellValue('A18', 'PROVEEDORES');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B18','$ '.number_format($pagos_proveedores, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A19', 'RENTAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B19','$ '.number_format($pagos_rentas, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A20', 'SUELDOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B20','$ '.number_format($pagos_sueldos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A21', 'IMSS-INFONAVIT');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B21','$ '.number_format($pagos_imss_infonavit, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A22', 'IMPUESTOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B22','$ '.number_format($pagos_impuestos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A23', 'PAQUETERIAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B23','$ '.number_format($pagos_paqueteria, 2, '.', ','));								
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A24', 'SERVICIOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B24','$ '.number_format($pagos_servicios, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A25', 'PAPELERIA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B25','$ '.number_format($pagos_papeleria, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A26', 'PRODUCTOS DE LIMPIEZA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B26','$ '.number_format($pagos_productos_limpieza, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A27', 'MANTENIMIENTO TIENDAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B27','$ '.number_format($pagos_mantenimiento_tiendas, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A28', 'MANTENIMIENTO VEHICULOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B28','$ '.number_format($pagos_mantenimiento_vehiculos, 2, '.', ','));								
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A29', 'GASOLINA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B29','$ '.number_format($pagos_gasolina, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A30', 'DESPENSA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B30','$ '.number_format($pagos_despensa, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A31', 'VIATICOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B31','$ '.number_format($pagos_viaticos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A32', 'COMIDA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B32','$ '.number_format($pagos_comida, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A33', 'COMISIONES Y BONOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B33','$ '.number_format($pagos_comisiones_bonos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A34', 'MERMAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B34','$ '.number_format($pagos_mermas, 2, '.', ','));							
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A35', 'PRESTAMOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B35','$ '.number_format($pagos_prestamos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A36', 'GASTOS BANCARIOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B36','$ '.number_format($pagos_gastos_bancarios, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A37', 'PUBLICIDAD');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B37','$ '.number_format($pagos_publicidad, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A38', 'SERVICIOS DIGITALES');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B38','$ '.number_format($pagos_servicios_digitales, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A39', 'PROMOTORIA EVENTOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B39','$ '.number_format($pagos_promotoria_eventos, 2, '.', ','));					
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A40', 'PATROCINIOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B40','$ '.number_format($pagos_patrocinios, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A41', 'MOBILIARIO');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B41','$ '.number_format($pagos_mobiliario, 2, '.', ','));
+				
+				$objPHPExcel->getActiveSheet()->SetCellValue('A42', 'EQUIPO DE REPARTO');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B42','$ '.number_format($pagos_equipo_reparto, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A43', 'EQUIPO DE COMPUTO');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B43','$ '.number_format($pagos_equipo_computo, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A44', 'HERRAMIENTAS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B44','$ '.number_format($pagos_herramientas, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A45', 'GASTOS DE IMPORTACION');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B45','$ '.number_format($pagos_gastos_importacion, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A46', 'ACREEDORES DIVERSOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B46','$ '.number_format($pagos_acreedores_diversos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A47', 'GASTOS ADMINISTRATIVOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B47','$ '.number_format($pagos_gastos_administrativos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A49', 'TOTAL EGRESOS');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B49','$ '.number_format($totalEgresos, 2, '.', ','));
+
+				$objPHPExcel->getActiveSheet()->SetCellValue('A51', 'GANANCIA/PERDIDA');
+				$objPHPExcel->getActiveSheet()->SetCellValue('B51','$ '.number_format(($totalIngresos - $totalEgresos), 2, '.', ','));
+
+
 				$rowCount++;
 			}
 			//fin ciclo
@@ -570,30 +676,12 @@ class ReporteVentasProductosExcel{
 	            )
 			);
 
-			// $rowCount += 4;
-
-			// $objPHPExcel->getActiveSheet()->getStyle('B'.($rowCount+1).':D'.($rowCount+5))->applyFromArray($firma);
-			// $objPHPExcel->getActiveSheet()->mergeCells('B'.($rowCount+1).':C'.($rowCount+1));
-			// $objPHPExcel->getActiveSheet()->mergeCells('B'.($rowCount+2).':C'.($rowCount+2));
-			// $objPHPExcel->getActiveSheet()->mergeCells('B'.($rowCount+3).':C'.($rowCount+3));
-			// $objPHPExcel->getActiveSheet()->mergeCells('B'.($rowCount+4).':C'.($rowCount+4));
-			// $objPHPExcel->getActiveSheet()->mergeCells('B'.($rowCount+5).':C'.($rowCount+5));
-			// $objPHPExcel->getActiveSheet()->SetCellValue('B'.($rowCount+1), "__________________________________")
-							  // ->SetCellValue('B'.($rowCount+2), "xxxxx")
-							  // ->SetCellValue('B'.($rowCount+3), "xxxx")
-							  // ->SetCellValue('B'.($rowCount+4), "xxxx")
-							  // ->SetCellValue('B'.($rowCount+5), "xxxxx");
-
-			// $objPHPExcel->getActiveSheet()->SetCellValue('D'.($rowCount+1), "__________________________________")
-							  // ->SetCellValue('D'.($rowCount+2), "xxxxx")
-							  // ->SetCellValue('D'.($rowCount+3), "xxxxx")
-							  // ->SetCellValue('D'.($rowCount+4), "xxxxx")
-							  // ->SetCellValue('D'.($rowCount+5), "xxxxx");	
+				
 
 			$objPHPExcel->getActiveSheet()->setTitle($nombreReporte);
 			$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 			header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-			header("Content-Disposition: attachment; filename=\"Reporte de Ventas Excel ".$fechaNueva.".xlsx\"");
+			header("Content-Disposition: attachment; filename=\"".$nombreReporte." ".$fechaNueva.".xlsx\"");
 			header("Cache-Control: max-age=0");
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 			ob_end_clean();
