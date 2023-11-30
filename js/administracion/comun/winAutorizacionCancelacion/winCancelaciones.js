@@ -13,11 +13,11 @@
 
 winCancelaciones = Ext.extend(winCancelacionesUi, {
     id_movimiento: 0,
-	tipo_movimiento: 0,
+	id_modulo: 0,
 	inicializaEventos: function(){
 		var me = this;
 		
-		this.btCancelar.on('click', function(){
+		this.btnCancelar.on('click', function(){
 			this.close();
 		});
 		

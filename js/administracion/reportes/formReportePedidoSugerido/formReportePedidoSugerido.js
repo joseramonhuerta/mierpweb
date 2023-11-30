@@ -17,6 +17,13 @@ formReportePedidoSugerido = Ext.extend(formReportePedidoSugeridoUi, {
     inicializarStores: function(){
 		this.cmbLinea.store =  new miErpWeb.storeFormReportePedidoSugeridoLineas();
 		this.cmbSucursal.store =  new miErpWeb.storeFormReportePedidoSugeridoSucursales();
+		this.cmbTipo.store =  new miErpWeb.storeReportePedidoSugeridoTipo();
+		var data=new Array(
+					{id:'1',nombre:miErpWeb.formatearTexto('POR VENTAS')},
+					{id:'2',nombre:miErpWeb.formatearTexto('POR MAXIMO Y MINIMO')}
+			);
+		this.cmbTipo.store.loadData({data:data});
+		this.cmbTipo.setValue('1');
 	},
 	inicializarEvents: function(){
 		var me = this;
@@ -132,7 +139,8 @@ formReportePedidoSugerido = Ext.extend(formReportePedidoSugeridoUi, {
 			FechaIni:this.txtFechaInicio.getValue().dateFormat('Y-m-d'),
 			FechaFin:this.txtFechaFin.getValue().dateFormat('Y-m-d'),
 			IDLin:Ext.num(this.cmbLinea.getValue(),0),
-			ProductosTop:this.chkProductosTop.checked ? 1 : 0
+			ProductosTop:this.chkProductosTop.checked ? 1 : 0,
+			Tipo:Ext.num(this.cmbTipo.getValue(),1)
 		};
 		
 		
@@ -167,7 +175,7 @@ formReportePedidoSugerido = Ext.extend(formReportePedidoSugeridoUi, {
 		}
 		var params=this.getParamsImprimir();			
 		
-		location.href = "app.php/ventas/generarreportepedidosugerido?IDEmp="+params.IDEmp+"&IDSuc="+params.IDSuc+"&FechaIni="+params.FechaIni+"&FechaFin="+params.FechaFin+"&IDLin="+params.IDLin;
+		location.href = "app.php/ventas/generarreportepedidosugerido?IDEmp="+params.IDEmp+"&IDSuc="+params.IDSuc+"&FechaIni="+params.FechaIni+"&FechaFin="+params.FechaFin+"&IDLin="+params.IDLin+"&ProductosTop="+params.ProductosTop+"&Tipo="+params.Tipo;
 		
 		//window.open("app.php/ventas/getpdfventasproductos?identificador="+identificador,'rep_mov',"height=600,width=800");
 	}

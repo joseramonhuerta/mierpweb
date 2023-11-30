@@ -13,6 +13,7 @@
 Ext.ns('miErpWeb');
 Ext.ns('mew');
 formPuntoVenta = Ext.extend(formPuntoVentaUi, {
+	id_modulo:1100,
 	id_venta:0,
 	impresion_ticket:0,
 	edicion:false,
@@ -546,13 +547,13 @@ formPuntoVenta = Ext.extend(formPuntoVentaUi, {
 		}, this);	
 		
 		this.btnCancelar.on('click',function(){
-			//this.cancelar();
-			this.winCancelaciones = new winCancelaciones();
+			this.cancelar();
+			/*this.winCancelaciones = new winCancelaciones();
 			this.winCancelaciones.show();
 			
 			this.winCancelaciones.on("movimientocancelado", function(){
 				this.cancelar();				
-			}, this);
+			}, this);*/
 		}, this);	
 		
 		this.cmbProducto.on("keydown", function(cmb, e){

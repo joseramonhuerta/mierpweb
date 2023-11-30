@@ -136,6 +136,22 @@ formReportePedidoSugeridoUi = Ext.extend(Ext.form.FormPanel, {
                 name: 'chkProductosTop', //and a "name" so we can retrieve it in the server... 
                 id: 'id-active',// ...when the form is sent
                 ref: 'chkProductosTop'
+            },
+            {
+                xtype: 'combo',
+                fieldLabel: 'Tipo Reporte',
+                width: 170,
+                valueField: 'id',
+                displayField: 'nombre',
+                name: 'tipo',
+                itemId: 'cmbTipo',
+                allowBlank: false,
+                forceSelection: true,
+                triggerAction: 'all',
+                editable: false,
+                mode: 'local',
+                hiddenName: 'tipo',
+                ref: 'cmbTipo'
             } 
         ];
         formReportePedidoSugeridoUi.superclass.initComponent.call(this);

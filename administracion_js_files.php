@@ -266,7 +266,8 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReportePedidoSugerido/formReportePedidoSugerido.js";
 	$arrayFiles[]="js/administracion/reportes/formReportePedidoSugerido/storeFormReportePedidoSugeridoLineas.js";
 	$arrayFiles[]="js/administracion/reportes/formReportePedidoSugerido/storeFormReportePedidoSugeridoSucursales.js";
-	
+	$arrayFiles[]="js/administracion/reportes/formReportePedidoSugerido/storeReportePedidoSugeridoTipo.js";
+
 	$arrayFiles[]="js/administracion/reportes/formReporteMovimientosBancos/formReporteMovimientosBancos.ui.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteMovimientosBancos/formReporteMovimientosBancos.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteMovimientosBancos/storeFormReporteMovimientosBancosConceptos.js";
