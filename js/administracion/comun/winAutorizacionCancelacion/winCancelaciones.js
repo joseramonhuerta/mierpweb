@@ -22,20 +22,12 @@ winCancelaciones = Ext.extend(winCancelacionesUi, {
 		});
 		
 		this.btnAceptar.on('click', function(){
-				
-				//Ext.Msg.alert('Aviso', 'El descuento no puede ser mayor al total de la venta.');
-				//return;
-				
-				//this.fireEvent("descuentoSeleccionado", this.importe);
-				//this.close();
 			Ext.Ajax.request({
 				scope: this,
-				url: 'app.php/sistema/cancelarmovimiento',
-				params: {
-					ID: this.id_movimiento,
-					TipoMov: this.id_movimiento,
-					Usuario: this.txtUsuario.getValue(),
-					Password: this.txtPass.getValue()
+				url: 'app.php/sistema/verificaPuedeCancelar',
+				params: {					
+					User: this.txtUsuario.getValue(),
+					Pass: this.txtPass.getValue()
 				},
 				success: function(data, options){
 					var respuesta = Ext.decode(data.responseText);

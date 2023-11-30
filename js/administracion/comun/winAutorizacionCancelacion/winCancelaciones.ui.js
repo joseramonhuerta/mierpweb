@@ -24,10 +24,10 @@ winCancelacionesUi = Ext.extend(Ext.Window, {
                 xtype: 'form',
                 padding: 10,
                 border: false,
-                itemId: 'formAuditoria',
+                itemId: 'winCancelaciones',
                 width: 494,
                 labelWidth: 80,
-                ref: 'formAuditoria',
+                ref: 'winCancelaciones',
                 items: [
                     {
                         xtype: 'textfield',

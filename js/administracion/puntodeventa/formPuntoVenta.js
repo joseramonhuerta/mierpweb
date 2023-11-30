@@ -546,15 +546,13 @@ formPuntoVenta = Ext.extend(formPuntoVentaUi, {
 		}, this);	
 		
 		this.btnCancelar.on('click',function(){
-			this.cancelar();
-			//this.winAutorizarCancelacion = new winCancelaciones();
-			//this.winAutorizarCancelacion.id_moviento = Ext.num(this.id_venta,0);
-			//this.winAutorizarCancelacion.tipo_moviento = 1;			
-			//this.winAutorizarCancelacion.show();
+			//this.cancelar();
+			this.winCancelaciones = new winCancelaciones();
+			this.winCancelaciones.show();
 			
-			//this.winAutorizarCancelacion.on("movimientocancelado", function(){
-				//this.cancelar();				
-			//}, this);
+			this.winCancelaciones.on("movimientocancelado", function(){
+				this.cancelar();				
+			}, this);
 		}, this);	
 		
 		this.cmbProducto.on("keydown", function(cmb, e){

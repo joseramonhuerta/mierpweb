@@ -28,7 +28,8 @@ class Sistema extends ApplicationController{
     		'seleccionarAlmacen',
 			'seleccionarSucursal',
 			'verificasesion',
-			'getAuditoria'
+			'getAuditoria',
+			'verificaPuedeCancelar'
     	)
 		)
 	);
@@ -751,6 +752,21 @@ class Sistema extends ApplicationController{
 		return $datos;
 		
 		
+	}
+
+	public function verificaPuedeCancelar(){
+
+		$user = $_POST['User'];
+		$pass = $_POST['Pass'];
+
+		$response = array();
+		$response['success'] = true;
+		$response['msg'] = '';
+		//$response['data'] = array(
+		//	'puedeCancelar' => true
+		//);
+
+		return $response;
 	}
 }
 ?>
