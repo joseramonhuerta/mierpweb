@@ -37,7 +37,7 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_add.png');
 			}else if (id>0){
 				this.btnEliminar.setDisabled(false);
-				//this.btnDesactivar.setDisabled(false);
+				this.btnActualizarPrecios.setDisabled(false);
 				this.btnGuardar.setIcon('images/iconos/'+this.iconMaster+'_edit.png');
 			}			
 		},this);
@@ -143,6 +143,10 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 			this.eliminar();
 			
 		},this);
+
+		this.btnActualizarPrecios.on('click', function(){
+			this.actualizarPrecios();
+		}, this);
 
 	},
 	inicializaRenders:function(){
@@ -275,8 +279,40 @@ formListaPrecios = Ext.extend(formListaPreciosUi, {
 						return;
 					}
 					
-					this.fireEvent('eliminado',options.params.id_listaprecio);
-					MainContainer.tabContainer.remove(this);
+					this.el.unmask();
+				   },
+				   failure: function(){
+					   this.el.unmask();
+				   }		   
+			});
+	},
+	actualizarPrecios:function(){
+		this.el.mask(mew.mensajeDeEspera);
+			Ext.Ajax.request({
+				params: { id_listaprecio: this.txtIdListaPrecio.getValue() },
+				scope:this,
+				   url: 'app.php/listaprecios/actualizarprecios',
+				   success: function(response,options){	
+					var respuesta=Ext.decode(response.responseText);
+					console.log(respuesta);
+					if (respuesta.success==false){
+						this.el.unmask();
+						return;
+					}
+
+					this.frmMain.load({
+						params:{idLis:this.idValue				
+						},
+						url:'app.php/listaprecios/obtenerlista'
+					});
+					
+					Ext.Msg.show({
+						title:respuesta.msg.titulo,
+						msg: respuesta.msg.mensaje,
+						buttons: Ext.Msg.OK,				   				   
+						icon: Ext.MessageBox.OK
+					 });
+					 this.el.unmask();
 				   },
 				   failure: function(){
 					   this.el.unmask();
