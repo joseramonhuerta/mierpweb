@@ -1,0 +1,5 @@
+*** VERSIONES ***
+
+25/02/2023  Se agregó el modulo de cotizaciones
+            Se agrego la tabla cotizaciones y cotizaciones_detalles
+

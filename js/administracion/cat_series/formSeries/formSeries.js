@@ -26,7 +26,8 @@ formSeries = Ext.extend(formSeriesUi, {
 				{id:8,nombre:miErpWeb.formatearTexto('SALIDA INVENTARIO')},
 				{id:9,nombre:miErpWeb.formatearTexto('ABONOS')},
 				{id:10,nombre:miErpWeb.formatearTexto('MOVIMIENTOS BANCOS')},
-				{id:11,nombre:miErpWeb.formatearTexto('GASTOS')}
+				{id:11,nombre:miErpWeb.formatearTexto('GASTOS')},
+				{id:12,nombre:miErpWeb.formatearTexto('COTIZACIONES')}
         );
 		
 		this.cmbTipoSerie.store.loadData({data:data});

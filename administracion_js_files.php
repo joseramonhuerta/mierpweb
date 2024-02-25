@@ -489,7 +489,24 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/main/mainStoreEmpresas.js";
 	$arrayFiles[]="js/administracion/main/mainStoreSucursales.js";
 	$arrayFiles[]="js/administracion/main/mainStoreAlmacenes.js";
-	
+
+	//------------------       Grid Cotizaciones     ------------------//
+	$arrayFiles[]="js/administracion/cotizaciones/gridCotizaciones/gridCotizaciones.ui.js";
+	$arrayFiles[]="js/administracion/cotizaciones/gridCotizaciones/gridCotizaciones.js";
+	$arrayFiles[]="js/administracion/cotizaciones/gridCotizaciones/storeGridCotizaciones.js";
+	$arrayFiles[]="js/administracion/cotizaciones/gridCotizaciones/storeGridCotizacionesStatus.js";
+
+	//------------------       Form Cotizaciones     ------------------//
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizaciones.ui.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizaciones.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesSeries.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesGrid.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesProductos.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizacionesWinProductos.ui.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizacionesWinProductos.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesWinProductos.js";
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesClientes.js";		
+
 	$arrayFiles[]="js/administracion/inicio.js";
     if ($modoProduccion){	
         for($i=0 ; $i<sizeof($arrayFiles) ;$i++){
