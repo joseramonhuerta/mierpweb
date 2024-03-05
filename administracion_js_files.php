@@ -281,7 +281,11 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/formReporteChecadas.ui.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/formReporteChecadas.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteChecadas/storeFormReporteChecadasEmpleados.js";
-	
+
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/formReporteFlujoEfectivo.ui.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/formReporteFlujoEfectivo.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoEmpresas.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoSucursales.js";
 	
 	
 	//------------------       Grid Turnos     ------------------//

@@ -9,6 +9,7 @@ require_once "eko_framework/app/models/reporte_ventas_productos_excel.php";
 require_once "eko_framework/app/models/reporte_pedido_sugerido.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_costos.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_global.php";
+require_once "eko_framework/app/models/reporte_flujo_efectivo_excel.php";
 
 //require ('eko_framework/app/models/linea.php');
 class Ventas extends ApplicationController {
@@ -894,5 +895,52 @@ class Ventas extends ApplicationController {
 		// return addslashes($texto);
     	return str_replace ( "'" ,"\'" ,$texto);
     }
+
+	function obtenersucursalesempresa(){
+		try {
+			$idEmpresa = ( empty($_POST['id_empresa']) )? 0 : $_POST['id_empresa'];
+			$filtro_query= ( empty($_POST['query']) )? '' : $_POST['query']; 
+			// $filtro="";
+			$filtro=$this->filtroToSQL($filtro_query,array('nombre_sucursal'));
+			// throw new Exception($filtro);
+			$filtro.= ($filtro) ? " AND su.status = 'A' AND su.id_empresa = $idEmpresa" : " WHERE su.status = 'A' AND su.id_empresa = $idEmpresa";
+			$IDUsu = $_SESSION['Auth']['User']['IDUsu'];
+			$query = "SELECT COUNT(su.id_sucursal) AS totalrows FROM cat_sucursales su $filtro ";
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+				
+			$limit = (empty($_POST['limit'])) ? 20 : $_POST['limit'];
+			$start = (empty($_POST['start'])) ?  0 : $_POST['start'];
+			
+			$query = " SELECT su.id_sucursal,su.nombre_sucursal,su.id_empresa,e.nombre_fiscal as nombre_empresa FROM cat_sucursales su ";
+			$query.= " INNER JOIN cat_usuarios_privilegios p ON p.id_usuario=$IDUsu AND p.id_privilegio=su.id_sucursal AND p.tipo_privilegio=2";		
+			$query.= " inner join cat_empresas e on e.id_empresa = su.id_empresa $filtro ";
+			$query.= " ORDER BY su.nombre_sucursal LIMIT $start, $limit ";
+			
+			// throw new Exception($query);	
+			$res = mysqlQuery($query);
+			if (!$res)  throw new Exception(mysql_error()." ".$query);
+				
+			$response = ResulsetToExt::resToArray($res);
+			$response['totalRows'] = $total_rows;
+		} catch (Exception $e) {
+			$response['totalRows'] = $total_rows;
+			$response['success']    = false;
+			$response['msg']       = $e->getMessage();
+		}
+		echo json_encode($response);
+		
+	}
+
+	function generarreporteflujoefectivo(){
+		$params = $_GET;
+		$reporte=new ReporteFlujoEfectivoExcel();
+		
+		$pdf=$reporte->generarReporteExcel($params);
+	}
 }
 ?>
