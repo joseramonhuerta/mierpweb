@@ -47,7 +47,7 @@ class MovimientoCaja extends Model{
 
         $query = "SELECT m.id_movimiento_caja,m.concepto,
         			DATE_FORMAT(m.fecha,'%d/%m/%Y') as fecha,
-					m.status,total,case tipo when 1 then 'DEPOSITO' when 2 then 'RETIRO' when 3 then 'APARTADO' when 4 then 'DEUDORES DIVERSOS' else '' end tipo        		
+					m.status,total,case tipo when 1 then 'DEPOSITO' when 2 then 'RETIRO' else '' end tipo        		
         		 FROM $this->useTable m        			
 				  $filtroSql ORDER BY m.fecha limit $start,$limit ;";
 

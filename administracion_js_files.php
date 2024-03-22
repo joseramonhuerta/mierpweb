@@ -108,7 +108,8 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeEstilista.js";
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeForaneo.js";
 	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesCiudades.js";
-	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesListaPrecio.js";		
+	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesListaPrecio.js";
+	$arrayFiles[]="js/administracion/cat_clientes/formClientes/storeClientesCategorias.js";		
 
 		//------------------       Grid Catalogo de Productos     ------------------//
 	$arrayFiles[]="js/administracion/cat_productos/gridProductos/gridProductos.ui.js";
@@ -287,7 +288,9 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoEmpresas.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoSucursales.js";
 	
-	
+	$arrayFiles[]="js/administracion/reportes/formReporteCatalogoClientes/formReporteCatalogoClientes.ui.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteCatalogoClientes/formReporteCatalogoClientes.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteCatalogoClientes/storeFormReporteCatalogoClientesCategorias.js";
 	//------------------       Grid Turnos     ------------------//
 	$arrayFiles[]="js/administracion/turnos/gridTurnos/gridTurnos.ui.js";
 	$arrayFiles[]="js/administracion/turnos/gridTurnos/gridTurnos.js";
@@ -509,7 +512,17 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizacionesWinProductos.ui.js";
 	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/formCotizacionesWinProductos.js";
 	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesWinProductos.js";
-	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesClientes.js";		
+	$arrayFiles[]="js/administracion/cotizaciones/formCotizaciones/storeFormCotizacionesClientes.js";
+	
+	//------------------       Grid Catalogo Clientes Categorias    ------------------//
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/gridClientesCategorias/gridClientesCategorias.ui.js";
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/gridClientesCategorias/gridClientesCategorias.js";
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/gridClientesCategorias/storeGridClientesCategorias.js";
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/gridClientesCategorias/storeGridClientesCategoriasStatus.js";
+	
+				//------------------       Form Catalogo Clientes Categorias     ------------------//
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/formClientesCategorias/formClientesCategorias.ui.js";
+	$arrayFiles[]="js/administracion/cat_clientes_categorias/formClientesCategorias/formClientesCategorias.js";
 
 	$arrayFiles[]="js/administracion/inicio.js";
     if ($modoProduccion){	

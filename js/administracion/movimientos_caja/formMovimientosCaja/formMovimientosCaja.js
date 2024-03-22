@@ -17,7 +17,9 @@ formMovimientosCaja = Ext.extend(formMovimientosCajaUi, {
 		this.cmbTipo.store = new miErpWeb.storeFormMovimientosCajaTipos();        
         var data=new Array(
         		{id:'1',nombre:miErpWeb.formatearTexto('DEPOSITO')},
-        		{id:'2',nombre:miErpWeb.formatearTexto('RETIRO')}
+        		{id:'2',nombre:miErpWeb.formatearTexto('RETIRO')},
+				{id:'3',nombre:miErpWeb.formatearTexto('APARTADO')},
+				{id:'4',nombre:miErpWeb.formatearTexto('DEUDORES DIVERSOS')}
         );
 		this.cmbTipo.store.loadData({data:data});
 		this.cmbTipo.setValue(1);	

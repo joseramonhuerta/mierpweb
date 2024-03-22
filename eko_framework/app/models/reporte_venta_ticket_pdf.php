@@ -84,6 +84,10 @@ class ReporteVentaTicketPDF extends PDF_JavaScript{
 		$colonia = strtoupper('COL. '.$empresa['colonia']." ".$empresa['cp']);
 		$localidad = strtoupper($empresa['nom_ciu'].", ".$empresa['nom_est'].", ".$empresa['nom_pai']);
 		$nombre_agente = $datos['venta']['nombre_agente'];
+
+		$direccion_sucursal = strtoupper($sucursal['calle']." #".$sucursal['numext']." ".$sucursal['numint']);
+		$colonia_sucursal = strtoupper('COL. '.$sucursal['colonia']." ".$sucursal['cp']);
+		$localidad_sucursal = strtoupper($sucursal['nom_ciu'].", ".$sucursal['nom_est'].", ".$sucursal['nom_pai']);
 		
 		$serie_venta=$datos['venta']['serie_venta'];
 		$folio_venta=$datos['venta']['folio_venta'];
@@ -411,20 +415,11 @@ class ReporteVentaTicketPDF extends PDF_JavaScript{
 		$pago = number_format ($datos['venta']['pago'] ,$decimales ,  '.' , ',' );
 		$cambio = number_format ($datos['venta']['cambio'] ,$decimales ,  '.' , ',' );
 		
-		$calle = $datos['venta']['calle'];
-		$numext = $datos['venta']['numext'];
-		$numint = $datos['venta']['numint'];
-		$col = $datos['venta']['colonia'];
-		$cp = $datos['venta']['cp'];
-		$loc = $datos['venta']['localidad'];
-		$ciudad = $datos['venta']['ciudad'];
-		$estado = $datos['venta']['estado'];
-		$pais = $datos['venta']['pais'];		
-		
-		$direccion = $calle." ".$numext." ".$numint;
-		$colonia = $col." CP: ".$cp;
-		$localidad = $ciudad.", ".$estado.", ".$pais;
-		
+		$sucursal=$datos['sucursal'];		
+		$direccion_sucursal = strtoupper($sucursal['calle']." ".$sucursal['numext']." ".$sucursal['numint']);
+		$colonia_sucursal = strtoupper('COL. '.$sucursal['colonia']." CP: ".$sucursal['cp']);
+		$localidad_sucursal = strtoupper($sucursal['nom_ciu'].", ".$sucursal['nom_est'].", ".$sucursal['nom_pai']);
+			
 		// $this->SetY(-$this->limite_det);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
 		// $y = 240;
 		// $this->SetY($y);			
@@ -480,13 +475,13 @@ class ReporteVentaTicketPDF extends PDF_JavaScript{
 		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode("EXPEDIDO EN")),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
-		$this->Cell($ancho,$alto,mb_strtoupper(utf8_decode($direccion)),$border,0,'C');	#	Valor
+		$this->Cell($ancho,$alto,mb_strtoupper(utf8_decode($direccion_sucursal)),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
-		$this->Cell($ancho,$alto,utf8_decode($colonia),$border,0,'C');	#	Valor
+		$this->Cell($ancho,$alto,utf8_decode($colonia_sucursal),$border,0,'C');	#	Valor
 		$this->Ln();
 		$this->SetX(0);
-		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($localidad)),$border,0,'C');	#	Valor
+		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($localidad_sucursal)),$border,0,'C');	#	Valor
 		
 		$this->aceptarSalto=true;
 		

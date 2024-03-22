@@ -3,7 +3,7 @@
  *	Esta clase deberia analizar y preparar toda la informacion, dejarla lista para que el PDF imprima usando solamente ciclos
  * por el momento hay logica repartida en esta clase y en reporte_de_facturacion_pdf.php
  */
-class ReporteVentaTicket{
+class ReporteClientesCategorias{
 	function generarReporte($params,$formatos){
 		
 		$datos=$this->obtenerDatos($params);					//Obtiene los datos de la base de datos
@@ -44,12 +44,13 @@ class ReporteVentaTicket{
 		
 	}
 	function crearReporte($datos,$formatos){
-		require "eko_framework/app/models/reporte_venta_ticket_pdf.php";
+		require "eko_framework/app/models/reporte_clientes_categorias_pdf.php";
 		
-		$pdf=new ReporteVentaTicketPDF('P','mm',array(250,70),$datos,$formatos);
-		$pdf->AddPage();
-		$pdf->SetMargins(1,1,1);
-		$pdf->imprimeDetalles($datos);
+		$pdf=new ReporteClientesCategoriasPDF('P','mm','Letter',$datos,$formatos);
+		$pdf->AddPage('P');
+		
+		$pdf->imprimeDetalles($datos);				
+					
 		$nombrePDF='rep_fact_.pdf';
 		$pdf->Output('tmp/'.$nombrePDF);	
 			
@@ -63,83 +64,22 @@ class ReporteVentaTicket{
 		$model=$this->model;
 		//$model->camposAfiltrar = array('NomCliente','RFCCliente');  
 		
-        $id = $params['IDVen'];	 
-		$id_empresa =  $_SESSION['Auth']['User']['id_empresa'];
-		$id_sucursal =  $_SESSION['Auth']['User']['id_sucursal'];
+		$idCat = $params['IDCat'];	
+		$filtros = array();
+		$filtros['nombre_categoria'] =  $params['nombre_categoria'];
 
-		/* $query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,e.calle,e.numext,e.numint,e.colonia,e.cp,c.nom_ciu,es.nom_est,p.nom_pai,e.logotipo,
-					e.regimen_fiscal,e.telefono,e.email,ifnull(e.logotipo_sucursal,0) as logotipo_sucursal
-					FROM cat_empresas e
-					INNER JOIN cat_ciudades c ON c.id_ciu = e.id_ciu
-					INNER JOIN cat_estados es ON es.id_est = e.id_est
-					INNER JOIN cat_paises p ON p.id_pai = e.id_pai
-					WHERE e.id_empresa  = $id_empresa";*/
-
-
-		$query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,e.calle,e.numext,e.numint,e.colonia,e.cp,c.nom_ciu AS nom_ciu,es.nom_est AS nom_est,p.nom_pai AS nom_pai,e.logotipo,
-				e.regimen_fiscal,e.telefono,e.email,IFNULL(e.logotipo_sucursal,0) AS logotipo_sucursal
-				FROM cat_empresas e
-				LEFT JOIN cat_ciudades c ON e.id_ciu = c.id_ciu
-				LEFT JOIN cat_estados es ON e.id_est = es.id_est
-				LEFT JOIN cat_paises p ON e.id_pai = p.id_pai
-				WHERE e.id_empresa = $id_empresa";	
-        
-		$resArrEmpresa = $model->query($query);
-		if ( empty($resArrEmpresa) ){
+		$query ="CALL spReporteCatalogoClientesCategorias($idCat);";
+				
+		$resArrClientes = $model->query($query);
+		if ( empty($resArrClientes) ){
 			return array();
 		}
-		
-		 $query = "SELECT nombre_sucursal,calle,numext,numint,colonia,cp,ciudad AS nom_ciu,estado AS nom_est,pais AS nom_pai,logotipo
-					FROM cat_sucursales
-					WHERE id_sucursal  = $id_sucursal";	
-        
-		$resArrSucursal = $model->query($query);
-		if ( empty($resArrSucursal) ){
-			return array();
-		}
-		
-        $query = "SELECT v.id_venta,v.serie_venta,v.folio_venta,DATE_FORMAT(v.fecha_venta,'%d/%m/%y %H:%i') as fecha_venta,
-		v.concepto_venta,v.importe,v.descuento,v.subtotal,v.impuestos,v.total,s.nombre_sucursal,c.nombre_fiscal,v.pago,v.cambio,
-		ifnull(s.calle,'') as calle,ifnull(s.numext,'') as numext,ifnull(s.numint,'') as numint,ifnull(s.colonia,'') as colonia,
-		ifnull(s.cp,'') as cp,ifnull(s.localidad,'') as localidad,ifnull(s.ciudad,'') as ciudad,ifnull(s.estado,'') as estado,
-		ifnull(s.pais,'') as pais, ag.nombre_agente
-		FROM ventas v 
-		INNER JOIN cat_sucursales s ON s.id_sucursal = v.id_sucursal
-		INNER JOIN cat_clientes c ON c.id_cliente = v.id_cliente
-		LEFT JOIN cat_agentes ag ON ag.id_agente = v.id_agente
-		WHERE v.id_venta = $id";
-		
-		$resArr = $model->query($query);
-		if ( empty($resArr) ){
-			return array();
-		}
-		
-		
-		// throw new Exception('Ramon');
-		
-		$query = "SELECT d.id_venta_detalle,p.codigo,p.codigo_barras,p.descripcion,u.codigo_unidad,d.cantidad,d.precio,d.importe,d.descuento,d.subtotal,d.impuestos,d.total 
-		FROM ventas_detalles d 
-		INNER JOIN cat_productos p ON p.id_producto = d.id_producto
-		INNER JOIN cat_unidadesdemedida u ON u.id_unidadmedida = p.id_unidadmedida
-		WHERE d.id_venta = $id";
-		$resArrDetalles = $model->query($query);
-		if ( empty($resArrDetalles) ){
-			return array();
-		}
-		// $serie = $resArr[0]['serie_movimiento'];
-			// throw new Exception($serie);
-		//--------------Si se ha filtrado por cliente, mando aparte los datos del cliente
+			
 		
 		$response=array();
-      	$response['data']['venta']=$resArr[0]; 
-		$response['data']['empresa']=$resArrEmpresa[0]; 
-		$response['data']['sucursal']=$resArrSucursal[0]; 
-		$response['data']['detalles']=$resArrDetalles;   
-		// print_r($resArrDetalles,true);		
-        //$response['data']=$resArr;   
-	    //$response['filtros']=$params;	
-			
-		// throw new Exception($resArr['data']['serie_venta'][0]);
+      	$response['data']['filtros']=$filtros;
+		$response['data']['clientes']=$resArrClientes;
+		
         return $response;
 	}
 	function prepararParaImpresion($datos,$filtros){

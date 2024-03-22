@@ -71,7 +71,9 @@ formClientes = Ext.extend(formClientesUi, {
         );		
 		this.cmbForaneo.store.loadData({data:data}); 		
 		this.cmbForaneo.setValue(0);
-		
+
+		this.cmbCategorias.store = new miErpWeb.storeClientesCategorias();
+		this.cmbCategorias.store.load();
 		 
 		this.cmbCiudades.tpl=tplCatCiudades;
 		
@@ -122,7 +124,7 @@ formClientes = Ext.extend(formClientesUi, {
                 this.ciudadSeleccionada(params);
 			
 		},this);
-		
+				
 		this.cmbCiudades.on('beforequery',function(qe){	
 			delete qe.combo.lastQuery;
 			
@@ -156,6 +158,31 @@ formClientes = Ext.extend(formClientesUi, {
             }
             
         },this);
+
+		this.cmbCategorias.on('beforequery',function(qe){	
+			delete qe.combo.lastQuery;
+			
+		},this);
+		
+		
+		this.cmbCategorias.on('keypress',function(t, e){	
+			if (e['altKey'] || (e['shiftKey'] && e.getKey() == 34) || e.getKey() == 39) {
+                    e.stopEvent();
+                }			
+		},this);
+		
+		this.cmbCategorias.on('keyup',function(t, e){	
+				 if (e.getKey() == 114 && e['ctrlKey'] && !e['altKey']) {
+                    if(this.disabled){
+						return;
+					}
+                    this.expand();
+                    this.el.focus();
+                    if(this.getRawValue())	this.doQuery(this.getRawValue());
+                    else this.doQuery('@ALL001X23');
+                    this.el.focus();
+                }	
+		},this);
 		
 		this.on('cambioDeStatus',function(params){			
 			var status=params.status;
@@ -376,6 +403,7 @@ formClientes = Ext.extend(formClientesUi, {
 				var cliente = respuesta.data.Cliente;
 				var ciudad=respuesta.data.Ciudad;
 				var listaprecio=respuesta.data.ListaPrecios;
+				var categorias=respuesta.data.Categorias;
                
                 this.cmbCiudades.store.loadData({data:ciudad});
 
@@ -385,6 +413,10 @@ formClientes = Ext.extend(formClientesUi, {
 				this.txtIdPais.setValue(ciudad.id_pai);
 				this.txtPais.setValue(miErpWeb.formatearTexto(ciudad.nom_pai));
 				
+				if (categorias!=undefined){
+					this.cmbCategorias.store.loadData({data:categorias});
+				} 	
+
 				if (listaprecio!=undefined){
 					this.cmbListaPrecio.store.loadData({data:listaprecio});
 				}  
