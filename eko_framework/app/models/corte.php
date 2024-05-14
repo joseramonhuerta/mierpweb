@@ -202,7 +202,7 @@ class Corte extends Model{
 				$query.=",id_turno='".$id_turno."'";
 			}
 			
-			$queryVentas = "select IFNULL(SUM(total),0) as totalventas  FROM ventas where id_turno = $id_turno";
+			$queryVentas = "select IFNULL(SUM(total),0) as totalventas  FROM ventas where status = 'A' and id_turno = $id_turno";
 			$res = mysqlQuery($queryVentas);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalVentas = $resultado['totalventas'];
@@ -241,7 +241,7 @@ class Corte extends Model{
 			}
 			$query.=",total_turno='".$this->EscComillas($total_turno)."'";
 			
-			$queryVentas = "select IFNULL(SUM(total),0) as totalventas  FROM ventas where id_turno = $id_turno";
+			$queryVentas = "select IFNULL(SUM(total),0) as totalventas  FROM ventas where status = 'A' and id_turno = $id_turno";
 			$res = mysqlQuery($queryVentas);
 			$resultado = mysql_fetch_array($res, MYSQL_ASSOC);
 			$totalVentas = $resultado['totalventas'];

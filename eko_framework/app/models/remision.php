@@ -89,7 +89,7 @@ class RemisionModel extends Model{
         return $response;
     }
     
-	public function guardar($params){
+	public function guardar($params){	
 		try{
 			// Throw new Exception("Ramon");		
 			$registroNuevo=false;
@@ -107,9 +107,9 @@ class RemisionModel extends Model{
 			
 			$id_empresa = $Remision['id_empresa'];		
 			$id_sucursal = $Remision['id_sucursal'];
-			$id_almacen = $Remision['id_almacen'];
-					 
-			$id_remision = $Remision['id_remision'];
+			$id_almacen = $Remision['id_almacen'];					 
+			$id_remision = $Remision['id_remision'];			
+
 			$id_serie = $Remision['id_serie'];
 			$nombre_serie = $Remision['nombre_serie'];
 			$folio = $Remision['folio'];
@@ -127,13 +127,23 @@ class RemisionModel extends Model{
 			$comision = $Remision['comision'];
 			$impuestos = $Remision['impuestos'];
 			$total = $Remision['total'];
-			$status = $Remision['status'];
+			$status = $Remision['status'];			
 		
 			$datetime="$fecha $hora";
 			
 			$fecha=date('Y-m-d H:i:s',strtotime($datetime));
 			
 			if($id_remision > 0){
+
+				$sql="SELECT r.status FROM remisiones r
+					WHERE id_remision = $id_remision";
+					
+				$RemisionStatus=$this->select($sql);		
+				$statusRemision = $RemisionStatus[0]['status'];
+				if($statusRemision == 'I'){				
+					throw new Exception("Error: La remision se encuentra inactiva");				
+				}
+
 				$query="UPDATE $this->useTable SET ";
 				
 				$query.="usermodif=$IDUsu";    //LOG
@@ -228,7 +238,7 @@ class RemisionModel extends Model{
 		$stock = new Stock();
 		
 			
-			$sql="SELECT r.id_remision,r.aplicado,r.condicion_pago FROM remisiones r
+			$sql="SELECT r.id_remision,r.aplicado,r.condicion_pago,r.status FROM remisiones r
 					WHERE id_remision = $id";
 					
 			$Remision=$this->select($sql);
@@ -236,6 +246,11 @@ class RemisionModel extends Model{
 			$id_remision = $Remision[0]['id_remision'];
 			$aplicada = $Remision[0]['aplicado'];
 			$condicion_pago = $Remision[0]['condicion_pago'];
+			$status = $Remision[0]['status'];
+
+			if($status == 'I'){				
+				throw new Exception("Error: La remision se encuentra inactiva");				
+			}
 			
 			if($aplicada == 1){				
 				throw new Exception("Error: La remision se encuentra aplicada");
@@ -262,15 +277,17 @@ class RemisionModel extends Model{
 			
 			}	
 
-		$sqlDelete="DELETE FROM  $this->detalleTable WHERE id_remision = $id ";
-		$this->queryDelete($sqlDelete);			
-		
-        return parent::delete($id);
+		//$sqlDelete="DELETE FROM  $this->detalleTable WHERE id_remision = $id ";
+		//$this->queryDelete($sqlDelete);		
+		$IDUsu=$_SESSION['Auth']['User']['IDUsu'];	
+		$sqlUpdate="UPDATE remisiones set status='I', usermodif = $IDUsu, fechamodif=now() WHERE id_remision=$id";					
+		$this->update($sqlUpdate);		
+        return $id;
     }
 
 	 function getById($id){
     	 $query="SELECT r.id_remision,DATE_FORMAT(r.fecha,'%d/%m/%Y %H:%i:%S') as fecha,r.folio,
-				r.condicion_pago,r.id_serie,r.serie,r.concepto,r.importe,r.descuento,r.subtotal,r.impuestos,r.total,r.id_agente,ag.nombre_agente,r.id_cliente,c.nombre_fiscal as nombre_cliente,ifnull(r.aplicado,0) as aplicado,ifnull(c.foraneo,0) as foraneo
+				r.condicion_pago,r.id_serie,r.serie,r.concepto,r.importe,r.descuento,r.subtotal,r.impuestos,r.total,r.id_agente,ag.nombre_agente,r.id_cliente,c.nombre_fiscal as nombre_cliente,ifnull(r.aplicado,0) as aplicado,ifnull(c.foraneo,0) as foraneo, r.status
 				FROM $this->useTable r
 				left join cat_agentes ag on ag.id_agente = r.id_agente
 				left join cat_clientes c on c.id_cliente = r.id_cliente
@@ -378,7 +395,17 @@ class RemisionModel extends Model{
 	}
 
 	public function aplicar($id){
-		$response=array();		
+		$response=array();
+		
+		$sql="SELECT r.status FROM remisiones r
+					WHERE id_remision = $id";
+					
+		$Remision=$this->select($sql);		
+		$status = $Remision[0]['status'];
+		if($status == 'I'){				
+			throw new Exception("Error: La remision se encuentra inactiva");				
+		}
+
 		try{			
 			$IDUsu=$_SESSION['Auth']['User']['IDUsu'];    
 			
@@ -419,7 +446,16 @@ class RemisionModel extends Model{
     }
 	
 	public function desaplicar($id){
-		$response=array();		
+		$response=array();	
+		$sql="SELECT r.status FROM remisiones r
+					WHERE id_remision = $id";
+					
+		$Remision=$this->select($sql);		
+		$status = $Remision[0]['status'];
+		if($status == 'I'){				
+			throw new Exception("Error: La remision se encuentra inactiva");				
+		}
+	
 		try{
 			
 			$data=$this->getById($id);			

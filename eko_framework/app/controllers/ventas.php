@@ -378,13 +378,13 @@ class Ventas extends ApplicationController {
 			//$filtro = $this->filtroToSQL( $folio ); 
 			// throw new Exception($folio);
 			if (strlen($folio) > 0) {
-				$filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
+				$filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
 			} else {
-			   $filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
+			   $filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
 			}
 			
 			
-			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas $filtro ";
+			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas v $filtro ";
 			// throw new Exception($query);
 			$res = mysqlQuery($query);
 			if (!$res)
