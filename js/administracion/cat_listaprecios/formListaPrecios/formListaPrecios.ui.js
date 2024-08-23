@@ -34,6 +34,18 @@ formListaPreciosUi = Ext.extend(Ext.Panel, {
                     itemId: 'btnEliminar',
                     icon: 'images/iconos/conceptos_delete.png',
                     ref: '../btnEliminar'
+                },
+                {
+                    xtype: 'tbseparator'
+                },
+                {
+                    xtype: 'button',
+                    text: 'Actualizar Precios',
+                    disabled: true,
+                    itemId: 'btnActualizarPrecios',
+                    icon: 'images/iconos/sync.png',
+                    ref: '../btnActualizarPrecios'
+
                 }
             ]
         };

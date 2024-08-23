@@ -5,26 +5,8 @@ class ClienteModel extends Model{
     var $primaryKey = 'id_cliente';
     var $specific = true;
     var $camposAfiltrar = array('nombre_fiscal','nombre_contacto','email_contacto','telefono_contacto','celular_contacto','rfc_cliente');
-		
-	 // var $select=array(	//ESTOS SON LOS CAMPOS QUE SE SELECCIONARAN DE LA TABLA ESPECIFICADA EN $useTable
-    	// El primer valor es el nombre del campo en la tabla y el segundo valor es el alias que se usará en el select
-    	// 0=>array("id_cliente"=>"id_cliente"),
-		// 1=>array("nombre_fiscal"=>"nombre_fiscal"),
-		// 2=>array("nombre_comercial"=>"nombre_comercial"),
-		// 3=>array("nombre_contacto"=>"nombre_contacto"),
-		// 4=>array("email_contacto"=>"email_contacto"),
-		// 5=>array("telefono_contacto"=>"telefono_contacto"),
-		// 6=>array("celular_contacto"=>"celular_contacto"),
-		// 7=>array("status"=>"status"),
-		// 8=>array("tipo_cliente"=>"tipo_cliente"),
-		// 9=>array("rfc_cliente"=>"rfc_cliente"),
-		// 10=>array("id_ciudad"=>"id_ciudad"),
-		// 11=>array("id_estado"=>"id_estado"),
-		// 12=>array("id_pais"=>"id_pais")
-    	// );	
-    
-    function readAll($start, $limit, $filtro, $filtroStatus) {
-        
+	 
+    function readAll($start, $limit, $filtro, $filtroStatus) {        
         if ($filtro != '') {
             $filtroSql = $this->filtroToSQL($filtro);
         } else {
@@ -32,21 +14,18 @@ class ClienteModel extends Model{
         }
 		
 		 if (strlen($filtroSql) > 0) {
-				if ($filtroStatus=='A')
-                $filtroSql.=" AND status='A' ";
-				if ($filtroStatus=='I')
-                $filtroSql.=" AND status='I' ";
-            }else {
-               if ($filtroStatus=='A')
-                $filtroSql.="WHERE status='A' ";
-				if ($filtroStatus=='I')
-                $filtroSql.="WHERE status='I' ";
-            }
+            if ($filtroStatus=='A')
+            $filtroSql.=" AND c.status='A' ";
+            if ($filtroStatus=='I')
+            $filtroSql.=" AND c.status='I' ";
+        }else {
+            if ($filtroStatus=='A')
+            $filtroSql.="WHERE c.status='A' ";
+            if ($filtroStatus=='I')
+            $filtroSql.="WHERE c.status='I' ";
+        }      
 
-        
-      
-
-        $query = "select count($this->primaryKey) as totalrows  FROM $this->useTable
+        $query = "select count($this->primaryKey) as totalrows  FROM $this->useTable c
         $filtroSql";
         $res = mysqlQuery($query);
         if (!$res)
@@ -55,7 +34,8 @@ class ClienteModel extends Model{
         $resultado = mysql_fetch_array($res, MYSQL_ASSOC);
         $totalRows = $resultado['totalrows'];
 
-        $query = "SELECT id_cliente,nombre_fiscal,nombre_comercial,estilista,nombre_contacto,email_contacto,telefono_contacto,celular_contacto,tipo_cliente,rfc_cliente,status FROM $this->useTable
+        $query = "SELECT c.id_cliente,c.nombre_fiscal,c.nombre_comercial,c.estilista,c.nombre_contacto,c.email_contacto,c.telefono_contacto,c.celular_contacto,c.tipo_cliente,c.rfc_cliente,c.status,cc.nombre_categoria FROM $this->useTable c
+                  LEFT JOIN cat_clientes_categorias cc ON cc.id_cliente_categoria = c.id_cliente_categoria  
                 $filtroSql ORDER BY nombre_fiscal limit $start,$limit ;";
 
         $res = mysqlQuery($query);
@@ -64,31 +44,7 @@ class ClienteModel extends Model{
 
         $response = ResulsetToExt::resToArray($res);
         $response['totalRows'] = $totalRows;
-		/*
-		 
-		 * */
-       /* $response["metaData"]=array(
-	        "totalProperty"=> "totalRows",
-	        "root"=> "data",
-	        "id"=> "IDCli", 
-        	"fields"=>array(    			
-        		array("name"=>"IDCli","type"=>"int"),
-	            array("name"=>'NomCli',"type"=>'string'),
-	            array("name"=>'StatusCli'),
-	            array("name"=>'RazSocCliDet',"type"=>'string'),
-	            array("name"=>'NomConCorCli',"type"=>'string'),
-	            array("name"=>'EmaConCorCli',"type"=>'string',"formatear"=>false),
-	            array("name"=>'TipoCliDet'),
-	            array("name"=>'RFCCliDet',"type"=>'string'),  
-	            array("name"=>'TelConCorCli',"type"=>'tel'),
-	            array("name"=>'CelConCorCli',"type"=>'tel'),
-	            array("name"=>'NomConCorCli',"type"=>'string')
-        	),       
-	        "sortInfo"=> array(
-	            "field"=>"NomCli",
-	            "direction"=>"$sort"
-	        )
-	    );*/
+		
         return $response;
     }
     
@@ -156,7 +112,13 @@ class ClienteModel extends Model{
 		$query.=",id_est='".$datos['id_est']."'";
         $query.=",id_pai='".$datos['id_pai']."'";
         $query.=",cp='".$datos['cp']."'";
-      
+
+        $query.=",calle_contacto='".$this->EscComillas($datos['calle_contacto'])."'";
+        $query.=",numext_contacto='".$this->EscComillas($datos['numext_contacto'])."'";
+        $query.=",numint_contacto='".$this->EscComillas($datos['numint_contacto'])."'";
+        $query.=",colonia_contacto='".$this->EscComillas($datos['colonia_contacto'])."'";
+        $query.=",localidad_contacto='".$this->EscComillas($datos['localidad_contacto'])."'";
+        $query.=",cp_contacto='".$datos['cp_contacto']."'";
         // $query.=",id_cliente=".$datos['id_cliente']."";
         
       
@@ -172,6 +134,10 @@ class ClienteModel extends Model{
 		}else{
             $query.=",id_listaprecio=NULL";
         }
+
+        if (is_numeric($datos['id_cliente_categoria'])){	
+			$query.=",id_cliente_categoria='".$datos['id_cliente_categoria']."'";
+		}
 		
         /*LOG dEL MOVIMIENTO*/
 
@@ -195,26 +161,11 @@ class ClienteModel extends Model{
     }
 	
 	public function getcliente($IDValue){	
-		 $query = "SELECT id_cliente,nombre_fiscal,nombre_comercial,estilista,foraneo,nombre_contacto,email_contacto,telefono_contacto,celular_contacto,status,tipo_cliente,rfc_cliente,id_ciu,id_est,id_pai,calle,numext,numint,localidad,colonia,cp,id_listaprecio FROM $this->useTable
-         WHERE id_cliente = $IDValue ;";
-		
-		// $res=$this->query($query);
-        // if (!$res)
-            // throw new Exception(mysql_error() . " " . $query);
-        // Return  $res;
-		
-		// $res = mysqlQuery($query);
-        // if (!$res)throw new Exception(mysql_error());
-        // $cliente = array();
-        // while ($obj = @mysql_fetch_object($res)) {
-            // $cliente = $obj;
-        // }
-        // return $cliente;
-		
+		$query = "SELECT id_cliente,nombre_fiscal,nombre_comercial,estilista,foraneo,nombre_contacto,email_contacto,telefono_contacto,celular_contacto,status,tipo_cliente,rfc_cliente,id_ciu,id_est,id_pai,calle,numext,numint,localidad,colonia,cp,calle_contacto,numext_contacto,numint_contacto,localidad_contacto,colonia_contacto,cp_contacto,id_listaprecio,id_cliente_categoria FROM $this->useTable
+        WHERE id_cliente = $IDValue ;";
+
 		$arrCliente= $this->select($query);
-		return array('Cliente'=>$arrCliente[0]);
-		
-		
+		return array('Cliente'=>$arrCliente[0]);		
 	}
 	
 	public function delete($id){

@@ -76,18 +76,20 @@ class ReporteVentaTicket{
 					WHERE e.id_empresa  = $id_empresa";*/
 
 
-		$query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,s.calle,s.numext,s.numint,s.colonia,s.cp,s.ciudad AS nom_ciu,s.estado AS nom_est,s.pais AS nom_pai,e.logotipo,
-					e.regimen_fiscal,e.telefono,e.email,IFNULL(e.logotipo_sucursal,0) AS logotipo_sucursal
-					FROM cat_sucursales s
-					INNER JOIN cat_empresas e ON e.id_empresa = s.id_empresa
-					WHERE s.id_sucursal = $id_sucursal";	
+		$query = "SELECT e.nombre_comercial,e.nombre_fiscal,e.rfc,e.calle,e.numext,e.numint,e.colonia,e.cp,c.nom_ciu AS nom_ciu,es.nom_est AS nom_est,p.nom_pai AS nom_pai,e.logotipo,
+				e.regimen_fiscal,e.telefono,e.email,IFNULL(e.logotipo_sucursal,0) AS logotipo_sucursal
+				FROM cat_empresas e
+				LEFT JOIN cat_ciudades c ON e.id_ciu = c.id_ciu
+				LEFT JOIN cat_estados es ON e.id_est = es.id_est
+				LEFT JOIN cat_paises p ON e.id_pai = p.id_pai
+				WHERE e.id_empresa = $id_empresa";	
         
 		$resArrEmpresa = $model->query($query);
 		if ( empty($resArrEmpresa) ){
 			return array();
 		}
 		
-		 $query = "SELECT nombre_sucursal, logotipo
+		 $query = "SELECT nombre_sucursal,calle,numext,numint,colonia,cp,ciudad AS nom_ciu,estado AS nom_est,pais AS nom_pai,logotipo
 					FROM cat_sucursales
 					WHERE id_sucursal  = $id_sucursal";	
         

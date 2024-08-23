@@ -197,6 +197,14 @@ class ListaPrecioModel extends Model{
 		
         return parent::delete($id);
     }
+    
+    public function actualizarPrecios($id){
+        $query = "CALL spActualizaListaPrecios($id);";
+		$this->query($query);
+        $affected=mysql_affected_rows();		
+
+        return $affected;
+    }
 
 }
 ?>

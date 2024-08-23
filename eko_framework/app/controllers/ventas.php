@@ -10,7 +10,10 @@ require_once "eko_framework/app/models/reporte_pedido_sugerido.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_costos.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_global.php";
 require_once "eko_framework/app/models/reporte_flujo_efectivo_excel.php";
+<<<<<<< HEAD
 require_once "eko_framework/app/models/reporte_saldos_lineas.php";
+=======
+>>>>>>> cc6483fc23b368b395609c460993a7d8400841c2
 
 //require ('eko_framework/app/models/linea.php');
 class Ventas extends ApplicationController {
@@ -379,13 +382,13 @@ class Ventas extends ApplicationController {
 			//$filtro = $this->filtroToSQL( $folio ); 
 			// throw new Exception($folio);
 			if (strlen($folio) > 0) {
-				$filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
+				$filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
 			} else {
-			   $filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
+			   $filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
 			}
 			
 			
-			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas $filtro ";
+			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas v $filtro ";
 			// throw new Exception($query);
 			$res = mysqlQuery($query);
 			if (!$res)
@@ -895,8 +898,13 @@ class Ventas extends ApplicationController {
 		//return 	$texto;
 		// return addslashes($texto);
     	return str_replace ( "'" ,"\'" ,$texto);
+<<<<<<< HEAD
 	}
 	
+=======
+    }
+
+>>>>>>> cc6483fc23b368b395609c460993a7d8400841c2
 	function obtenersucursalesempresa(){
 		try {
 			$idEmpresa = ( empty($_POST['id_empresa']) )? 0 : $_POST['id_empresa'];

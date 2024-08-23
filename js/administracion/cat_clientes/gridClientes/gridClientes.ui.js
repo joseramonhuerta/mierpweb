@@ -120,6 +120,14 @@ gridClientesUi = Ext.extend(Ext.grid.GridPanel, {
                 width: 150,
                 dataIndex: 'telefono_contacto',
                 id: 'colTelefonos'
+            },
+            {
+                xtype: 'gridcolumn',
+                header: 'Categoria',
+                sortable: true,
+                width: 150,
+                dataIndex: 'nombre_categoria',
+                id: 'colCategoria'
             }
         ];
         this.bbar = {

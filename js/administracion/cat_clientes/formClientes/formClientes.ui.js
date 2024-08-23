@@ -69,7 +69,8 @@ formClientesUi = Ext.extend(Ext.form.FormPanel, {
                 width: 120,
                 allowBlank: false,
                 labelStyle: 'font-weight:bold;',
-                name: 'rfc_cliente'
+                name: 'rfc_cliente',
+                value: 'XAXX010101000'
             },
             {
                 xtype: 'textfield',
@@ -129,6 +130,24 @@ formClientesUi = Ext.extend(Ext.form.FormPanel, {
                 valueField: 'id',
                 hiddenName: 'foraneo',
                 ref: 'cmbForaneo'
+            },
+            {
+                xtype: 'combo',
+                fieldLabel: 'Categoría',
+                width: 180,
+                labelStyle: 'font-weight:bold;',
+                allowBlank: false,
+                forceSelection: true,
+                hiddenName: 'id_cliente_categoria',
+                name: 'id_cliente_categoria',
+                displayField: 'nombre_categoria',
+                valueField: 'id_cliente_categoria',
+                enableKeyEvents: true,
+                pageSize: 20,
+                triggerAction: 'all',
+                minChars: 2,
+                triggerClass: 'x-form-search-trigger',
+                ref: 'cmbCategorias'
             },
             {
                 xtype: 'fieldset',
@@ -238,7 +257,7 @@ formClientesUi = Ext.extend(Ext.form.FormPanel, {
             {
                 xtype: 'fieldset',
                 title: 'Información de Contacto',
-                height: 112,
+                height: 250,
                 width: 500,
                 items: [
                     {
@@ -246,6 +265,65 @@ formClientesUi = Ext.extend(Ext.form.FormPanel, {
                         fieldLabel: 'Nombre Contacto',
                         width: 350,
                         name: 'nombre_contacto'
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Calle',
+                        width: 350,
+                        name: 'calle_contacto'
+                    },
+                    {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [
+                            {
+                                xtype: 'container',
+                                layout: 'form',
+                                flex: 1,
+                                items: [
+                                    {
+                                        xtype: 'textfield',
+                                        fieldLabel: 'Num Ext',
+                                        anchor: '100%',
+                                        width: 100,
+                                        name: 'numext_contacto'
+                                    }
+                                ]
+                            },
+                            {
+                                xtype: 'container',
+                                layout: 'form',
+                                labelWidth: 50,
+                                style: 'margin-left:20px;',
+                                flex: 1,
+                                items: [
+                                    {
+                                        xtype: 'textfield',
+                                        fieldLabel: 'Num Int',
+                                        width: 100,
+                                        name: 'numint_contacto'
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Colonia',
+                        width: 275,
+                        name: 'colonia_contacto'
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Código Postal',
+                        width: 75,
+                        name: 'cp_contacto'
+                    },
+                    {
+                        xtype: 'textfield',
+                        fieldLabel: 'Localidad',
+                        width: 280,
+                        name: 'localidad_contacto'
                     },
                     {
                         xtype: 'textfield',

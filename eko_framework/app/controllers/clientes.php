@@ -4,8 +4,11 @@ require ('eko_framework/app/models/cliente.php');       //MODELO
 require ('eko_framework/app/models/ciudad.php');
 require ('eko_framework/app/models/pais.php');
 require ('eko_framework/app/models/lista_precio.php');
+require ('eko_framework/app/models/cliente_categoria.php');
 require_once "eko_framework/app/models/reporte_ventas_clientes.php";
 require_once "eko_framework/app/models/reporte_cartera_clientes.php";
+require_once "eko_framework/app/models/reporte_clientes_categorias.php";
+require_once "eko_framework/app/models/reporte_clientes_categorias_excel.php";
 class Clientes extends ApplicationController {
     function getModelObject(){
     	if (empty($this->model)) {
@@ -76,11 +79,18 @@ class Clientes extends ApplicationController {
 			'id_est'=>$_POST['id_est'],
 			'id_pai'=>$_POST['id_pai'],
 			'nombre_contacto'=>$_POST['nombre_contacto'],
+			'calle_contacto'=>$_POST['calle_contacto'],	
+			'numext_contacto'=>$_POST['numext_contacto'],
+			'numint_contacto'=>$_POST['numint_contacto'],
+			'colonia_contacto'=>$_POST['colonia_contacto'],
+			'cp_contacto'=>$_POST['cp_contacto'],
+			'localidad_contacto'=>$_POST['localidad_contacto'],
 			'email_contacto'=>$_POST['email_contacto'],
 			'telefono_contacto'=>$_POST['telefono_contacto'],
 			'celular_contacto'=>$_POST['celular_contacto'],
 			'status'=>$_POST['status'],
-			'id_listaprecio'=>$_POST['id_listaprecio']		
+			'id_listaprecio'=>$_POST['id_listaprecio'],
+			'id_cliente_categoria'=>$_POST['id_cliente_categoria']	
 			);							
 		
             $clienteModel=new ClienteModel();			
@@ -105,10 +115,14 @@ class Clientes extends ApplicationController {
 			
 			$listaPrecioModel=new ListaPrecioModel();
 			$listaprecio=$listaPrecioModel->readAll(0, 200, ''); 
+
+			$clienteCategoriaModel=new ClienteCategoriaModel();
+			$clientescategorias=$clienteCategoriaModel->readAll(0,200,'');
 			
 			
-			$response['data']['Unidades']=$unidades['data'];
-			$response['data']['ListaPrecios']=$listaprecio[0];	 
+			//$response['data']['Unidades']=$unidades['data'];
+			$response['data']['ListaPrecios']=$listaprecio[0];	
+			$response['data']['ClientesCategorias']=$clientescategorias['data'];
 			
          
 
@@ -416,6 +430,90 @@ class Clientes extends ApplicationController {
 			$response['msg']       = $e->getMessage();
 		}
 		echo json_encode($response);
+	}
+
+	function obtenercategorias(){
+		try {
+			$filtro_query= ( empty($_POST['query']) )? '' : $_POST['query']; 
+			// $filtro = (isset($_POST['query'])) ? $this->filtroToSQL($_POST['query']) : '';
+			// $filtro = $this->filtroToSQL($_POST['query'],);
+			$filtro=$this->filtroToSQL($filtro_query,array('nombre_categoria'));
+			// throw new Exception($filtro);		
+			$filtro.= ($filtro) ? " AND status = 'A'" : " WHERE status = 'A' ";
+			
+			$query = "SELECT COUNT(id_cliente_categoria) AS totalrows FROM cat_clientes_categorias $filtro ";
+			
+			$res = mysqlQuery($query);
+			if (!$res)
+			throw new Exception(mysql_error()." ".$query);
+				
+			$resultado  = mysql_fetch_array($res, MYSQL_ASSOC);
+			$total_rows = $resultado['totalrows'];
+				
+			$limit = (empty($_POST['limit'])) ? 20 : $_POST['limit'];
+			$start = (empty($_POST['start'])) ?  0 : $_POST['start'];
+				
+			$query = " SELECT id_cliente_categoria,nombre_categoria, status FROM cat_clientes_categorias $filtro ";
+			$query.= " ORDER BY id_cliente_categoria LIMIT $start, $limit ";
+			$res = mysqlQuery($query);
+			if (!$res)  throw new Exception(mysql_error()." ".$query);
+				
+			$response = ResulsetToExt::resToArray($res);
+			$response['totalRows'] = $total_rows;
+		} catch (Exception $e) {
+			$response['totalRows'] = $total_rows;
+			$response['success']    = false;
+			$response['msg']       = $e->getMessage();
+		}
+		echo json_encode($response);
+	}
+
+	function generarreporteclientescategorias(){
+		$params = $_POST;
+		$reporte=new ReporteClientesCategorias();
+		
+		$formatos=array(
+	 		'decimales'=>$_SESSION['Auth']['Parametros']['dec_mon_par'],
+			'texto'=>$_SESSION['Auth']['UserConfig']['forUsu']
+	 	);
+		$pdf = '';
+		$pdf=$reporte->generarReporte($params,$formatos);
+		mt_srand (time());
+		
+		$numero_aleatorio = mt_rand(0,5000); 
+		$_SESSION['repExis']['rand']=$numero_aleatorio ;
+		$_SESSION['repExis']['pdf']=$pdf ;		
+		$response=array(
+			'success'=>true,
+			'data'=>array(
+				'identificador'=>$numero_aleatorio
+			)
+		);
+		return $response;
+		
+		
+		
+		
+	}
+	
+	function getpdfclientescategorias(){		
+		if (!isset($_SESSION['repExis'])){				
+			throw new Exception('El archivo ha caducado, realice una nueva consulta');
+		}
+		if (!isset($_SESSION['repExis']['pdf'])){				
+			throw new Exception('Se ha perdido la referencia al archivo, realice una nueva consulta');
+		}
+		$pdfName=$_SESSION['repExis']['pdf'];
+		
+		$reporte=new ReporteClientesCategorias();
+		$reporte->getPDF($pdfName);
+	}
+	
+	function generarreporteclientescategoriasexcel(){
+		$params = $_GET;
+		$reporte=new ReporteClientesCategoriasExcel();
+		
+		$pdf=$reporte->generarReporteExcel($params);
 	}
 
 }

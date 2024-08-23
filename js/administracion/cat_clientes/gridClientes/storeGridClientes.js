@@ -58,6 +58,10 @@ miErpWeb.storeGridClientes = Ext.extend(Ext.data.JsonStore, {
                 },
 				{
                     name: 'status'
+                },
+                {
+                    name: 'nombre_categoria',
+                    type: 'string'
                 }
 			
 			],

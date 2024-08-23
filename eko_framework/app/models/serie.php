@@ -55,6 +55,7 @@ class SerieModel extends Model{
 				when 9 then 'ABONOS'
                 when 10 then 'MOVIMIENTOS BANCOS'	
 				when 11 then 'GASTOS'	
+				when 12 then 'COTIZACIONES'
 				  end AS tipo_serie,status FROM $this->useTable
 				  $filtroSql ORDER BY nombre_serie limit $start,$limit ;";
 		//throw new Exception($query);
