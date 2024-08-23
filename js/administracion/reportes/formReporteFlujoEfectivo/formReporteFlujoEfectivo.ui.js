@@ -119,7 +119,6 @@ formReporteFlujoEfectivoUi = Ext.extend(Ext.form.FormPanel, {
                 xtype: 'checkbox', //defining the type of component
                 fieldLabel: 'Reporte Perdidas y ganancias',//assigning a label
                 name: 'chkPerdidasGanancias', //and a "name" so we can retrieve it in the server... 
-                id: 'id-active',// ...when the form is sent
                 ref: 'chkPerdidasGanancias'
             } 
         ];

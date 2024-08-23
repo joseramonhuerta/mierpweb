@@ -288,7 +288,12 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoEmpresas.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteFlujoEfectivo/storeFormReporteFlujoEfectivoSucursales.js";
 
+	//----- Reporte Salodos Lineas------//	
 	
+	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/formReporteSaldosLineas.ui.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/formReporteSaldosLineas.js";
+	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/storeFormReporteSaldosLineasLineas.js";
+		
 	//------------------       Grid Turnos     ------------------//
 	$arrayFiles[]="js/administracion/turnos/gridTurnos/gridTurnos.ui.js";
 	$arrayFiles[]="js/administracion/turnos/gridTurnos/gridTurnos.js";

@@ -10,6 +10,7 @@ require_once "eko_framework/app/models/reporte_pedido_sugerido.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_costos.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_global.php";
 require_once "eko_framework/app/models/reporte_flujo_efectivo_excel.php";
+require_once "eko_framework/app/models/reporte_saldos_lineas.php";
 
 //require ('eko_framework/app/models/linea.php');
 class Ventas extends ApplicationController {
@@ -941,6 +942,48 @@ class Ventas extends ApplicationController {
 		$reporte=new ReporteFlujoEfectivoExcel();
 		
 		$pdf=$reporte->generarReporteExcel($params);
+	}
+
+	function generarreportesaldoslineaspdf(){
+		$params = $_POST;
+		
+		$reporte=new ReporteSaldosLineas();
+		
+		$formatos=array(
+	 		'decimales'=>$_SESSION['Auth']['Parametros']['dec_mon_par'],
+			'texto'=>$_SESSION['Auth']['UserConfig']['forUsu']
+	 	);
+		$pdf = '';
+		$pdf=$reporte->generarReporte($params,$formatos);
+		mt_srand (time());
+		
+		$numero_aleatorio = mt_rand(0,5000); 
+		$_SESSION['repSalLin']['rand']=$numero_aleatorio ;
+		$_SESSION['repSalLin']['pdf']=$pdf ;		
+		$response=array(
+			'success'=>true,
+			'data'=>array(
+				'identificador'=>$numero_aleatorio
+			)
+		);
+		return $response;
+		
+		
+		
+		
+	}
+	
+	function getpdfsaldoslineas(){		
+		if (!isset($_SESSION['repSalLin'])){				
+			throw new Exception('El archivo ha caducado, realice una nueva consulta');
+		}
+		if (!isset($_SESSION['repSalLin']['pdf'])){				
+			throw new Exception('Se ha perdido la referencia al archivo, realice una nueva consulta');
+		}
+		$pdfName=$_SESSION['repSalLin']['pdf'];
+		
+		$reporte=new ReporteSaldosLineas();
+		$reporte->getPDF($pdfName);
 	}
 }
 ?>

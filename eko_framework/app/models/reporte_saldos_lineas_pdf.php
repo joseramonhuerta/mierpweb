@@ -1,9 +1,8 @@
 <?php
-require ('eko_framework/includes/pdf_js.php');
-require ('eko_framework/includes/funciones.php');
+require ('eko_framework/includes/fpdf.php');
 //ESTA CLASE DEBERIA TENER PUROS CICLOS DE IMPRESION,
 // DEBERIA PROCESAR INFORMACION SOLAMENTE PARA EL ASPECTO VISUAL
-class ReporteExistenciaPDF extends PDF_JavaScript{
+class ReporteSaldosLineasPDF extends FPDF{
 	var $cerrando=false;
 	var $colorHeader;
 	var $colorLetrasHeader;
@@ -11,19 +10,19 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 	var $imprimirTotales=false;
 	var $nueva=true;
 	var $decimales=2;
-	var $totalreporte=0;
 	var $aceptarSalto=true;
+	var $totalReporte=0;
 	var $imprimirSubtotalesDesdeFooter=true;
-	function ReporteExistenciaPDF($orientation='L',$unit='mm',$format='Letter',$datos,$formatos){
-		if (empty($this->yEncabezadoDeTabla))	$this->yEncabezadoDeTabla=19;
+	function ReporteSaldosLineasPDF($orientation='L',$unit='mm',$format='Letter',$datos,$formatos){
+		if (empty($this->yEncabezadoDeTabla))	$this->yEncabezadoDeTabla=28;
 	 	$this->datos=$datos;
 	 	$this->formatos=$formatos;
-	 	$this->wCliente=45;		
+	 	$this->wCliente=65;		
 		 							//$decimales=$this->formatos['decimales'];	 	
 	 	$this->acumuladas=0;	//Sumatoria de facturas NO Canceladas	 	
-		parent::__construct('L','mm',$format);
+		parent::__construct('L','mm','Letter');
 	 	$this->AliasNbPages(); 
-		// $this->SetAutoPageBreak(true, 10);
+		$this->SetAutoPageBreak(true, 10);
 		$this->colorHeader;
 		$this->colorLetrasHeader;
 		$this->SetFillColor(0, 0, 0);
@@ -55,7 +54,48 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 	}
 	public function Header() {
 		//Cell(float w [, float h [, string txt [, mixed border [, int ln [, string align [, int fill [, mixed link]]]]]]])
+		$wCliente=65;
+		$datos=$this->datos['data'];
+		$filtros=$this->datos['filtros'];
 		
+		
+		$fecha_inicio=$datos['filtros']['fecha_inicio'];
+		$fecha_fin=$datos['filtros']['fecha_fin'];
+		
+		//----------------------------------------------------
+		//			Titulo del reporte
+		//----------------------------------------------------
+		$this->SetTextColor(0, 0, 0);
+		$font="Arial";		
+		$this->SetY(10,10);
+		$this->SetFont($font,'B',14);
+					
+		$this->Cell(100,10,utf8_decode("Reporte de Saldos Lineas"),0,0,'L');	
+		$this->SetX(108);
+		
+		//-------------------------------------------------
+		//	Se muestran los filtros usados para generar el reporte
+		//-------------------------------------------------
+		$hCell=4;//		Alto de la celda
+		$border=0;
+		$filtroEstado='';
+		
+		//-----------------------Ahora a imprimir los datos----------------------
+		
+		$this->SetFont($font,'',9);		
+		
+		$this->SetFont($font,'',9);	
+		#	Label
+							
+		$this->Ln();	
+		
+		
+        $this->Cell(106,$hCell,'',0,0);		#			
+		//-----------------------------------emprezando con el rango de fechas---------------------------------------//	
+		$this->SetX(170);		
+		
+		
+        $this->ln();
 		
 		$fill=1;
 		$border=1;
@@ -71,70 +111,27 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 	function imprimeHeader(){
 		$border =0;
 		if ($this->imprimirHeader==true){
-			$wCliente=65;
-			$datos=$this->datos['data'];
-			$filtros=$this->datos['filtros'];
-			
-			$almacenOrigen=$datos['existencia']['nombre_almacen'];
-				
-			//----------------------------------------------------
-			//			Titulo del reporte
-			//----------------------------------------------------
-			$this->SetTextColor(0, 0, 0);
-			$font="Arial";	
-			$x2 = 2;	
-			$x3 = 65;
-			$this->SetXY(1,1);
-			$this->SetFont($font,'B',11);
-			$this->SetX($x2);
-						
-			$this->Cell($x3,10,utf8_decode("Reporte Existencias de Almacen"),0,0,'L');	
-			$this->SetX($x2);
-			
-			//-------------------------------------------------
-			//	Se muestran los filtros usados para generar el reporte
-			//-------------------------------------------------
-			$hCell=4;//		Alto de la celda
-			$border=0;
-			$filtroEstado='';
-			
-			//-----------------------Ahora a imprimir los datos----------------------
-			
-			$this->SetFont($font,'',9);		
-			
-			$this->SetFont($font,'',9);	
-								
-			$this->Ln();
-			
-			$this->SetX($x2);
-			$this->SetFont($font,'B',9);
-			$this->Cell(20,$hCell,"Almacen:",$border,0,'L');	#	Valor
-			$this->SetFont($font,'',9);
-			$this->Cell(40,$hCell,mb_strtoupper(UTF8_decode($almacenOrigen)),$border,0,'R');	#	Valor
-				
-			$this->Cell($x3,$hCell,'',0,0);		#			
-			//-----------------------------------emprezando con el rango de fechas---------------------------------------//	
-			$this->SetX($x2);		
-			
-			
-			$this->ln();
 			//IMPRIMIR EGRESOS O INGRESOS
 			$font="Arial";
 			$this->SetFont($font,'',9);
-			$this->SetX(2);			
+			$this->SetX(10);			
 			$this->SetTextColor(0, 0, 0);
+			// $this->Cell(41,2,$this->tipoComprobanteTitulo,$border,1,'L');
+			// $this->ln();			
 			$fill=1;
 			$wCliente=$this->wCliente;
         	$this->SetTextColor(255, 255, 255);
         	$this->SetFillColor(0, 0, 0);
 	       	$this->SetFont('Arial','',8);
-			$this->Cell(12,5,"CLAVE",$border,0,'',$fill);			
-			$this->Cell(38,5,utf8_decode("DESCRIPCION"),$border,0,"C",$fill);		//------Header
-			$this->Cell(15,5,"STOCK.",$border,0,"R",$fill);//------Header Impuestos
-			// $this->Cell(15,5,"PRECIO.",$border,0,"R",$fill);//------Header Impuestos
-			// $this->Cell(15,5,"TOTAL.",$border,0,"R",$fill);//------Header Impuestos
-						
-			$this->SetXY(2,$this->yEncabezadoDeTabla + 1 );
+			
+			
+			$this->Cell(178,5,utf8_decode("NOMBRE LINEA"),$border,0,"C",$fill);		//------Header 
+					
+			$this->Cell(20,5,utf8_decode("TOTAL"),$border,0,"C",$fill);	
+			
+			
+			
+			$this->SetXY(10,$this->yEncabezadoDeTabla + 1 );
         }
 	}
 	
@@ -209,7 +206,7 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 
 		$decimales=$this->decimales;
 		$datos=$this->datos['data'];
-		$wCliente=45;
+		$wCliente=65;
 		$this->SetTextColor(0, 0, 0);
 		$border=0;
 		$fill=0;
@@ -217,22 +214,28 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 		$hCell=4;
 		//$this->SetY(45);
 		$numPag=$this->PageNo();
-		$this->imprimirHeader=false;
-		$font="Arial";
+		// $this->subtotal[$numPag]=0;	//Subtotal Por Pagina
+		// $this->subtotalImpuestos[$numPag]=0;	//Subtotal Por Pagina
+		// $this->impuestosAcumulados=0;
+		$font="Courier";
 		$this->SetFont($font,'',7);
 		$this->SetTextColor(0,0,0);
 		$canceladas=array();
 		$this->imprimirSubtotalesDesdeFooter=true;
-		
+		// echo 'sizeof: '.sizeof($datos);
+		// exit;
+		//meen
 		$this->SetFillColor(229, 229, 229); //Gris tenue de cada fila
         $this->SetTextColor(3, 3, 3); //Color del texto: Negro
 		$fill = false; //Para alternar el relleno
-		$totalexistencia = 0;
+		// for($i=0;$i<sizeof($datos);$i++){
+		$totalreporte = 0;
 		foreach($datos['detalles'] as $dato){	
+			// $this->Cell(15,5,utf8_decode($dato['cantidad']),0,0,'',$fill);
 			$saltoDeLinea = 0;
 			#		Primer linea
 			$this->aceptarSalto=true;	
-			$this->SetX(2);
+			
 			$this->SetFont($font,'',7);
 			
 			//Comienzo 
@@ -244,66 +247,54 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 			$widthConsumo = 25;
 			$widthAnio = 16;
 			$saltoDeLinea = 0;
-			$fill=0;
+			// $fill=0;
 			
-			
+			//v.serie_venta,v.folio_venta,v.fecha_venta,c.nombre_fiscal,v.importe,v.descuento,v.subtotal,v.impuestos,v.total
 					
-			$Codigo = $dato['codigo'];
-			$CodigoBarras = $dato['codigo_barras'];			
-			$Descripcion = $dato['descripcion'];
-			$Linea = $dato['nombre_linea'];
-			$strLength = strlen($Descripcion);
-			$strLimit = 27;
-			if($strLength > $strLimit){
+			
+			$NombreLinea = $dato['nombre_linea'];
+			
+
+			$Total = number_format($dato['total'] ,$decimales ,  '.' , ',' );
+			
+									
+			$this->Cell(178,$heightCell,utf8_decode($NombreLinea),$border,$saltoDeLinea,'L',$fill);
+			$this->Cell(20,$heightCell,utf8_decode($Total),$border,$saltoDeLinea,'R',$fill);	
 					
-					$Descripcion = substr($Descripcion, 0, $strLimit-2);
-					$Descripcion.='..';
-			}		
-			
-			$Stock = number_format($dato['stock'] ,$decimales ,  '.' , ',' );
-			$Precio = number_format($dato['precio_venta'] ,$decimales ,  '.' , ',' );
-			$Total = $dato['total'];
-						
-			$this->Cell(12,$heightCell,utf8_decode($Codigo),$border,$saltoDeLinea,'',$fill);	
-			
-			$this->Cell(38,$heightCell,utf8_decode($Descripcion),$border,$saltoDeLinea,'',$fill);	
-			
-			$this->Cell(15,$heightCell,utf8_decode($Stock),$border,$saltoDeLinea,'R',$fill);	
-			$this->ln();
-			$this->Cell(12,$heightCell,utf8_decode($Precio),$border,$saltoDeLinea,'R',$fill);
-			$this->Cell(38,$heightCell,"",$border,$saltoDeLinea,'',$fill);	
-			$this->Cell(15,$heightCell,utf8_decode(number_format($dato['precio_venta'] ,$decimales ,  '.' , ',' )),$border,$saltoDeLinea,'R',$fill);
-			
+			// $this->Cell(31,$heightCell,utf8_decode($datos[$i]['cantidad']),$border,$saltoDeLinea,"L",$fill);		//------Header 
+			// $this->Cell($widthFechaUlt,$heightCell,utf8_decode($datos[$i]['FechaLastRegistro']),$border,$saltoDeLinea,"L",$fill);		//------Header
+			// $this->Cell($widthMes,$heightCell,utf8_decode($mes),$border,$saltoDeLinea,"L",$fill);		//------Header
+			// $this->Cell($widthAnio,$heightCell,$datos[$i]['Anio'],$border,$saltoDeLinea,"R",$fill);//------Header Impuestos
+			// $this->Cell(25,$heightCell,$datos[$i]['Saldo'],$border,0,"R",$fill);		//------Header TOTAL	
+			// $this->Cell($widthConsumo,$heightCell,$datos[$i]['ConsumoCalculado'],$border,$saltoDeLinea,"R",$fill);//------Header Impuestos
+			// $this->Cell($widthSaldo,$heightCell,$datos[$i]['SaldoCalculado'],$border,1,"R",$fill);//------Header Impuestos
 			$fill = !$fill;//Alterna el valor de la bandera
-		
+			//Comienzo End
 			$this->ln();
-			$totalexistencia = $totalexistencia + $dato['total'];
+			$totalreporte += $dato['total'];
 			
 		}
-		$this->totalreporte = $totalexistencia;
-		
 		// $this->ln(2);
+		$this->totalReporte = $totalreporte;
 		$this->imprimirHeader=false;
 		$this->imprimirSubtotalesDesdeFooter=false;
 		$ultimo=true;
-	     $this->SetTextColor(0, 0, 0);
-		$this->despuesdelosdetalles();	
-		
+		$this->imprimirTotales($ultimo);
+        $this->SetTextColor(0, 0, 0);
+			
+		// $hCell=5;
+		// $PageBreakTrigger=$this->h-$this->bMargin;
+		// $this->despuesdelosdetalles();
 	}
 	
 	function despuesdelosdetalles(){
-		$decimales=$this->decimales;	
-		$total = number_format ($this->totalreporte ,$decimales ,  '.' , ',' );
-		
-		$border = 0;
-		$columna = 0;
-		$alto   = 4.7;
-		$this->SetFont('Arial','B',9);
-		// $this->SetXY($columna,$y);
-		
-		// $this->SetX($columna);
-		$this->Cell(42, $alto, "TOTAL:", $border, 0, 'R');
-		$this->Cell(25, $alto, $total, $border, 1, 'R');
+		$hCell=10;
+		$PageBreakTrigger=$this->h-$this->bMargin;
+		$limite=$PageBreakTrigger-$hCell*3;
+		$y=$this->GetY();
+		if ($y>$limite){
+			$this->AddPage();
+		}
 	}
 	
 	function jsDateToMysql($jsDate){
@@ -324,25 +315,27 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 		$decimales=$this->decimales;	
 		$i=$this->PageNo();
 		
-		$total = number_format ($this->totalreporte ,$decimales ,  '.' , ',' );
+		//$datos=$this->datos['data'];
+		
+		$total = number_format ($this->totalReporte ,$decimales ,  '.' , ',' );
 		
 		$this->SetY(-$this->limite_det);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
-		$y = 240;
+		$y = 260;
 		$this->SetY($y);			
 		
 		$border = 0;
-		$columna = 0;
+		$columna = 156;
 		$alto   = 4.7;
 		$this->SetFont('Arial','B',9);
 		$this->SetXY($columna,$y);
 		
-		$this->SetX($columna);
 		$this->Cell(28, $alto, "TOTAL:", $border, 0, 'R');
 		$this->Cell(25, $alto, $total, $border, 1, 'R');
 		
 		
 		
 		$this->aceptarSalto=true;
+		$this->totalReporte = 0;
 	}
 	public function Footer() {
 		
@@ -354,7 +347,7 @@ class ReporteExistenciaPDF extends PDF_JavaScript{
 		$wFooter = 10;
 		$this->SetY($yFooter);
 		$this->SetFont('Arial','I',8);
-		// $this->Cell(0,$wFooter,UTF8_decode('PÃ¡gina')." ".$this->PageNo().'/{nb}',0,0,'C');
+		$this->Cell(0,$wFooter,UTF8_decode('PÃ¡gina')." ".$this->PageNo().'/{nb}',0,0,'C');
 		
 		// $this->SetY($yFooter);
 		// $this->SetFont('Arial','I',8);
