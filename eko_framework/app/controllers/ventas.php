@@ -10,10 +10,7 @@ require_once "eko_framework/app/models/reporte_pedido_sugerido.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_costos.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_global.php";
 require_once "eko_framework/app/models/reporte_flujo_efectivo_excel.php";
-<<<<<<< HEAD
 require_once "eko_framework/app/models/reporte_saldos_lineas.php";
-=======
->>>>>>> cc6483fc23b368b395609c460993a7d8400841c2
 
 //require ('eko_framework/app/models/linea.php');
 class Ventas extends ApplicationController {
@@ -898,13 +895,8 @@ class Ventas extends ApplicationController {
 		//return 	$texto;
 		// return addslashes($texto);
     	return str_replace ( "'" ,"\'" ,$texto);
-<<<<<<< HEAD
 	}
 	
-=======
-    }
-
->>>>>>> cc6483fc23b368b395609c460993a7d8400841c2
 	function obtenersucursalesempresa(){
 		try {
 			$idEmpresa = ( empty($_POST['id_empresa']) )? 0 : $_POST['id_empresa'];
