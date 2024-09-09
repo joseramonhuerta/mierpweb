@@ -985,5 +985,13 @@ class Ventas extends ApplicationController {
 		$reporte=new ReporteSaldosLineas();
 		$reporte->getPDF($pdfName);
 	}
+
+	function generarreportesaldoslineas(){
+		$params = $_GET;
+		$params['IDSucOrigen'] = $_SESSION['Auth']['User']['id_sucursal'];
+		$reporte=new ReporteSaldosLineas();
+		
+		$pdf=$reporte->generarReporteExcel($params);
+	}
 }
 ?>

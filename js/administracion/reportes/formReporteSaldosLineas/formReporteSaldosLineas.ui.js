@@ -28,13 +28,13 @@ formReporteSaldosLineasUi = Ext.extend(Ext.form.FormPanel, {
                     menu: {
                         xtype: 'menu',
                         items: [
-                            /*{
+                            {
                                 xtype: 'menuitem',
                                 text: 'Excel',
                                 itemId: 'btnExcel',
                                 icon: 'images/iconos/excel.png',
                                 ref: '../../../btnExcel'
-                            },*/
+                            },
                             {
                                 xtype: 'menuitem',
                                 text: 'PDF',
@@ -48,6 +48,38 @@ formReporteSaldosLineasUi = Ext.extend(Ext.form.FormPanel, {
             ]
         };
         this.items = [
+            {
+                xtype: 'combo',
+                fieldLabel: 'Sucursal',
+                width: 400,
+                itemId: 'cmbSucursal',
+                name: 'id_sucursal',
+                displayField: 'nombre_sucursal',
+                valueField: 'id_sucursal',
+                enableKeyEvents: true,
+                pageSize: 20,
+                triggerAction: 'all',
+                hiddenName: 'id_linea',
+                minChars: 0,
+                triggerConfig: {
+                    tag: 'span',
+                    cls: 'x-form-twin-triggers',
+                    style: 'padding-right:2px',
+                    cn: [
+                        {
+                            tag: "img",
+                            src: Ext.BLANK_IMAGE_URL,
+                            cls: "x-form-trigger x-form-clear-trigger"
+                        },
+                        {
+                            tag: "img",
+                            src: Ext.BLANK_IMAGE_URL,
+                            cls: "x-form-trigger x-form-search-trigger"
+                        }
+                    ]
+                },
+                ref: 'cmbSucursal'
+            },            
             {
                 xtype: 'combo',
                 fieldLabel: 'Linea',

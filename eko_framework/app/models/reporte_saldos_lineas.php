@@ -80,11 +80,12 @@ class ReporteSaldosLineas{
 		$this->model=new Model();
 		$model=$this->model;
 		//$model->camposAfiltrar = array('NomCliente','RFCCliente');  $_SESSION['Auth']['Almacen']['IDAlmacen'];
+		$id_suc=(empty($params['IDSuc'])) ?  0: $params['IDSuc'];		
 		$id_lin=(empty($params['IDLin'])) ?  0: $params['IDLin'];		
 		$tipoCalculo = (empty($params['TipoCalculo'])) ?  0: $params['TipoCalculo'];
 		$sinExistencia = (empty($params['SinExistencia'])) ?  0: $params['SinExistencia'];
 		
-		$query ="CALL spReporteSaldosLineas($id_lin,$sinExistencia, $tipoCalculo);";
+		$query ="CALL spReporteSaldosLineas($id_suc,$id_lin,$sinExistencia, $tipoCalculo);";
 				
 		$resArrVentas = $model->query($query);
 		if ( empty($resArrVentas) ){
@@ -94,7 +95,8 @@ class ReporteSaldosLineas{
 		
 		$response=array();      	
 		
-		$response['data']['detalles']=$resArrVentas;   
+		//$response['data']['detalles']=$resArrVentas;   
+		$response['data']=$resArrVentas; 
         return $response;
 	}
 	function prepararParaImpresion($datos,$filtros){
@@ -197,7 +199,7 @@ class ReporteSaldosLineas{
 			require_once 'eko_framework/includes/phpexcel/PHPExcel.php';
 			include 'eko_frameworkincludes/phpexcel/PHPExcel/IOFactory.php';
 			//Reporte de Saldos de Folios
-			$nombreReporte = "Reporte Pedido Sugerido ";
+			$nombreReporte = "Reporte Saldos Lineas ";
 			$objPHPExcel = new PHPExcel();
 			$objPHPExcel->getProperties()->setCreator("Ramon Huerta")
             	->setLastModifiedBy("")
@@ -298,34 +300,12 @@ class ReporteSaldosLineas{
 			$objRichText = new PHPExcel_RichText();
 			$rowCount = 4;
 
-            $objPHPExcel->getActiveSheet()->getStyle('A4:M4')->applyFromArray($encabezado);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(15);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(60);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(30);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(35);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
-            $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('J')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('K')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('L')->setWidth(15);
-			$objPHPExcel->getActiveSheet()->getColumnDimension('M')->setWidth(20);
-			
-            $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, "CODIGO")
-							  ->SetCellValue('B'.$rowCount, "CODIGO BARRAS")
-							  ->SetCellValue('C'.$rowCount, "DESCRIPCION")
-							  ->SetCellValue('D'.$rowCount, "LINEA")
-							  ->SetCellValue('E'.$rowCount, "SUCURSAL")
-							  ->SetCellValue('F'.$rowCount, "ALMACEN")
-							  ->SetCellValue('G'.$rowCount, "STOCK")
-							  ->SetCellValue('H'.$rowCount, "VENTAS")
-							  ->SetCellValue('I'.$rowCount, "MINIMO")
-							  ->SetCellValue('J'.$rowCount, "MAXIMO")
-							  ->SetCellValue('K'.$rowCount, "MINIMO NVO")
-							  ->SetCellValue('L'.$rowCount, "MAXIMO NVO")							  
-							  ->SetCellValue('M'.$rowCount, "PEDIDO SUGERIDO");
+            $objPHPExcel->getActiveSheet()->getStyle('A4:B4')->applyFromArray($encabezado);
+            $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(100);
+			$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+           			
+            $objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, "NOMBRE LINEA")
+							  ->SetCellValue('B'.$rowCount, "TOTAL");
 			$rowCount++;
 			$filablanca = array(
 			    'fill' => array(
@@ -351,19 +331,8 @@ class ReporteSaldosLineas{
 					$colorLetra = '790000';
 				} 
 							
-				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $value['codigo'])
-							  ->SetCellValue('B'.$rowCount, $value['codigo_barras'])
-							  ->SetCellValue('C'.$rowCount, $value['descripcion'])
-							  ->SetCellValue('D'.$rowCount, $value['nombre_linea'])
-							  ->SetCellValue('E'.$rowCount, $value['nombre_sucursal'])
-							  ->SetCellValue('F'.$rowCount, $value['nombre_almacen'])
-							  ->SetCellValue('G'.$rowCount, $value['stock'])
-							  ->SetCellValue('H'.$rowCount, $value['ventas'])
-							  ->SetCellValue('I'.$rowCount, $value['stock_min'])
-							  ->SetCellValue('J'.$rowCount, $value['stock_max'])
-							  ->SetCellValue('K'.$rowCount, $value['stock_min_nvo'])
-							  ->SetCellValue('L'.$rowCount, $value['stock_max_nvo'])
-							  ->SetCellValue('M'.$rowCount, $value['pedido_sugerido']);
+				$objPHPExcel->getActiveSheet()->SetCellValue('A'.$rowCount, $value['nombre_linea'])
+							  ->SetCellValue('B'.$rowCount, $value['total']);
 			  
 				$rowCount++;
 			}
@@ -382,7 +351,7 @@ class ReporteSaldosLineas{
 			$objPHPExcel->getActiveSheet()->setTitle($nombreReporte);
 			$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 			header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-			header("Content-Disposition: attachment; filename=\"Reporte Pedido Sugerido ".$fechaNueva.".xlsx\"");
+			header("Content-Disposition: attachment; filename=\"Reporte Saldos Lineas ".$fechaNueva.".xlsx\"");
 			header("Cache-Control: max-age=0");
 			$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 			ob_end_clean();

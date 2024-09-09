@@ -295,7 +295,8 @@ function getJsFiles($modoProduccion=true){
 	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/formReporteSaldosLineas.ui.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/formReporteSaldosLineas.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/storeFormReporteSaldosLineasLineas.js";
-		
+	$arrayFiles[]="js/administracion/reportes/formReporteSaldosLineas/storeFormReporteSaldosLineasSucursales.js";
+	
 	
 	$arrayFiles[]="js/administracion/reportes/formReporteCatalogoClientes/formReporteCatalogoClientes.ui.js";
 	$arrayFiles[]="js/administracion/reportes/formReporteCatalogoClientes/formReporteCatalogoClientes.js";

@@ -230,7 +230,7 @@ class ReporteSaldosLineasPDF extends FPDF{
 		$fill = false; //Para alternar el relleno
 		// for($i=0;$i<sizeof($datos);$i++){
 		$totalreporte = 0;
-		foreach($datos['detalles'] as $dato){	
+		foreach($datos as $dato){	
 			// $this->Cell(15,5,utf8_decode($dato['cantidad']),0,0,'',$fill);
 			$saltoDeLinea = 0;
 			#		Primer linea

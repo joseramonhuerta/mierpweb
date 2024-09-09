@@ -15,6 +15,7 @@ Ext.ns('miErpWeb');
 Ext.ns('mew');
 formReporteSaldosLineas = Ext.extend(formReporteSaldosLineasUi, {
     inicializarStores: function(){
+		this.cmbSucursal.store =  new miErpWeb.storeFormReporteSaldosLineasSucursales();
 		this.cmbLinea.store =  new miErpWeb.storeFormReporteSaldosLineasLineas();		
 	},
 	inicializarEvents: function(){
@@ -27,11 +28,47 @@ formReporteSaldosLineas = Ext.extend(formReporteSaldosLineasUi, {
 		this.btnPDF.on('click', function(){
 			this.imprimir();
 		}, this);
-		/*
+		
 		this.btnExcel.on('click', function(){
 			this.imprimirExcel();
 		}, this);		
-		*/
+		
+		this.cmbSucursal.onTriggerClick = function(a, e){
+			if(e){
+				if(e.getAttribute('class').indexOf('x-form-clear-trigger') > -1){
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}
+					if(!Ext.isEmpty(me.cmbSucursal.getValue())){
+						this.reset();
+						
+						// this.deshabilitarBtns(true);
+						// this.cntActivo.setVisible(false);
+						// this.spExcel.setVisible(false);
+						//this.reloadGrid(null, 0);
+					}
+				}else{
+					if(this.readOnly || this.disabled){
+						return;
+					}
+					if(this.isExpanded()){
+						this.collapse();
+						this.el.focus();
+					}else {
+						this.onFocus({});
+						if(this.triggerAction == 'all') {
+							this.doQuery(this.allQuery, true);
+						} else {
+							this.doQuery(this.getRawValue());
+						}
+						this.el.focus();
+					}
+				} 
+			}
+		};
+
+
 		this.cmbLinea.onTriggerClick = function(a, e){
 			if(e){
 				if(e.getAttribute('class').indexOf('x-form-clear-trigger') > -1){
@@ -67,14 +104,28 @@ formReporteSaldosLineas = Ext.extend(formReporteSaldosLineasUi, {
 			}
 		};
 		
-	},    
+	},  
+	inizializaTpls:function(){
+		this.cmbSucursal.tpl = new Ext.XTemplate(
+			'<tpl for=".">'+
+				'<div class="x-combo-list-item">'+
+					'<div><b>{nombre_sucursal}</b></div>'+
+					'<div><i>{nombre_empresa}</i></div>'+
+				'</div>'+
+			'</tpl>'
+		);
+		
+		
+	},  
 	initComponent: function() {
         formReporteSaldosLineas.superclass.initComponent.call(this);
 		this.inicializarStores();
-		this.inicializarEvents();		
+		this.inicializarEvents();
+		this.inizializaTpls();		
     },
 	getParamsImprimir:function(){
-		return {			
+		return {		
+			IDSuc:Ext.num(this.cmbSucursal.getValue(),0),	
 			IDLin:Ext.num(this.cmbLinea.getValue(),0),
 			TipoCalculo:this.chkTipoCalculo.checked ? 1 : 0,
 			SinExistencia:this.chkSinExistencia.checked ? 1 : 0
@@ -112,7 +163,7 @@ formReporteSaldosLineas = Ext.extend(formReporteSaldosLineasUi, {
 		}
 		var params=this.getParamsImprimir();			
 		
-		location.href = "app.php/ventas/generarreportepedidosugerido?IDEmp="+params.IDEmp+"&IDSuc="+params.IDSuc+"&FechaIni="+params.FechaIni+"&FechaFin="+params.FechaFin+"&IDLin="+params.IDLin;
+		location.href = "app.php/ventas/generarreportesaldoslineas?IDSuc="+params.IDSuc+"&IDLin="+params.IDLin+"&TipoCalculo="+params.TipoCalculo+"&SinExistencia="+params.SinExistencia;
 	
 	}
 });
