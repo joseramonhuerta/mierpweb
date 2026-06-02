@@ -9,14 +9,14 @@ class KardexDeMovimientosPDF extends TCPDF {
 		$timeInicial=strtotime($this->params['fInicial']);
 		$dia=date('d',$timeInicial);
 		$mes=date('m',$timeInicial);
-		$año=date('Y',$timeInicial);
-		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeInicial);
+		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//------------------------------------------------$timeInicial=strtotime($this->params['fInicial']);
 		$timeFinal=strtotime( $this->params['fFinal'] );		
 		$dia=date('d',$timeFinal);
 		$mes=date('m',$timeFinal);
-		$año=date('Y',$timeFinal);
-		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeFinal);
+		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//---------------------------------------------------------	
 
 		if($this->params['idAlmacen']==0){
@@ -73,13 +73,13 @@ class KardexDeMovimientosPDF extends TCPDF {
 	function configTabla(){
 		$this->header=array(
 			array(
-				'header'=>'CÓDIGO ',
+				'header'=>'Cï¿½DIGO ',
 				'width'=>20,
 				'dataindex'=>'codigo',
 				'align'=>'R'
 			),
 			array(
-				'header'=>' DESCRIPCIÓN',
+				'header'=>' DESCRIPCIï¿½N',
 				'width'=>58,
 				'dataindex'=>'descr',
 				'align'=>'L',
@@ -121,7 +121,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 				'type'=>'string'
 			),
 			array(
-				'header'=>'ÚLTIMO ',
+				'header'=>'ï¿½LTIMO ',
 				'width'=>26,
 				'dataindex'=>'ultimo',
 				'align'=>'R',
@@ -149,10 +149,10 @@ class KardexDeMovimientosPDF extends TCPDF {
 		parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
 		$pdf=$this;
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('UPC Corporate');
+		$pdf->SetAuthor('nortec corporate');
 		$pdf->SetTitle('KARDEX');
 		$pdf->SetSubject('KARDEX');
-		$pdf->SetKeywords('TCPDF, PDF, kardex, upccorporate, upctechnologies','inventarios');
+		$pdf->SetKeywords('TCPDF, PDF, kardex, norteccorporate, upctechnologies','inventarios');
 
 		// set default monospaced font
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -212,7 +212,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 				$filtroAlmacen = "AND KEYAlmacenKar = ".$_GET['idAlmacen'];
 
 		//----------------------------------------------------------------------------------------
-		//	Se obtienen los detalles de cada producto y la suma de entradas y salidas por almacén
+		//	Se obtienen los detalles de cada producto y la suma de entradas y salidas por almacï¿½n
 		//----------------------------------------------------------------------------------------		
 	
 		//Primero se busca en el kardex, por cada producto en cada almacen, el ultimo registro no mayor a la fecha especificada.
@@ -228,7 +228,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 		GROUP BY KEYAlmacenKar, KEYProductoKar
 		ORDER BY KEYAlmacenKar, Clasificacion ASC, DescProd ASC;";	
 
-		//Estos registros se usarán para obtener los datos del ultimo saldo, ultimos costos, etc.		
+		//Estos registros se usarï¿½n para obtener los datos del ultimo saldo, ultimos costos, etc.		
 		$arrUltimos=$model->select($sqlReporte);
 
 		/*
@@ -482,7 +482,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 		$pageNumber=$this->PageNo();
 		$fecha=date('d/m/Y H:i:s'); //;getFechaActual();
 		$totPageAlias=$this->getAliasNbPages();
-		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresión: $fecha"), '', 0, "L");	
+		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresiï¿½n: $fecha"), '', 0, "L");	
 		$this->Cell(0, 0,"Pagina $pageNumber/$totPageAlias", '', 0, "R");	
 	}
 }

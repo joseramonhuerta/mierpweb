@@ -9,14 +9,14 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$timeInicial=strtotime($this->params['fInicial']);
 		$dia=date('d',$timeInicial);
 		$mes=date('m',$timeInicial);
-		$año=date('Y',$timeInicial);
-		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeInicial);
+		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//------------------------------------------------$timeInicial=strtotime($this->params['fInicial']);
 		$timeFinal=strtotime( $this->params['fFinal'] );		
 		$dia=date('d',$timeFinal);
 		$mes=date('m',$timeFinal);
-		$año=date('Y',$timeFinal);
-		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeFinal);
+		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//---------------------------------------------------------	
 
 		if($this->params['idAlmacen']==0){
@@ -144,10 +144,10 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$pdf=$this;
 
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('UPC Corporate');
+		$pdf->SetAuthor('nortec corporate');
 		$pdf->SetTitle('KARDEX');
 		$pdf->SetSubject('KARDEX');
-		$pdf->SetKeywords('TCPDF, PDF, kardex, upccorporate, upctechnologies','inventarios');
+		$pdf->SetKeywords('TCPDF, PDF, kardex, norteccorporate, upctechnologies','inventarios');
 
 		// set default monospaced font
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -635,7 +635,7 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$pageNumber=$this->PageNo();
 		$fecha=date('d/m/Y H:i:s'); 
 		$totPageAlias=$this->getAliasNbPages();
-		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresión: $fecha"), '', 0, "L");	
+		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresiï¿½n: $fecha"), '', 0, "L");	
 		$this->Cell(0, 0,"Pagina $pageNumber/$totPageAlias", '', 0, "R");	
 	}
 }

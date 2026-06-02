@@ -28,7 +28,7 @@ if (isset($_SESSION['Auth']['User']['IDUsu'])) {
 
 
 
-<title>Login: Pontuel</title>
+<title>Login: nortec</title>
 <script type="text/javascript">
     Ext.onReady(function(){
         App = new Ext.App({});

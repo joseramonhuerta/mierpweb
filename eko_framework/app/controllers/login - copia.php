@@ -100,7 +100,7 @@ class Login extends ApplicationController {
 				$data['contras']=$arrContras;
 				$contenido=imprimeTemplate_contras_recuperadas($data);
 				//echo $contenido;exit;
-				enviarCorreo('Recuperacion de contraseñas',$contenido, $To=array($email), $cc = null, $bcc = null, $html = true, $attachment = null,$enviadoPor='sistema@pontuel.mx',$FromName='pontuel');
+				enviarCorreo('Recuperacion de contraseñas',$contenido, $To=array($email), $cc = null, $bcc = null, $html = true, $attachment = null,$enviadoPor='sistema@nortec.mx',$FromName='nortec');
 				//enviar contraseñas al correo especificado
 			}			
 		}

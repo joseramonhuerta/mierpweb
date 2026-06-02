@@ -8,15 +8,15 @@ class KardexDeMovimientosPDF extends TCPDF {
 		$timeInicial=strtotime($this->params['fInicial']);
 		$dia=date('d',$timeInicial);
 		$mes=date('m',$timeInicial);
-		$año=date('Y',$timeInicial);
-		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeInicial);
+		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//------------------------------------------------$timeInicial=strtotime($this->params['fInicial']);
 		$timeFinal=strtotime( $this->params['fFinal'] );
 		
 		$dia=date('d',$timeFinal);
 		$mes=date('m',$timeFinal);
-		$año=date('Y',$timeFinal);
-		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeFinal);
+		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//---------------------------------------------------------	
 		
         $image_file = K_PATH_IMAGES.'/logos/puma.jpg';
@@ -65,13 +65,13 @@ class KardexDeMovimientosPDF extends TCPDF {
 	function configTabla(){
 		$this->header=array(
 			array(
-				'header'=>'CÓDIGO ',
+				'header'=>'Cï¿½DIGO ',
 				'width'=>20,
 				'dataindex'=>'codigo',
 				'align'=>'R'
 			),
 			array(
-				'header'=>' DESCRIPCIÓN',
+				'header'=>' DESCRIPCIï¿½N',
 				'width'=>58,
 				'dataindex'=>'descr',
 				'align'=>'L',
@@ -113,7 +113,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 				'type'=>'string'
 			),
 			array(
-				'header'=>'ÚLTIMO ',
+				'header'=>'ï¿½LTIMO ',
 				'width'=>26,
 				'dataindex'=>'ultimo',
 				'align'=>'R',
@@ -142,10 +142,10 @@ class KardexDeMovimientosPDF extends TCPDF {
 		parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
 		$pdf=$this;
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('UPC Corporate');
+		$pdf->SetAuthor('nortec corporate');
 		$pdf->SetTitle('KARDEX');
 		$pdf->SetSubject('KARDEX');
-		$pdf->SetKeywords('TCPDF, PDF, kardex, upccorporate, upctechnologies','inventarios');
+		$pdf->SetKeywords('TCPDF, PDF, kardex, norteccorporate, upctechnologies','inventarios');
 
 		/*// set default header data
 		$pdf->SetHeaderData('/logos/puma.jpg', PDF_HEADER_LOGO_WIDTH,"PUMA Corporate","KARDEX 1.0");
@@ -194,7 +194,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 		//echo $sqlReporte; exit;
 		$arrUltimos=$model->select($sqlReporte);
 		$data=array();
-		//En la consulta anterior solo se obtuvo la fecha, el almacen y el producto, con esos valores obtendré los demas registros
+		//En la consulta anterior solo se obtuvo la fecha, el almacen y el producto, con esos valores obtendrï¿½ los demas registros
 		foreach( $arrUltimos as $rec ){ 
 			$fecha	=$rec['FechaKar'];
 			$IDProd	=$rec['KEYProductoKar'];
@@ -237,7 +237,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 			}			
 			//-----------------------------------------------------------------------------------------------/
 			if ( isset($data[$IDProd]) ){
-				//¿ Que significa el cumplimiento de esta condicion?.
+				//ï¿½ Que significa el cumplimiento de esta condicion?.
 				//El reporte es por producto, por almacen, se estan acumulando totales.
 				$data[$IDProd]['total']=floatval($data[$IDProd]['total'])+floatval($registro['total']);
 				$data[$IDProd]['final']=floatval($data[$IDProd]['final'])+floatval($registro['final']);				
@@ -253,14 +253,14 @@ class KardexDeMovimientosPDF extends TCPDF {
 					$data[$IDProd]['ultimo']=$registro['ultimo'];
 				}
 			}else{
-				//¿ Que significa el cumplimiento de esta condicion?
+				//ï¿½ Que significa el cumplimiento de esta condicion?
 				//es la primera vez que se encuentra no es necesario acumular
 				$data[$IDProd]=$registro;				
 			}
 		}
 		$datos=array();
 		foreach($data as $dato){
-			$datos[]=$dato;	// ¿Porqué así?
+			$datos[]=$dato;	// ï¿½Porquï¿½ asï¿½?
 		}
 				
 		//-----------------------------------------------------------------------/				
@@ -380,7 +380,7 @@ class KardexDeMovimientosPDF extends TCPDF {
 		$pageNumber=$this->PageNo();
 		$fecha=date('d/m/Y H:i:s'); //;getFechaActual();
 		$totPageAlias=$this->getAliasNbPages();
-		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresión: $fecha"), '', 0, "L");	
+		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresiï¿½n: $fecha"), '', 0, "L");	
 		$this->Cell(0, 0,"Pagina $pageNumber/$totPageAlias", '', 0, "R");	
 	}
 }

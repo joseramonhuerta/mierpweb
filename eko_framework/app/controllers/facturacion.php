@@ -1585,8 +1585,8 @@ class Facturacion extends ApplicationController {
 		}else{
 			$rutaBase=($datos['Factura']['CFDiEmp'])?'CFDI':'CFD';		//Ubicacion del zip que contiene el xml Y PDF			
 			$ruta = "$rutaBase/$RFCEmisor/$año/$mes/";					//Ruta Armada
-			//RUTA PARA UPCCONNECTOR DESDE URL
-			$rutaConector = "http://upcconnector.pontuel.mx/CFDI/$RFCEmisor/$año/$mes/"; //Ruta UPCConnector	
+			//RUTA PARA nortecconnector DESDE URL
+			$rutaConector = "http://nortecconnector.nortec.mx/CFDI/$RFCEmisor/$año/$mes/"; //Ruta nortecconnector	
 		}
 					
 		$serie=$datos['Factura']['SerFol'];					//Usado para formar el nombre del archivo 
@@ -1701,8 +1701,8 @@ class Facturacion extends ApplicationController {
 		} else {
 			$rutaBase = ($datos['Factura']['CFDiEmp']) ? 'CFDI' : 'CFD';  // Ubicacion del zip que contiene el xml Y PDF
 			$ruta = "$rutaBase/$RFCEmisor/$anio/$mes/";   // Ruta Armada
-			//RUTA PARA UPCCONNECTOR DESDE URL
-			$rutaConector = "http://upcconnector.pontuel.mx/CFDI/$RFCEmisor/$anio/$mes/"; //Ruta UPCConnector	
+			//RUTA PARA nortecconnector DESDE URL
+			$rutaConector = "http://nortecconnector.nortec.mx/CFDI/$RFCEmisor/$anio/$mes/"; //Ruta nortecconnector	
 			//SE USA PARA DETERMINAR SI DESCARGO EL ARCHIVO DEL CONECTOR
 			$conector = false;
 		}
@@ -1798,8 +1798,8 @@ class Facturacion extends ApplicationController {
 		}else{
 			$rutaBase=($datos['Factura']['CFDiEmp'])?'CFDI':'CFD';		//Ubicacion del zip 		
 			$ruta = "$rutaBase/$RFCEmisor/$año/$mes/";					//Ruta Armada
-			//RUTA PARA UPCCONNECTOR DESDE URL
-			//$rutaConector = "http://upcconnector.pontuel.mx/CFDI/$RFCEmisor/$año/$mes/"; //Ruta UPCConnector					
+			//RUTA PARA nortecconnector DESDE URL
+			//$rutaConector = "http://nortecconnector.nortec.mx/CFDI/$RFCEmisor/$año/$mes/"; //Ruta nortecconnector					
 		}
 					
 		$serie=$datos['Factura']['SerFol'];					//Usado para formar el nombre del archivo 

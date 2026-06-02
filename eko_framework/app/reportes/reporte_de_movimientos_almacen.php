@@ -9,14 +9,14 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$timeInicial=strtotime($this->params['fInicial']);
 		$dia=date('d',$timeInicial);
 		$mes=date('m',$timeInicial);
-		$año=date('Y',$timeInicial);
-		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeInicial);
+		$fInicial=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//------------------------------------------------$timeInicial=strtotime($this->params['fInicial']);
 		$timeFinal=strtotime( $this->params['fFinal'] );		
 		$dia=date('d',$timeFinal);
 		$mes=date('m',$timeFinal);
-		$año=date('Y',$timeFinal);
-		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $año";
+		$aï¿½o=date('Y',$timeFinal);
+		$fFinal=$dia.' DE '.nombreDelMes($mes)." DEL $aï¿½o";
 		//---------------------------------------------------------		
 
 		if($this->params['idAlmacen']==0){
@@ -142,10 +142,10 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$pdf=$this;
 
 		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor('UPC Corporate');
+		$pdf->SetAuthor('nortec corporate');
 		$pdf->SetTitle('KARDEX');
 		$pdf->SetSubject('KARDEX');
-		$pdf->SetKeywords('TCPDF, PDF, kardex, upccorporate, upctechnologies','inventarios');
+		$pdf->SetKeywords('TCPDF, PDF, kardex, norteccorporate, upctechnologies','inventarios');
 
 		// set default monospaced font
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -231,7 +231,7 @@ class ReporteDeMovimientosPDF extends TCPDF {
 			// GROUP BY IDKar 
 			// ORDER BY KEYAlmacenKar ASC, Clasificacion ASC, DescProd ASC, Fecha ASC";
 			
-			//CONSULTA DE TOÑITO
+			//CONSULTA DE TOï¿½ITO
 			/*
 			$sqlReporte="SELECT DescProd producto,KEYAlmacenKar,DesAlm,DATE_FORMAT( FechaKar,'%d/%m/%Y %H:%i') as FechaKar,FechaKar Fecha,KEYReferenciaDet,
 			if (KEYMovimientoDet>0,concat(CodMovAlm,'-',ReferenciaInventarioDet),ReferenciaInventarioDet ) as ReferenciaInventarioDet,
@@ -284,7 +284,7 @@ class ReporteDeMovimientosPDF extends TCPDF {
 			ORDER BY KEYAlmacenKar ASC, Clasificacion ASC, DescProd ASC, Fecha ASC";
 
 		} else {
-			//CONSULTA TOÑITO
+			//CONSULTA TOï¿½ITO
 			/*
 			$sqlReporte="SELECT DescProd producto,KEYAlmacenKar,DesAlm,DATE_FORMAT( FechaKar,'%d/%m/%Y %H:%i') as FechaKar,FechaKar Fecha,KEYReferenciaDet,
 			if (KEYMovimientoDet>0,concat(CodMovAlm,'-',ReferenciaInventarioDet),ReferenciaInventarioDet ) as ReferenciaInventarioDet,
@@ -397,7 +397,7 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		for ($recIndex=0; $recIndex<sizeof($data); $recIndex++){
 			//---------------------------------------------------------------------
 			if ($lastAlm!=$data[$recIndex]['KEYAlmacenKar']){				
-				//--------- Imprimir Nombre del Almacén ----------------
+				//--------- Imprimir Nombre del Almacï¿½n ----------------
 				$this->SetFont('Courier', 'B', 9);				
 				$nomAlm=formatearTexto($data[$recIndex]['DesAlm'],true); 
 				$this->Cell(60, 0,$nomAlm, '', 1, 'L', 1,'',0);
@@ -585,7 +585,7 @@ class ReporteDeMovimientosPDF extends TCPDF {
 		$pageNumber=$this->PageNo();
 		$fecha=date('d/m/Y H:i:s'); //;getFechaActual();
 		$totPageAlias=$this->getAliasNbPages();
-		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresión: $fecha"), '', 0, "L");	
+		$this->Cell(60, 0,UTF8_ENCODE("Fecha de impresiï¿½n: $fecha"), '', 0, "L");	
 		$this->Cell(0, 0,"Pagina $pageNumber/$totPageAlias", '', 0, "R");	
 	}
 }

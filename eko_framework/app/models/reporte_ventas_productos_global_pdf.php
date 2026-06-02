@@ -380,7 +380,7 @@ class ReporteVentasProductosGlobalPDF extends FPDF{
 		// $this->SetY($yFooter);	
 		// $this->SetX(185);
 		// $this->SetFont('Arial','I',8);
-		// $this->Cell(0,$wFooter,"http://www.pontuel.mx",0,0,'R');
+		// $this->Cell(0,$wFooter,"http://www.nortec.mx",0,0,'R');
 	}
 	
 	function formatearTexto($cadena){

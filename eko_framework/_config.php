@@ -25,7 +25,7 @@ switch(UBICACION_DE_MySQL){
 		define("DB_USER", "mifactura");
 		define("DB_PASS", "fac9845o");
 		define("DB_MASTER", "cfd_master");
-		define("RUTA_CONECTOR", "http://upcconnector.pontuel.mx");
+		define("RUTA_CONECTOR", "http://nortecconnector.nortec.mx");
 	break;
 	case 'micompu':
 		define("DB_HOST", "localhost");

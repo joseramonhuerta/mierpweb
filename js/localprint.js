@@ -232,7 +232,7 @@ LocalPrint = Ext.extend(Ext.util.Observable, {
 	onPrint: function(response){
 		this.fireEvent('print', response);
 	},
-	// { "nombreImpresora": "PDF", "datos": "http://www.upc.tax/test.pdf", "grafica": 1 }
+	// { "nombreImpresora": "PDF", "datos": "http://www.nortec.tax/test.pdf", "grafica": 1 }
 	print: function(config){
 		if(!this.updated) return;
 		

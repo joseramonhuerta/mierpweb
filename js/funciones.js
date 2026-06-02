@@ -12,9 +12,9 @@ function seleccionComboEmpresas(){
 }
 
 function onChat(){
-	//var sURL = 'http://mail.upccorporate.com:9090/webchat/userinfo.jsp?chatID=UxwfQc2NaS&workgroup=upctechnologies@workgroup.upccorporate.com';
+	//var sURL = 'http://mail.norteccorporate.com:9090/webchat/userinfo.jsp?chatID=UxwfQc2NaS&workgroup=upctechnologies@workgroup.norteccorporate.com';
 	if (mew.chatActivo==true){
-		var sURL = 'http://mail.upccorporate.com:9090/webchat/userinfo.jsp?chatID=UxwfQc2NaS&workgroup=mi_factura@workgroup.mail.upccorporate.com';
+		var sURL = 'http://mail.norteccorporate.com:9090/webchat/userinfo.jsp?chatID=UxwfQc2NaS&workgroup=mi_factura@workgroup.mail.norteccorporate.com';
 		window.open(sURL, 'onChatTechnologies','toolbar=0,status=1,menubar=0,resizable=0,scrollbars=0,width=500,height=330');
 	}	
 }

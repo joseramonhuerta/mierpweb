@@ -1,25 +1,25 @@
 <?php
 $RFC_CustomIva="AAA010101AAA";
 
-/*===	DEFINIR PARÁMETROS POR DEFAULT PARA EL CASO DE NO EXISTIR DATOS EN LA BASE DE DATOS			*/
-define("LIMITE_EN_PAGINACION",	  50);		//	Numero de registros por página para los grids
+/*===	DEFINIR PARï¿½METROS POR DEFAULT PARA EL CASO DE NO EXISTIR DATOS EN LA BASE DE DATOS			*/
+define("LIMITE_EN_PAGINACION",	  50);		//	Numero de registros por pï¿½gina para los grids
 /* 	Revisar:	la ruta a los css de los temas deberia estar en una tabla o en un archivo de configuracion			*/
 define("TEMA",					 'B');		//	A:AZUL, B:GRIS...
 //	====== Localidad por Default ======  //			
 define("PAIS_ID",				 146);		//  Pais de la tabla cat_paises
-define("PAIS_NOMBRE",			 'MÉXICO');	
+define("PAIS_NOMBRE",			 'Mï¿½XICO');	
 define("CIUDAD_ID",				 1883);		//	Ciudad de la tabla cat_ciudades
-define("CIUDAD_NOMBRE",			 'MAZATLÁN');	
+define("CIUDAD_NOMBRE",			 'MAZATLï¿½N');	
 define("ESTADO_ID",				 25);		//	Estado de la tabla cat_estados
 define("ESTADO_NOMBRE",			 'SINALOA');
 define("INTENTOS_PERMITIDOS",    3);
 define("FORMATO_DE_TEXTO",		 '2');	
-// define("RUTA_CONECTOR", "http://upcconnector.pontuel.mx");
+// define("RUTA_CONECTOR", "http://nortecconnector.nortec.mx");
 //----------------------------------------------------------------------------
 
 /* valores disponibles para el formato de texto:								
-      1=TEXTO EN MAYÚSCULAS							
-	  2=texto en minúsculas								
+      1=TEXTO EN MAYï¿½SCULAS							
+	  2=texto en minï¿½sculas								
 	  3=El Texto Es Capitalizado		
 */
 
@@ -59,7 +59,7 @@ define("MASTER", "erp_master");
 	REVISAR LO SIGUIENTE:
 	
 Deberia omitir declarar la constante DB_NAME y buscar el nombre de la base de datos en $_SESSION['dbcorp'].
-Creo que esto hará mas sencilla la logica al momento de logearse en un corporativo (al momento de switchear de DB).
+Creo que esto harï¿½ mas sencilla la logica al momento de logearse en un corporativo (al momento de switchear de DB).
 
 */
 if(!isset($_SESSION['dbcorp'])){

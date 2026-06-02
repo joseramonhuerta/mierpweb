@@ -10,7 +10,7 @@
 //$from       = 'anonymous@upctechnologies.com';
 //$timeOut    = 10;
 
-$mailHost   = "mail.upccorporate.com";
+$mailHost   = "mail.norteccorporate.com";
 $port       = 587;
 $mailer     = 'smtp';
 $smtpAuth   = true;
