@@ -10,6 +10,7 @@ require_once "eko_framework/app/models/reporte_pedido_sugerido.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_costos.php";
 require_once "eko_framework/app/models/reporte_ventas_productos_global.php";
 require_once "eko_framework/app/models/reporte_flujo_efectivo_excel.php";
+require_once "eko_framework/app/models/reporte_saldos_lineas.php";
 
 //require ('eko_framework/app/models/linea.php');
 class Ventas extends ApplicationController {
@@ -378,13 +379,13 @@ class Ventas extends ApplicationController {
 			//$filtro = $this->filtroToSQL( $folio ); 
 			// throw new Exception($folio);
 			if (strlen($folio) > 0) {
-				$filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
+				$filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal and CONCAT(serie_venta,' - ',folio_venta) like '%$folio%'";
 			} else {
-			   $filtro = " WHERE fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
+			   $filtro = " WHERE v.status = 'A' and fecha_venta between '$fechainicio' AND '$fechafin' AND id_empresa = $id_empresa AND id_sucursal = $id_sucursal";
 			}
 			
 			
-			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas $filtro ";
+			$query = "SELECT COUNT(id_venta) AS totalrows FROM ventas v $filtro ";
 			// throw new Exception($query);
 			$res = mysqlQuery($query);
 			if (!$res)
@@ -894,8 +895,8 @@ class Ventas extends ApplicationController {
 		//return 	$texto;
 		// return addslashes($texto);
     	return str_replace ( "'" ,"\'" ,$texto);
-    }
-
+	}
+	
 	function obtenersucursalesempresa(){
 		try {
 			$idEmpresa = ( empty($_POST['id_empresa']) )? 0 : $_POST['id_empresa'];
@@ -939,6 +940,56 @@ class Ventas extends ApplicationController {
 	function generarreporteflujoefectivo(){
 		$params = $_GET;
 		$reporte=new ReporteFlujoEfectivoExcel();
+		
+		$pdf=$reporte->generarReporteExcel($params);
+	}
+
+	function generarreportesaldoslineaspdf(){
+		$params = $_POST;
+		
+		$reporte=new ReporteSaldosLineas();
+		
+		$formatos=array(
+	 		'decimales'=>$_SESSION['Auth']['Parametros']['dec_mon_par'],
+			'texto'=>$_SESSION['Auth']['UserConfig']['forUsu']
+	 	);
+		$pdf = '';
+		$pdf=$reporte->generarReporte($params,$formatos);
+		mt_srand (time());
+		
+		$numero_aleatorio = mt_rand(0,5000); 
+		$_SESSION['repSalLin']['rand']=$numero_aleatorio ;
+		$_SESSION['repSalLin']['pdf']=$pdf ;		
+		$response=array(
+			'success'=>true,
+			'data'=>array(
+				'identificador'=>$numero_aleatorio
+			)
+		);
+		return $response;
+		
+		
+		
+		
+	}
+	
+	function getpdfsaldoslineas(){		
+		if (!isset($_SESSION['repSalLin'])){				
+			throw new Exception('El archivo ha caducado, realice una nueva consulta');
+		}
+		if (!isset($_SESSION['repSalLin']['pdf'])){				
+			throw new Exception('Se ha perdido la referencia al archivo, realice una nueva consulta');
+		}
+		$pdfName=$_SESSION['repSalLin']['pdf'];
+		
+		$reporte=new ReporteSaldosLineas();
+		$reporte->getPDF($pdfName);
+	}
+
+	function generarreportesaldoslineas(){
+		$params = $_GET;
+		$params['IDSucOrigen'] = $_SESSION['Auth']['User']['id_sucursal'];
+		$reporte=new ReporteSaldosLineas();
 		
 		$pdf=$reporte->generarReporteExcel($params);
 	}

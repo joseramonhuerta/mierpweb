@@ -187,7 +187,7 @@ class ReporteVentasProductosExcel{
 				*/
 				
 				
-				$query ="CALL spReporteVentas(0,$idSuc,'$fechaInicio','$fechaFin',$id_lin,0);";
+				$query ="CALL spReporteVentas(0,$idSuc,'$fechaInicio','$fechaFin',$id_lin,0,0);";
 				
 				// throw new Exception($query);
 				$resArrVentas = $model->query($query);

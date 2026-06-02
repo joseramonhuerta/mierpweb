@@ -230,7 +230,7 @@ class Inventarios extends ApplicationController {
 		try {
 			$producto = $_POST['Descripcion'];
 			$id_producto = $_POST['ID'];
-			$id_almacen = $_SESSION['Auth']['User']['id_almacen'];
+			$id_almacen = $_POST['IDAlmacen'];
 			$query = "SELECT COUNT(id_producto) AS totalrows FROM cat_productos WHERE (descripcion = '$producto' OR codigo = '$producto' OR codigo_barras = '$producto') OR id_producto = $id_producto";
 			$res = mysqlQuery($query);
 			if (!$res)

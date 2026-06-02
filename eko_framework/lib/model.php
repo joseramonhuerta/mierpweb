@@ -64,7 +64,7 @@ class Model {
     }
     
     public function query($query,$dbName=null){		
-      
+		//return "false";
 		//if ($this->singleton){
 			$conexion = dbConexion::singleton($dbName);
 			$link=$conexion->link;
@@ -73,7 +73,8 @@ class Model {
 			$link=$conexion->link;
 		}*/
 		
-		$res  = mysql_query($query,$link);        
+		$res  = mysql_query($query,$link);
+		        
         if (!$res) {
 			if ($this->debug){	
 				//throw new Exception('Debug: '. $this->name. "->".mysql_error() ." dbName: ".$dbName." : ".$query);

@@ -96,13 +96,13 @@ class ReporteVentasProductosCostos{
 		$filtroSql='';
         
 		if ($idSuc > 0 && $id_lin > 0) {
-            $filtroSql=" WHERE v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND p.id_linea = $id_lin ";
+            $filtroSql=" WHERE v.status = 'A' and v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND p.id_linea = $id_lin ";
         }else if ($idSuc > 0 && $id_lin == 0) {
-            $filtroSql=" WHERE v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
+            $filtroSql=" WHERE v.status = 'A' and v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
         }elseif ($idSuc == 0 && $id_lin > 0) {
-            $filtroSql=" WHERE v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND p.id_linea = $id_lin ";
+            $filtroSql=" WHERE v.status = 'A' and v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND p.id_linea = $id_lin ";
         }else{
-			 $filtroSql=" WHERE v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
+			 $filtroSql=" WHERE v.status = 'A' and v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
      
 		}
 		

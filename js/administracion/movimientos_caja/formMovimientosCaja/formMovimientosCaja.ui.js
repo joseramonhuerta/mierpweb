@@ -102,7 +102,7 @@ formMovimientosCajaUi = Ext.extend(Ext.Panel, {
                         valueField: 'id',
                         itemId: 'cmbTipo',
                         name: 'tipo',
-                        width: 120,
+                        width: 150,
                         labelStyle: 'font-weight:bold',
                         mode: 'local',
                         triggerAction: 'all',

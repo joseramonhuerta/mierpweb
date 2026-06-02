@@ -118,12 +118,14 @@ class Login extends ApplicationController {
     }
 
     function identificarse(){
+       
 		if ( !$this->validarEmail( $_POST['username'] ) ){
 			throw new Exception("escriba un email como nombre de usuario");
 		}
 		//$this->confirmIPAddress();
          $_POST['email']=$_POST['username'];
         $response=$this->setusr();
+        
         if (!$response['success']){
             return $response;
         }
@@ -170,9 +172,11 @@ class Login extends ApplicationController {
     }
 
     public function setPass() {
+        
         $identificado = $this->identificar($_SESSION['identificado']['emaUsu'], $_POST['pass']);
       //  echo $identificado; 
      //   echo print_r($identificado);
+      
         if ($identificado==true) {
         	
             $_SESSION['identificado']['pass']=$_POST['pass'];
@@ -186,7 +190,7 @@ class Login extends ApplicationController {
     }
    
     private function identificar($user, $pass) {
-	
+        
         $identificado=$this->loginModel->identificar($user, $pass);
 
         if ($identificado) {
@@ -270,7 +274,8 @@ class Login extends ApplicationController {
         $tipoUser = $_SESSION['identificado']['AdminUsu'];
         $userId = $_SESSION['identificado']['IDUsr'];
         $pass=$_SESSION['identificado']['pass'];
-      
+        //throw new Exception($_SESSION['identificado']['IDUsr']);
+        
         switch ($tipoUser) {
             case 2: //Super User
                 $corps = $this->loginModel->obtenerCorporativosParaSuper($userId,$pass);
@@ -282,6 +287,8 @@ class Login extends ApplicationController {
         if (sizeof($corps)==0){
             throw new Exception('No tiene corporativos asignados');
         }
+        //throw new Exception("Corporativo: ".$corps["nombre_corporativo"]);    
+        
         //echo $pass;
         $corps = $this->filtrarConContraseña($corps,$pass);
         

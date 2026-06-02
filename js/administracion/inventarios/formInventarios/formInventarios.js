@@ -279,7 +279,8 @@ formInventarios = Ext.extend(formInventariosUi, {
 				url: 'app.php/inventarios/obtenerproducto',
 				params: {
 					ID: this.id_producto,
-					Descripcion: this.cmbProducto.getValue()
+					Descripcion: this.cmbProducto.getValue(),
+					IDAlmacen: miErpWeb.Almacen[0].id_almacen
 				},
 				success: function(data, options){
 					var respuesta = Ext.decode(data.responseText);

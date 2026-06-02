@@ -188,5 +188,9 @@ class Conceptos extends ApplicationController {
         return $where;
     }	
 	
+	function obtenertiposgastos(){
+		
+	}
+
 }
 ?>

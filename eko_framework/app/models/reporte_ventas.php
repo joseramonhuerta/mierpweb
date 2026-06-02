@@ -82,17 +82,17 @@ class ReporteVentas{
 		$filtroSql='';
         
 		if ($idSuc > 0 && $id_cli > 0 && $id_age > 0) {
-            $filtroSql=" WHERE v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli AND v.id_agente = $id_age ";
+            $filtroSql=" WHERE v.status = 'A' and v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli AND v.id_agente = $id_age ";
         }else if ($idSuc > 0 && $id_cli > 0 && $id_age == 0) {
-            $filtroSql=" WHERE v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
+            $filtroSql=" WHERE v.status = 'A' and v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
         }else if ($idSuc > 0 && $id_cli == 0 && $id_age == 0) {
-            $filtroSql=" WHERE v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
+            $filtroSql=" WHERE v.status = 'A' and v.id_sucursal = $idSuc AND v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
         }else if ($idSuc == 0 && $id_cli > 0 && $id_age == 0) {
-            $filtroSql=" WHERE v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
+            $filtroSql=" WHERE v.status = 'A' and v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
         }else if ($idSuc == 0 && $id_cli == 0 && $id_age > 0) {
-            $filtroSql=" WHERE v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
+            $filtroSql=" WHERE v.status = 'A' and v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' AND v.id_cliente = $id_cli ";
         }else{
-			 $filtroSql=" WHERE v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
+			 $filtroSql=" WHERE v.status = 'A' and v.fecha_venta BETWEEN '$fechaInicio' AND '$fechaFin' ";
      
 		}
 		        

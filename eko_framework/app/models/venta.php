@@ -276,10 +276,12 @@ class VentaModel extends Model{
 			
 			}	
 
-		$sqlDelete="DELETE FROM  $this->detalleTable WHERE id_venta = $id ";
-		$this->queryDelete($sqlDelete);			
-		
-        return parent::delete($id);
+		//$sqlDelete="DELETE FROM  $this->detalleTable WHERE id_venta = $id ";
+		//$this->queryDelete($sqlDelete);			
+		$IDUsu=$_SESSION['Auth']['User']['IDUsu'];	
+		$sqlUpdate="UPDATE ventas set status='I', usermodif = $IDUsu, fechamodif=now() WHERE id_venta=$id";					
+		$this->update($sqlUpdate);		
+        return $id;
     }
 
 	 function getById($id){
