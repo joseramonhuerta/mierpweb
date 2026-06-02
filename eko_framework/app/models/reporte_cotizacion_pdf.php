@@ -3,6 +3,10 @@ require ('eko_framework/includes/fpdf.php');
 require ('eko_framework/includes/funciones.php');
 //ESTA CLASE DEBERIA TENER PUROS CICLOS DE IMPRESION,
 // DEBERIA PROCESAR INFORMACION SOLAMENTE PARA EL ASPECTO VISUAL
+
+ini_set("default_charset", "UTF-8");
+mb_internal_encoding("UTF-8");
+
 class ReporteCotizacionPDF extends FPDF{
 	var $cerrando=false;
 	var $colorHeader;
@@ -60,8 +64,14 @@ class ReporteCotizacionPDF extends FPDF{
 		$empresa=$datos['empresa'];
 		$sucursal=$datos['sucursal'];		
 		$nombre_empresa=$empresa['nombre_fiscal'];
+		$direccion_empresa = $empresa['calle'].' '.$empresa['numext'].' '.$empresa['numint'].' '.$empresa['colonia'].' CP:'.$empresa['cp'].', '.$empresa['nom_ciu'].', '.$empresa['nom_est'].', '.$empresa['nom_pai'];
+		$rfc_empresa = $empresa['rfc'];
 		$nombre_sucursal=$sucursal['nombre_sucursal'];
-		$nombre_cliente=$datos['cotizacion']['nombre_cliente'];
+		$nombre_cliente=$datos['cotizacion']['rfc_cliente'].' - '.$datos['cotizacion']['nombre_cliente'];
+		$direccion_cliente = $datos['cotizacion']['calle'].' '.$datos['cotizacion']['numext'].' '.$datos['cotizacion']['numint'].' '.$datos['cotizacion']['colonia'].' CP:'.$datos['cotizacion']['cp'].', '.$datos['cotizacion']['nom_ciu'].', '.$datos['cotizacion']['nom_est'].', '.$datos['cotizacion']['nom_pai'];
+		//e.rfc,e.calle,e.numext, e.numint, e.colonia, e.cp, c.nom_ciu, es.nom_est, p.nom_pai,e.logotipo, e.regimen_fiscal, e.telefono
+		
+		
 		$serie=$datos['cotizacion']['serie'];
 		$folio=$datos['cotizacion']['folio'];
 		$fecha=$datos['cotizacion']['fecha'];
@@ -104,9 +114,28 @@ class ReporteCotizacionPDF extends FPDF{
 		
 		$this->SetFont($font,'I',11);
 		$this->Cell($x3,$hCell,mb_strtoupper(UTF8_decode($nombre_empresa.' ( '.$nombre_sucursal.' )')),$border,0);	#	Valor
-		$this->Ln();
 		
-		$this->SetX($x2);		
+		$this->Ln();
+		$this->SetX($x2);
+		$this->SetFont($font,'B',9);
+		$this->Cell(20,$hCell,"RFC: ",$border,0);							#	Label
+		$this->SetFont($font,'',9);
+		$this->Cell(100,$hCell,mb_strtoupper(UTF8_decode($rfc_empresa )),$border,0,'L');	#	Valor
+		$this->SetFont($font,'B',9);		
+		$this->Cell(15,$hCell,"",$border,0,'L');	#	Valor
+		$this->SetFont($font,'',9);
+		$this->Cell(60,$hCell,"",$border,0,'R');	#	Valor	
+		
+		$this->Ln();
+		$this->SetX($x2);
+		$this->SetFont($font,'B',9);
+		$this->Cell(20,$hCell,"Direccion: ",$border,0);							#	Label
+		$this->SetFont($font,'',9);
+		$this->Cell(100,$hCell,mb_strtoupper(UTF8_decode($direccion_empresa)),$border,0,'L');	#	Valor
+		$this->SetFont($font,'B',9);		
+		$this->Cell(15,$hCell,"",$border,0,'L');	#	Valor
+		$this->SetFont($font,'',9);
+		$this->Cell(60,$hCell,"",$border,0,'R');	#	Valor		
 					
 		$this->Ln();
 		$this->SetX($x2);
@@ -128,7 +157,8 @@ class ReporteCotizacionPDF extends FPDF{
 		$this->SetFont($font,'B',9);
 		$this->Cell(15,$hCell,"",$border,0,'L');	#	Valor
 		$this->SetFont($font,'',9);
-		$this->Cell(60,$hCell,"",$border,0,'R');	#	Valor				
+		$this->Cell(60,$hCell,"",$border,0,'R');	#	Valor		
+
 		
 		$this->Ln();
 		$this->SetX($x2);
@@ -140,6 +170,17 @@ class ReporteCotizacionPDF extends FPDF{
 		$this->Cell(18,$hCell,"",$border,0);							#	Label
 		$this->SetFont($font,'',9);
 		$this->Cell(57,$hCell,"",$border,0,'R');	#	Valor
+		
+		$this->Ln();
+		$this->SetX($x2);
+		$this->SetFont($font,'B',9);	
+		$this->Cell(20,$hCell,"Direccion: ",$border,0);							#	Label
+		$this->SetFont($font,'',9);
+		$this->Cell(100,$hCell,mb_strtoupper(UTF8_decode($direccion_cliente)),$border,0);	#	Valor		
+		$this->SetFont($font,'B',9);
+		$this->Cell(15,$hCell,"",$border,0,'L');	#	Valor
+		$this->SetFont($font,'',9);
+		$this->Cell(60,$hCell,"",$border,0,'R');	#	Valor		
 		
 		$this->Ln();
 		$this->SetX($x2);	
@@ -380,13 +421,25 @@ class ReporteCotizacionPDF extends FPDF{
 		$i=$this->PageNo();
 		
 		$datos=$this->datos['data'];
-		
+
+		$imp = $datos['cotizacion']['importe'] /1.16;
+		$desc = $datos['cotizacion']['descuento'] /1.16;
+		$sub = $imp - $desc;		
+		$iva = $sub * 0.16;		
+		$tot = $sub + $iva;
+		/*
 		$importes = number_format ($datos['cotizacion']['importe'] ,$decimales ,  '.' , ',' );
 		$descuento = number_format ($datos['cotizacion']['descuento'] ,$decimales ,  '.' , ',' );
 		$subtotal = number_format ($datos['cotizacion']['subtotal'] ,$decimales ,  '.' , ',' );
 		$comision = number_format ($datos['cotizacion']['comision'] ,$decimales ,  '.' , ',' );
 		$impuestos = number_format ($datos['cotizacion']['impuestos'] ,$decimales ,  '.' , ',' );
 		$total = number_format ($datos['cotizacion']['total'] ,$decimales ,  '.' , ',' );
+		*/
+		$importes = number_format ($imp ,$decimales ,  '.' , ',' );
+		$descuento = number_format ($desc ,$decimales ,  '.' , ',' );
+		$subtotal = number_format ($sub ,$decimales ,  '.' , ',' );		
+		$impuestos = number_format ($iva ,$decimales ,  '.' , ',' );
+		$total = number_format ($tot ,$decimales ,  '.' , ',' );
 		
 		$this->SetY(-33+3);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
 		// $y = 240;
@@ -394,6 +447,14 @@ class ReporteCotizacionPDF extends FPDF{
 		// $this->SetY(-20);//ES NEGATIVO PARA EMPEZAR A CONTAR DESDE EL MARGEN INFERIOR DE LA PAGINA HACIA ARRIBA
 		// $y = $this->GetY() + 3;
 		// $this->SetY(240);	
+		
+		
+		
+		$this->SetX(15);
+		$this->SetFont('Arial','B',10);
+		$this->Cell(50, $alto, "FAVOR DE DEPOSITAR EN:", $border, 0, 'L');
+		$this->SetFont('Arial','',10);
+		$this->Cell(60, $alto, 'CTA INTERBANCARIA BBVA 012744004902619713', $border, 1, 'L');
 
 		$ancho = 70;
 		$border = 0;
@@ -402,6 +463,10 @@ class ReporteCotizacionPDF extends FPDF{
 		
 		// $this->SetXY($columna,$y);
 		// $this->Ln();
+		
+		
+		
+		
 		$this->SetX($columna);	
 		$this->SetFont('Arial','B',9);
 		$this->Cell(15, $alto, "IMPORTE:", $border, 0, 'R');
@@ -428,7 +493,7 @@ class ReporteCotizacionPDF extends FPDF{
 		*/
 		$this->SetX($columna);
 		$this->SetFont('Arial','B',9);
-		$this->Cell(15, $alto, "IMPUESTOS:", $border, 0, 'R');
+		$this->Cell(15, $alto, "IVA:", $border, 0, 'R');
 		$this->SetFont('Arial','',9);
 		$this->Cell(15, $alto, $impuestos, $border, 1, 'R');
 		

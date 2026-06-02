@@ -482,7 +482,10 @@ class ReporteVentaTicketPDF extends PDF_JavaScript{
 		$this->Ln();
 		$this->SetX(0);
 		$this->Cell($ancho,$alto,mb_strtoupper(UTF8_decode($localidad_sucursal)),$border,0,'C');	#	Valor
-		
+		$this->Ln();
+		$this->Ln();
+		$y=$this->GetY();
+		$this->Image("images/logos/codigoqr2.jpeg",15,$y,35);
 		$this->aceptarSalto=true;
 		
 		

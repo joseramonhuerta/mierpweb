@@ -94,7 +94,18 @@ class ReporteCarteraClientes{
 			$resArr = $model->query($query);	
 			$resArrFiltros['nombre_cliente']  = $resArr[0]['nombre_cliente'];
 		}
-		$query = "SELECT DATE_FORMAT(r.fecha,'%d/%m/%Y') AS fecha, CONCAT(r.serie,' - ',r.folio) AS seriefolio, c.nombre_fiscal as nombre_cliente, cxc.total, cxc.abonos, cxc.saldo,r.concepto FROM cxc cxc
+		$query = "SELECT DATE_FORMAT(r.fecha,'%d/%m/%Y') AS fecha, CONCAT(r.serie,' - ',r.folio) AS seriefolio, c.nombre_fiscal as nombre_cliente, cxc.total, cxc.abonos, cxc.saldo,r.concepto,
+					DATE_FORMAT(
+						CASE
+							WHEN cxc.total/1.16 >= 0 AND cxc.total/1.16 < 500 THEN DATE_ADD(r.fecha, INTERVAL 7 DAY)
+							WHEN cxc.total/1.16 >= 500 AND cxc.total/1.16 < 1000 THEN DATE_ADD(r.fecha, INTERVAL 14 DAY)
+							WHEN cxc.total/1.16 >= 1000 AND cxc.total/1.16 < 1500 THEN DATE_ADD(r.fecha, INTERVAL 21 DAY)
+							WHEN cxc.total/1.16 >= 1500 THEN DATE_ADD(r.fecha, INTERVAL 28 DAY)
+							ELSE r.fecha
+						END,
+						'%d/%m/%Y'
+					) AS fecha_vencimiento
+					FROM cxc cxc
 					INNER JOIN remisiones r ON r.id_remision = cxc.id_remision
 					INNER JOIN cat_clientes c ON c.id_cliente = r.id_cliente
 					$filtroSql

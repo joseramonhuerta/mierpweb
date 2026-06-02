@@ -139,8 +139,8 @@ class ReporteCarteraClientesPDF extends FPDF{
 			
 			$this->Cell(18,5,utf8_decode("FECHA"),$border,0,"C",$fill);		//------Header 
 			$this->Cell(30,5,utf8_decode("SERIE-FOLIO"),$border,0,"C",$fill);	
-			$this->Cell(50,5,utf8_decode("NOMBRE CLIENTE"),$border,0,"C",$fill);		//------Header
-			$this->Cell(40,5,utf8_decode("CONCEPTO"),$border,0,"C",$fill);
+			$this->Cell(70,5,utf8_decode("NOMBRE CLIENTE"),$border,0,"C",$fill);		//------Header
+			$this->Cell(20,5,utf8_decode("VENCIMIENTO"),$border,0,"C",$fill);
 			$this->Cell(20,5,utf8_decode("TOTAL"),$border,0,"C",$fill);
 			$this->Cell(20,5,utf8_decode("ABONOS"),$border,0,"C",$fill);				
 			$this->Cell(20,5,utf8_decode("SALDO"),$border,0,"C",$fill);	
@@ -270,6 +270,7 @@ class ReporteCarteraClientesPDF extends FPDF{
 			$SerieFolio = $dato['seriefolio'];			
 			$NombreCliente = $dato['nombre_cliente'];
 			$Concepto = $dato['concepto'];
+			$Vencimiento = $dato['fecha_vencimiento'];
 			
 			$Total = number_format($dato['total'] ,$decimales ,  '.' , ',' );
 			$Abonos = number_format($dato['abonos'] ,$decimales ,  '.' , ',' );
@@ -281,8 +282,8 @@ class ReporteCarteraClientesPDF extends FPDF{
 									
 			$this->Cell(18,$heightCell,utf8_decode($Fecha),$border,$saltoDeLinea,'',$fill);
 			$this->Cell(30,$heightCell,utf8_decode($SerieFolio),$border,$saltoDeLinea,'',$fill);				
-			$this->Cell(50,$heightCell,utf8_decode($NombreCliente),$border,$saltoDeLinea,'',$fill);
-			$this->Cell(40,$heightCell,utf8_decode($Concepto),$border,$saltoDeLinea,'',$fill);
+			$this->Cell(70,$heightCell,utf8_decode($NombreCliente),$border,$saltoDeLinea,'',$fill);
+			$this->Cell(20,$heightCell,utf8_decode($Vencimiento),$border,$saltoDeLinea,'',$fill);
 			$this->Cell(20,$heightCell,utf8_decode($Total),$border,$saltoDeLinea,'R',$fill);
 			$this->Cell(20,$heightCell,utf8_decode($Abonos),$border,$saltoDeLinea,'R',$fill);
 			$this->Cell(20,$heightCell,utf8_decode($Saldo),$border,$saltoDeLinea,'R',$fill);	

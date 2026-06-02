@@ -92,13 +92,16 @@ class ReporteCotizacion{
 			return array();
 		}	
         
-        $query = "SELECT r.id_cotizacion,r.serie,r.folio,DATE_FORMAT(r.fecha,'%d/%m/%y %H:%i') as fecha,r.concepto,
+        $query = "SELECT r.id_cotizacion,r.serie,r.folio,DATE_FORMAT(r.fecha,'%d/%m/%y %H:%i') AS fecha,r.concepto,
 		r.importe,r.descuento,r.subtotal,r.comision,r.impuestos,r.total,e.nombre_fiscal,s.nombre_sucursal,
-		c.nombre_fiscal nombre_cliente		
+		c.nombre_fiscal nombre_cliente,c.rfc_cliente,c.calle,c.numext, c.numint, c.colonia, c.cp, cd.nom_ciu, es.nom_est, p.nom_pai		
 		FROM cotizaciones r 		
 		INNER JOIN cat_empresas e ON e.id_empresa = r.id_empresa
 		INNER JOIN cat_sucursales s ON s.id_sucursal = r.id_sucursal		
 		INNER JOIN cat_clientes c ON c.id_cliente = r.id_cliente
+		INNER JOIN cat_ciudades cd ON cd.id_ciu = c.id_ciu
+		INNER JOIN cat_estados es ON es.id_est = c.id_est
+		INNER JOIN cat_paises p ON p.id_pai = c.id_pai
 		WHERE r.id_cotizacion = $id";
 		
 		$resArr = $model->query($query);
