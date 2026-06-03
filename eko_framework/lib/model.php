@@ -63,36 +63,40 @@ class Model {
         }
     }
     
-    public function query($query,$dbName=null){		
-		//return "false";
-		//if ($this->singleton){
-			$conexion = dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{			  
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
+    public function query(string $query, ?string $dbName = null): array
+	{
 		
-		$res  = mysql_query($query,$link);
-		        
-        if (!$res) {
-			if ($this->debug){	
-				//throw new Exception('Debug: '. $this->name. "->".mysql_error() ." dbName: ".$dbName." : ".$query);
-				generaLog('query_'.$this->name,mysql_error().":".$query);
-				throw new Exception('Debug: '. $this->name. "->".mysql_error()." $query");
-			}else{
-				generaLog('query_'.$this->name,mysql_error().":".$query);				
-				throw new Exception($this->name.": Error al realizar la consulta, consulte con el administrador del sistema");
+		$conexion = dbConexion::singleton($dbName);
+		throw new Exception("Aqui");
+		$link = $conexion->link;
+		var_dump($link);
+		$res = $link->query($query);
+
+		if ($res === false) {
+			$error = $link->error;
+			generaLog('query_' . $this->name, $error . ":" . $query);
+			
+			if ($this->debug) {
+				throw new Exception("Debug: {$this->name} -> {$error} {$query}");
+			} else {
+				throw new Exception("{$this->name}: Error al realizar la consulta, consulte con el administrador del sistema");
 			}
-        }
-        $result=array();
-        // if (mysql_num_rows($res) >= 1) {
-            while ($row = mysql_fetch_array($res, MYSQL_ASSOC)) {
-                $result[] = $row;
-            }
-        // }
-        return $result;        
-    }
+		}
+
+		$result = [];
+
+		// Si es un SELECT/SHOW/DESCRIBE, devuelve mysqli_result
+		// Si es INSERT/UPDATE/DELETE, devuelve true
+		if ($res instanceof mysqli_result) {
+			while ($row = $res->fetch_assoc()) {
+				$result[] = $row;
+			}
+			$res->free();
+		}
+
+		return $result;
+	}
+
     
     public function select($query,$dbName=null){
     	return $this->query($query,$dbName);

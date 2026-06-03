@@ -1,62 +1,87 @@
 <?php
-class dbConexion {
-	public $link,$dbase;
-	private static $instance;
-	private $transaction=false;
-	
-	public function switchDB($dbname){
-		mysql_close(self::$instance->link);
-		self::$instance = new dbConexion($basedatos,true);       
+
+class dbConexion
+{
+    public ?mysqli $link = null;
+    public string $dbase;
+    private static ?dbConexion $instance = null;
+    private bool $transaction = false;
+
+    public function switchDB(string $dbname): void
+    {
+        self::$instance?->link?->close();
+        self::$instance = new dbConexion($dbname);
     }
+
+    public static function singleton(string|false $basedatos = false): dbConexion
+    {
 		
-	 public static function singleton($basedatos=false){
-        if (!isset(self::$instance)) {            
-			//SI LA CONEXION NO EXISTE
-            self::$instance = new dbConexion($basedatos,false);
-        }else if (isset(self::$instance) && self::$instance->transaction==false){		
-			mysql_close(self::$instance->link);
-			self::$instance = new dbConexion($basedatos,true);
-		}
-		
+        if (!isset(self::$instance)) {
+			//throw new Exception("Aqui2");
+            self::$instance = new dbConexion($basedatos);
+			
+        } elseif (!self::$instance->transaction) {
+            self::$instance->link?->close();
+            self::$instance = new dbConexion($basedatos);
+        }
+
         return self::$instance;
     }
-	
-	public function startTransaction(){
-		$this->transaction=true;
-		mysql_query('SET AUTOCOMMIT=0');		
-		mysql_query('START TRANSACTION');		 
-	}
-	
-	public function dbConexion($basedatos=false) {
-		$this->transaction=false;
-		$this->dbase = ($basedatos) ? $basedatos : DB_NAME; // a cual bd se conecta
-		
-		//$this->link  = @mysql_connect(DB_HOST, DB_USER, DB_PASS, false, 131074|8192);
-		$this->link  = mysql_connect(DB_HOST, DB_USER, DB_PASS, false, 8192);
-		if (!$this->link) {			
-			throw new Exception("Error de Conexión: El sistema no pudo conectarse con el servidor de Bases de datos");
-			//$response['success']=false;
-			//$response['msg']='ERROR: El sistema no pudo conectarse con el servidor de Bases de datos';
-			//$response['msg']=mysql_error();
-			//echo json_encode($response);
-			//exit;
-		}
-		if (!mysql_select_db($this->dbase, $this->link)) {
-			
-			throw new Exception("Error de Conexión: No pudo seleccionarse la base de datos:".mysql_error());			
-		}					
-		mysql_query("SET NAMES utf8");
-	
-	}
 
-   	public function __destruct() {
-           // mysql_close( $this->link );
-   	}
-        
-	public function useMaster(){
-		if (!mysql_select_db(DB_MASTER,$this->link)) {
-		   throw new Exception(mysql_error());
-	   }
-	}
+    public function startTransaction(): void
+    {
+        $this->transaction = true;
+        $this->link->autocommit(false);
+        $this->link->begin_transaction();
+    }
+
+    public function commit(): void
+    {
+        $this->link->commit();
+        $this->link->autocommit(true);
+        $this->transaction = false;
+    }
+
+    public function rollback(): void
+    {
+        $this->link->rollback();
+        $this->link->autocommit(true);
+        $this->transaction = false;
+    }
+
+    public function __construct(string|false $basedatos = false)
+    {
+		
+        $this->transaction = false;
+        $this->dbase = $basedatos ?: DB_NAME;
+	
+         if (function_exists('mysqli_report')) {
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+    }
+		//throw new Exception("Aqui3");
+        try {
+            $this->link = new mysqli(DB_HOST, DB_USER, DB_PASS, $this->dbase);
+            $this->link->set_charset('utf8mb4');
+        } catch (mysqli_sql_exception $e) {
+            throw new Exception("Error de Conexión: " . $e->getMessage());
+        }
+    }
+
+    public function __destruct()
+    {
+        // $this->link?->close();
+    }
+
+    public function useMaster(): void
+    {
+        if (!$this->link->select_db(DB_MASTER)) {
+            throw new Exception($this->link->error);
+        }
+    }
+
+    // Método auxiliar para ejecutar queries
+    public function query(string $sql): mysqli_result|bool
+    {
+        return $this->link->query($sql);
+    }
 }
-?>
