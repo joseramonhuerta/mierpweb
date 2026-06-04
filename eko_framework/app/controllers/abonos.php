@@ -19,7 +19,7 @@ class Abonos extends ApplicationController {
 		}
         
 		$abonoModel=new AbonoModel();
-		$response = $abonoModel->readAll($params);
+		$response = $abonoModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -93,7 +93,7 @@ class Abonos extends ApplicationController {
 			$data['Abono']=$abonoModel->getInitialInfo($id_empresa,$id_sucursal,$id_almacen);
 					
 		}else{
-			$data=$abonoModel->getById($id);
+			$data=$abonoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

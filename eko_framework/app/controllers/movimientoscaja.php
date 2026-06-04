@@ -16,7 +16,7 @@ class MovimientosCaja extends ApplicationController {
 		}
         // throw new Exception("ramon");
 		$movimientoCajaModel=new MovimientoCaja();
-		$response = $movimientoCajaModel->readAll($params);
+		$response = $movimientoCajaModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; 
     }
@@ -46,7 +46,7 @@ class MovimientosCaja extends ApplicationController {
 			$data['MovimientoCaja']=$movimientoCajaModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$movimientoCajaModel->getById($id);
+			$data=$movimientoCajaModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

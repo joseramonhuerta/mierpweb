@@ -7,7 +7,7 @@ class MovimientoCaja extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -61,7 +61,7 @@ class MovimientoCaja extends Model{
         return $response;
     }
 	
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT m.id_movimiento_caja,m.concepto,DATE_FORMAT(m.fecha,'%d/%m/%Y %H:%i:%S') as fecha,
 				m.total,m.tipo,m.status
 				FROM $this->useTable m
@@ -195,7 +195,7 @@ class MovimientoCaja extends Model{
 			$id=$id_movimiento_caja;
 		}
 		
-		$data=$this->getById($id);   
+		$data=$this->getById($IDValue, $params = []);   
         
 		return $data;
                      

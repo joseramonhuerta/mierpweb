@@ -50,7 +50,7 @@ class Empleados extends ApplicationController {
 		$empleadoModel = new EmpleadoModel();
 						
 		$id=$_POST['idEmp'];
-		$datos = $empleadoModel->getById($id);
+		$datos = $empleadoModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['Empleado'] = $datos['Empleado'];
 			

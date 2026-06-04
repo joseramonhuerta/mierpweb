@@ -27,7 +27,7 @@ class Parametros extends ApplicationController {
 		$id=$_POST['IDPar'];
 		//------------------------------------------------
 		$model=$this->getModelObject();
-		$data=$model->getById($id);
+		$data=$model->getById($IDValue, $params = []);
 		//------------------------------------------------
 		//Para evitar este bloque es necesario modificar el js, la ventaja es un codigo mas unificado en el controlador
 		//Este combo es usado para llenar el combo de ubicacion

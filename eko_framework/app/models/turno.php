@@ -8,7 +8,7 @@ class Turno extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -62,7 +62,7 @@ class Turno extends Model{
         return $response;
     }
 	
-	 function getById($id){
+	 function getById($id, $params = []){
     	 $query="SELECT t.id_turno,t.concepto,DATE_FORMAT(t.fechainicio,'%d/%m/%Y %H:%i:%S') as fechainicio,t.status
 				FROM $this->useTable t
 				WHERE t.id_turno=$id";       
@@ -193,7 +193,7 @@ class Turno extends Model{
 		
 		$this->guardarDetalles($id,$Detalles,$registroNuevo);
 		
-        $data=$this->getById($id);   
+        $data=$this->getById($IDValue, $params = []);   
         
 		return $data;
                      

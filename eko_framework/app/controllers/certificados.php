@@ -30,7 +30,7 @@ class Certificados extends ApplicationController {
         if (isset($_POST['idCer'])) {
 
             $id = $_POST['idCer'];
-            $datos = $modelObject->getById($id);
+            $datos = $modelObject->getById($IDValue, $params = []);
               
             $response['success'] = true;
             $response['data'] = $datos;

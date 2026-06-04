@@ -63,7 +63,7 @@ class Series extends ApplicationController {
 		$serieModel = new SerieModel();
 						
 		$id=$_POST['idSer'];
-		$datos = $serieModel->getById($id);
+		$datos = $serieModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['Serie'] = $datos['Serie'];
 			

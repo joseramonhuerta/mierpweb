@@ -58,7 +58,7 @@ class Conceptos extends ApplicationController {
 		$conceptoModel = new ConceptoModel();
 						
 		$id=$_POST['idCon'];
-		$datos = $conceptoModel->getById($id);
+		$datos = $conceptoModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['Concepto'] = $datos['Concepto'];
 			

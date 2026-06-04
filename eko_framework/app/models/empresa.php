@@ -15,7 +15,7 @@ class Empresa extends Model{
     function setCertificados($certificados){
         $this->certificados=$certificados;
     }
-   function getById($IDValue){	
+   function getById($IDValue, $params = []){	
             $query="SELECT IDEmp,manejaInvEmp, ComEmp, PatEmp, MatEmp, FisEmp, TipoEmp, RFCEmp ,CalleEmp, NumExtEmp ,NumIntEmp, ColEmp, LocEmp as localidad, MunEmp, 
             EstEmp, PaisEmp, CPEmp, NomConEmp, MailConEmp, TelConEmp, CelConEmp, StatusEmp, CFDiEmp FROM cat_empresas WHERE IDEmp=$IDValue";
             $arrRes= $this->query($query);
@@ -157,7 +157,7 @@ class Empresa extends Model{
                 $id=$datos[$this->primaryKey];
             }
             $this->id=$id;
-            $data=$this->getById($id);
+            $data=$this->getById($IDValue, $params = []);
 			
             $tasas=$this->guardarTasas($id);
             $this->guardarCertificados();

@@ -155,17 +155,21 @@ function generaLog($proceso,$error){
 }
 
 function mysqlQuery($query, $basedatos = false) {
+	$basedatos = $_SESSION['dbcorp'];
 	$link = new dbConexion($basedatos);
-	$res  = mysql_query($query);
-        //if (!$res) throw new Exception("Error en la consulta: $consulta --->".mysql_error());
+	$res  = mysqli_query($link, $query);
+	var_dump($res);
+	exitit
+	throw new Exception("aaa");
+        //if (!$res) throw new Exception("Error en la consulta: $consulta --->".mysqli_error());
 	return $res;
 }
 
 function mysqlGridPaginado($query, $basedatos = false){
 	$link = new dbConexion($basedatos);
-	$res  = mysql_query($query);
+	$res  = mysqli_query($link, $query);
 	throw new Exception($query);
-	if (!$res) throw new Exception("BDD error: ".mysql_error());
+	if (!$res) throw new Exception("BDD error: ".mysqli_error());
 	
 	$rows = mysql_num_rows($res);
 	if ($rows == 0) {

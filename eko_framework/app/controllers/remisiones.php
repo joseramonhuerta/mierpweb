@@ -19,7 +19,7 @@ class Remisiones extends ApplicationController {
 		}
         
 		$remisionModel=new RemisionModel();
-		$response = $remisionModel->readAll($params);
+		$response = $remisionModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -220,7 +220,7 @@ class Remisiones extends ApplicationController {
 			$data['Remision']=$remisionModel->getInitialInfo($id_empresa,$id_sucursal,$id_almacen);
 					
 		}else{
-			$data=$remisionModel->getById($id);
+			$data=$remisionModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();
@@ -445,7 +445,7 @@ class Remisiones extends ApplicationController {
 		$id=$_POST['idMov'];		
 		
 		if($id > 0){
-			$data=$movimientoModel->getById($id);
+			$data=$movimientoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

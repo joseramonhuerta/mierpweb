@@ -18,7 +18,7 @@ class Inventarios extends ApplicationController {
 		}
         
 		$inventarioModel=new InventarioModel();
-		$response = $inventarioModel->readAll($params);
+		$response = $inventarioModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -293,7 +293,7 @@ class Inventarios extends ApplicationController {
 			$data['Inventario']=$inventarioModel->getInitialInfo($id_empresa,$id_sucursal,$id_almacen);
 					
 		}else{
-			$data=$inventarioModel->getById($id);
+			$data=$inventarioModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

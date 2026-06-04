@@ -93,7 +93,7 @@ class UnidadesModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['UnidadMedida'];
         }catch(Exception $e){            
             return false;
@@ -105,7 +105,7 @@ class UnidadesModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_unidadmedida,codigo_unidad,descripcion_unidad,status
 		FROM cat_unidadesdemedida
 		WHERE id_unidadmedida=$id ";

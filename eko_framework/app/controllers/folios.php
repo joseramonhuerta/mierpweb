@@ -36,7 +36,7 @@ class Folios extends ApplicationController {
         if (isset($_POST[$modelObject->primaryKey])) {
 
             $id = $_POST[$modelObject->primaryKey];
-            $datos = $modelObject->getById($id);
+            $datos = $modelObject->getById($IDValue, $params = []);
               
             $response['success'] = true;
             $response['data'] = $datos[$modelObject->name];

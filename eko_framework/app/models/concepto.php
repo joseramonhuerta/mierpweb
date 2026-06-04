@@ -126,7 +126,7 @@ class ConceptoModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Concepto'];
         }catch(Exception $e){            
             return false;
@@ -138,7 +138,7 @@ class ConceptoModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_concepto,descripcion,tipo,status
 		FROM cat_conceptos
 		WHERE id_concepto=$id ";

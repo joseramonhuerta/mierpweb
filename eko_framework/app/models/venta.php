@@ -10,7 +10,7 @@ class VentaModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto_venta');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -236,7 +236,7 @@ class VentaModel extends Model{
 			$this->guardarFormasPagos($id,$FormasPagos);		
 			$this->gastarFolio( $id_serie, $folio_venta);
             // $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Venta'];
         }catch(Exception $e){            
             return false;
@@ -284,7 +284,7 @@ class VentaModel extends Model{
         return $id;
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT v.id_venta,a.id_almacen, DATE_FORMAT(v.fecha_venta,'%d/%m/%Y %H:%i:%S') as fecha_venta,v.folio_venta,
 				v.id_serie,v.serie_venta,v.id_cliente,c.nombre_fiscal as nombre_cliente,CONCAT(v.serie_venta,' - ',v.folio_venta) as SerieFolio,
 				v.importe,v.descuento,v.subtotal,v.impuestos,v.total,v.pago,v.cambio, v.id_agente, ag.nombre_agente

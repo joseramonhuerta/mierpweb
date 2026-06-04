@@ -5,7 +5,7 @@ class Stock extends Model{
     var $name='Stock';
     var $primaryKey = 'id_stock';
 	
-	function save($params){
+	function save($params,  $log = true){
 		return parent::save($params);
 	}
 	

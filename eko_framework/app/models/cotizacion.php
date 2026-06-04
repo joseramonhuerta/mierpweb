@@ -10,7 +10,7 @@ class CotizacionModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -168,7 +168,7 @@ class CotizacionModel extends Model{
 			
 			$this->guardarDetalles($id,$Conceptos,$registroNuevo);
 			
-			$data=$this->getById($id);   
+			$data=$this->getById($IDValue, $params = []);   
 			
 			if ($registroNuevo){
 				$this->gastarFolio( $id_serie, $folio);
@@ -213,7 +213,7 @@ class CotizacionModel extends Model{
         return parent::delete($id);
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT r.id_cotizacion,DATE_FORMAT(r.fecha,'%d/%m/%Y %H:%i:%S') as fecha,r.folio,
 				r.id_serie,r.serie,r.concepto,r.importe,r.descuento,r.subtotal,r.impuestos,r.total,r.id_cliente,c.nombre_fiscal as nombre_cliente,ifnull(c.foraneo,0) as foraneo
 				FROM $this->useTable r

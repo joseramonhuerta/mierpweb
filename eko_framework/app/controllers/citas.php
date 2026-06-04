@@ -16,7 +16,7 @@ class Citas extends ApplicationController {
 		}
         
 		$citaModel=new CitaModel();
-		$response = $citaModel->readAll($params);
+		$response = $citaModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -46,7 +46,7 @@ class Citas extends ApplicationController {
 			$data['Cita']=$citaModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$citaModel->getById($id);
+			$data=$citaModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

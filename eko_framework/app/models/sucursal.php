@@ -15,7 +15,7 @@ class Sucursal extends Model{
         $this->certificados=$certificados;
     }
 	
-    function readAll($start, $limit, $filtro,$filtrarActivos=false) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false, $filtrarActivos = false) {
 		$id_user = $_SESSION['Auth']['User']['IDUsu'];
 		$admin   = $_SESSION['Auth']['User']['AdminUsu'];
 		$privilegios = '';
@@ -125,7 +125,7 @@ class Sucursal extends Model{
                 $id=$datos[$this->primaryKey];
             }
             $this->id=$id;
-            $data=$this->getById($id);
+            $data=$this->getById($IDValue, $params = []);
 
             $tasas=$this->guardarTasas($id);
             $this->guardarCertificados();
@@ -228,7 +228,7 @@ class Sucursal extends Model{
         return $impuestos;
     }
     
-    function getById($IDValue) {
+    function getById($IDValue, $params = []) {
         $query = "SELECT s.*,ComEmp FROM $this->useTable s
                 LEFT JOIN cat_empresas e ON e.IDEmp = s.KEYEmpSuc
                 WHERE $this->primaryKey=$IDValue";

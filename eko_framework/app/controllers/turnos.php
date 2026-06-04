@@ -18,7 +18,7 @@ class Turnos extends ApplicationController {
 		}
         
 		$turnoModel=new Turno();
-		$response = $turnoModel->readAll($params);
+		$response = $turnoModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; 
     }
@@ -48,7 +48,7 @@ class Turnos extends ApplicationController {
 			$data['Turno']=$turnoModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$turnoModel->getById($id);
+			$data=$turnoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

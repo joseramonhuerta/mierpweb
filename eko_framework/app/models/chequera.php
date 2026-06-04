@@ -123,7 +123,7 @@ class ChequeraModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Chequera'];
         }catch(Exception $e){            
             return false;
@@ -135,7 +135,7 @@ class ChequeraModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_chequera,descripcion,status
 		FROM cat_chequeras
 		WHERE id_chequera=$id ";

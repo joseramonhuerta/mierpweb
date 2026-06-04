@@ -57,7 +57,7 @@ class ChecadaModel extends Model{
 		try{
             $id= $this->insert($query);		
 			
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Checada'];
         }catch(Exception $e){            
             return false;
@@ -65,7 +65,7 @@ class ChecadaModel extends Model{
 
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	 $query="SELECT v.id_empleado, concat('Bienvenido: ',a.nombre_empleado) as mensaje, DATE_FORMAT(fecha_hora,'%d/%m/%Y %H:%i:%S') as fecha_hora
 				FROM $this->useTable v
 				inner join cat_empleados a on a.id_empleado = v.id_empleado				

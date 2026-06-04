@@ -1,7 +1,7 @@
 <?php
-	
-	if (!isset($_SESSION))session_start();
 	ini_set('session.cache_expire',1);
+	if (!isset($_SESSION))session_start();
+	
 	/*
     require(dirname(__FILE__).'/lib/config.php');	
     require(dirname(__FILE__).'/lib/conexion.php');

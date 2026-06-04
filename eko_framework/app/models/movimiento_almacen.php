@@ -9,7 +9,7 @@ class MovimientoAlmacenModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto_movimiento');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -229,7 +229,7 @@ class MovimientoAlmacenModel extends Model{
 		
 		$this->guardarDetalles($id,$id_almacen_origen,$id_almacen_destino,$Conceptos,$tipo_movimiento,$registroNuevo);
 		
-        $data=$this->getById($id);   
+        $data=$this->getById($IDValue, $params = []);   
         
 		if ($registroNuevo){
 			$this->gastarFolio( $id_serie, $folio_movimiento );
@@ -275,7 +275,7 @@ class MovimientoAlmacenModel extends Model{
         return parent::delete($id);
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT m.id_movimiento,m.id_almacen_origen,ao.nombre_almacen as nombre_almacen_origen,m.id_almacen_destino,ad.nombre_almacen as nombre_almacen_destino, DATE_FORMAT(m.fecha_movimiento,'%d/%m/%Y %H:%i:%S') as fecha_movimiento,m.folio_movimiento,
 				m.id_tipomovimiento,m.id_serie,m.serie_movimiento,m.concepto_movimiento,t.nombre_movimiento,t.tipo_movimiento,
 				m.importe,m.descuento,m.subtotal,m.impuestos,m.total,m.id_agente,ag.nombre_agente

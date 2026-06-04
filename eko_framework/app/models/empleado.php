@@ -84,7 +84,7 @@ class EmpleadoModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Empleado'];
         }catch(Exception $e){            
             return false;
@@ -96,7 +96,7 @@ class EmpleadoModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_empleado,codigo_empleado,nombre_empleado,celular,status
 		FROM cat_empleados
 		WHERE id_empleado=$id ";

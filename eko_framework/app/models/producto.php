@@ -164,7 +164,7 @@ class ProductoModel extends Model{
 				
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Producto'];
         }catch(Exception $e){            
             return false;
@@ -217,7 +217,7 @@ class ProductoModel extends Model{
         return parent::delete($id);
     }
 
-	function getById($id){
+	function getById($IDValue, $params = []){
 		$id_almacen = $_SESSION['Auth']['User']['id_almacen'];
     	$query="SELECT p.id_producto,p.codigo,p.codigo_barras,p.descripcion,p.detalles,p.id_unidadmedida,u.descripcion_unidad,p.precio_venta,p.precio_estilista,p.precio_compra,p.costo_promedio,
 		p.ultimo_costo,p.status,p.tipo_producto,p.id_linea,l.nombre_linea,p.iva,p.ret_iva,p.ret_isr,

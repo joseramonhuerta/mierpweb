@@ -82,7 +82,7 @@ class Unidades extends ApplicationController {
 		$unidadModel = new UnidadesModel();
 						
 		$id=$_POST['idUni'];
-		$datos = $unidadModel->getById($id);
+		$datos = $unidadModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['UnidadMedida'] = $datos['UnidadMedida'];
 			

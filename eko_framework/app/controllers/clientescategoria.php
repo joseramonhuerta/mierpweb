@@ -82,7 +82,7 @@ class ClientesCategoria extends ApplicationController {
 		$clienteCategoriaModel = new ClienteCategoriaModel();
 						
 		$id=$_POST['idCat'];
-		$datos = $clienteCategoriaModel->getById($id);
+		$datos = $clienteCategoriaModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['ClienteCategoria'] = $datos['ClienteCategoria'];
 			

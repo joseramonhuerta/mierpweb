@@ -92,7 +92,7 @@ class UsuarioModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Agente'];
         }catch(Exception $e){            
             return false;
@@ -104,7 +104,7 @@ class UsuarioModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_agente,nombre_agente,status
 		FROM cat_agentes
 		WHERE id_agente=$id ";

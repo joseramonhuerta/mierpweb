@@ -99,7 +99,7 @@ class ListaPrecioModel extends Model{
 		
 		$this->guardarDetalles($id,$Conceptos,$registroNuevo);
 		
-        $data=$this->getById($id);   
+        $data=$this->getById($IDValue, $params = []);   
         
 		return $data;
                      
@@ -142,7 +142,7 @@ class ListaPrecioModel extends Model{
 		}
 	}
 
-    function getById($id){
+    function getById($IDValue, $params = []){
         $query="SELECT id_listaprecio, descripcion
                FROM $this->useTable              
                WHERE id_listaprecio=$id";       

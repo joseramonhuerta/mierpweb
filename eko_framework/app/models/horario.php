@@ -96,7 +96,7 @@ class HorarioModel extends Model{
                 $id = $id_horario;
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             $response['success']    = true;
 			$response['msg']       = array('titulo'=>"Horarios",'mensaje'=>"Horario guardado correctamente");
 			$response['data']    = $data;			
@@ -113,7 +113,7 @@ class HorarioModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_horario,DATE_FORMAT(hora_inicio,'%d/%m/%Y %H:%i:%S') as hora_inicio,DATE_FORMAT(hora_fin,'%d/%m/%Y %H:%i:%S') as hora_fin,
 		concat(DATE_FORMAT(hora_inicio,'%d/%m/%Y %H:%i:%S'),'-',DATE_FORMAT(hora_fin,'%d/%m/%Y %H:%i:%S')) as descripcion_horario,status
 		FROM cat_horarios

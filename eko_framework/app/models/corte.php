@@ -9,7 +9,7 @@ class Corte extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -63,7 +63,7 @@ class Corte extends Model{
         return $response;
     }
 	
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT t.id_corte,t.concepto,DATE_FORMAT(t.fecha_corte,'%d/%m/%Y %H:%i:%S') as fecha_corte,t.status
 				FROM $this->useTable t
 				WHERE t.id_corte=$id";       
@@ -318,7 +318,7 @@ class Corte extends Model{
 		$this->guardarDetallesLiquidacion($id,$DetallesLiquidacion,$registroNuevo);
 		$this->guardarDetallesRetencion($id,$DetallesRetencion,$registroNuevo);
 		
-        $data=$this->getById($id);   
+        $data=$this->getById($IDValue, $params = []);   
         
 		return $data;
                      

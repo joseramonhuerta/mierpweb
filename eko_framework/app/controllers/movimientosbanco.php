@@ -19,7 +19,7 @@ class MovimientosBanco extends ApplicationController {
 		}
         
 		$movimientoBancoModel=new MovimientoBancoModel();
-		$response = $movimientoBancoModel->readAll($params);
+		$response = $movimientoBancoModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -48,7 +48,7 @@ class MovimientosBanco extends ApplicationController {
 			$data['MovimientoBanco']=$movimientobancoModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$movimientobancoModel->getById($id);
+			$data=$movimientobancoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

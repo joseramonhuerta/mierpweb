@@ -136,7 +136,7 @@ class Clientes extends ApplicationController {
 		// $response['success']=	true;    
 		// $response['data']=	$cliente;          
         // return $response;
-		// $datos = $razonModel->getById($id);
+		// $datos = $razonModel->getById($IDValue, $params = []);
             $response['success'] = true;
             $response['data']['Cliente'] = $datos['Cliente'];
 

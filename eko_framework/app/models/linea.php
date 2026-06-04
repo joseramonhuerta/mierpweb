@@ -93,7 +93,7 @@ class LineaModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Linea'];
         }catch(Exception $e){            
             return false;

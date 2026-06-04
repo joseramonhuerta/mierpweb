@@ -146,7 +146,7 @@ class SerieModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['Serie'];
         }catch(Exception $e){            
             return false;
@@ -158,7 +158,7 @@ class SerieModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_serie,nombre_serie,folioinicio,foliofin,tipo_serie,status
 		FROM cat_series
 		WHERE id_serie=$id ";

@@ -48,7 +48,7 @@ class Usuarios extends ApplicationController {
 		$agenteModel = new AgenteModel();
 						
 		$id=$_POST['idAge'];
-		$datos = $agenteModel->getById($id);
+		$datos = $agenteModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['Agente'] = $datos['Agente'];
 			

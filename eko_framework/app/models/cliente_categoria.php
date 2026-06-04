@@ -92,7 +92,7 @@ class ClienteCategoriaModel extends Model{
                 $id = $datos[$this->primaryKey];
             }
             $this->id = $id;
-            $data = $this->getById($id);
+            $data = $this->getById($IDValue, $params = []);
             return $data['ClienteCategoria'];
         }catch(Exception $e){            
             return false;
@@ -104,7 +104,7 @@ class ClienteCategoriaModel extends Model{
         return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
     	$query="SELECT id_cliente_categoria,nombre_categoria,status
 		FROM cat_clientes_categorias
 		WHERE id_cliente_categoria=$id ";

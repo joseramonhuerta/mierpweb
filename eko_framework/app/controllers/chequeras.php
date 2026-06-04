@@ -57,7 +57,7 @@ class Chequeras extends ApplicationController {
 		$chequeraModel = new ChequeraModel();
 						
 		$id=$_POST['idChe'];
-		$datos = $chequeraModel->getById($id);
+		$datos = $chequeraModel->getById($IDValue, $params = []);
 		$response['success'] = true;
 		$response['data']['Chequera'] = $datos['Chequera'];
 			

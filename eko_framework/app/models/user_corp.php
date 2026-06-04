@@ -35,7 +35,7 @@ class UserCorp extends Model{
 
         return $response;
     }
-    function getById($id){
+     public function getById($IDValue, $params = []): array{
 
         $query = "SELECT IDUsu,NomUsu,UserUsu,'' as PassUsu,'' as passwordConfirm,TelUsu,CelUsu,AdminUsu,forUsu,temUsu,StatusUsu FROM cat_usuarios WHERE IDUsu=$id;";
         $res = mysqlQuery($query);

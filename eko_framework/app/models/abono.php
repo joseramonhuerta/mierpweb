@@ -7,7 +7,7 @@ class AbonoModel extends Model{
 	var $specific = true;
     var $camposAfiltrar = array('a.concepto','nombre_fiscal','observacion');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -191,7 +191,7 @@ class AbonoModel extends Model{
 				$id=$id_cxc_abono;
 			}		
 			
-			$data=$this->getById($id);   
+			$data=$this->getById($IDValue, $params = []);   
 			
 			if ($registroNuevo){
 				$this->gastarFolio( $id_serie, $folio);
@@ -230,7 +230,7 @@ class AbonoModel extends Model{
         return parent::delete($id);
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT a.id_cxc_abono,a.id_cxc,a.concepto,c.id_remision,DATE_FORMAT(a.fecha,'%d/%m/%Y %H:%i:%S') as fecha,a.folio,
 				a.id_serie,a.serie,a.importe,c.id_cliente,cl.nombre_fiscal,a.status,
 				concat(r.serie,' - ',r.folio,' (',r.concepto,')') as descripcion,c.total,c.abonos,c.saldo,

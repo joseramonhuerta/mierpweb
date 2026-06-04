@@ -19,7 +19,7 @@ class dbConexion
         if (!isset(self::$instance)) {
 			//throw new Exception("Aqui2");
             self::$instance = new dbConexion($basedatos);
-			
+			//throw new Exception("Aqui");
         } elseif (!self::$instance->transaction) {
             self::$instance->link?->close();
             self::$instance = new dbConexion($basedatos);

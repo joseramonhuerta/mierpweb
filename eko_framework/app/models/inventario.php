@@ -11,7 +11,7 @@ class InventarioModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto_inventario');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -194,7 +194,7 @@ class InventarioModel extends Model{
 		
 		$this->guardarDetalles($id,$id_almacen,$Conceptos,$registroNuevo);
 		
-        $data=$this->getById($id);   
+        $data=$this->getById($IDValue, $params = []);   
         
 		if ($registroNuevo){
 			$this->gastarFolio( $id_serie, $folio_inventario );
@@ -402,13 +402,13 @@ class InventarioModel extends Model{
 		
 		$this->update($sql);
 		
-		$data=$this->getById($id);   
+		$data=$this->getById($IDValue, $params = []);   
         
 		return $data;
 			
     }
 
-	function getById($id){
+	function getById($IDValue, $params = []){
     	 $query="SELECT i.id_inventario,i.id_almacen,a.nombre_almacen, DATE_FORMAT(i.fecha_inventario,'%d/%m/%Y %H:%i:%S') as fecha_inventario,i.folio_inventario,i.id_serie,i.serie_inventario,i.concepto_inventario,i.aplicado				
 				FROM $this->useTable i
 				left join cat_almacenes a on a.id_almacen = i.id_almacen				

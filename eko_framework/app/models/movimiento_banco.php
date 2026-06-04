@@ -11,7 +11,7 @@ class MovimientoBancoModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('observaciones');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -212,7 +212,7 @@ class MovimientoBancoModel extends Model{
 			$id=$id_movimiento_banco;
 		}
 		
-		$data=$this->getById($id);   
+		$data=$this->getById($IDValue, $params = []);   
         
 		if ($registroNuevo){
 			$this->gastarFolio( $id_serie, $folio );
@@ -228,7 +228,7 @@ class MovimientoBancoModel extends Model{
 		return parent::delete($id);
     }
 	
-	function getById($id){
+	function getById($IDValue, $params = []){
 	$query="SELECT i.id_movimiento_banco,DATE_FORMAT(i.fecha,'%d/%m/%Y %H:%i:%S') as fecha,i.folio,i.observaciones,i.id_serie,i.serie,i.id_concepto,i.id_chequera,i.tipo_movimiento,i.tipo_origen,i.importe,a.descripcion as concepto,b.descripcion	as chequera,
 	case i.tipo_movimiento	when 1 then 'INGRESO' when 2 then 'EGRESO' end nombre_movimiento
 				FROM $this->useTable i

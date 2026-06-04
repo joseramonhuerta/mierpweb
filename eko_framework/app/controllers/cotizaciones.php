@@ -19,7 +19,7 @@ class Cotizaciones extends ApplicationController {
 		}
         
 		$cotizacionModel=new CotizacionModel();
-		$response = $cotizacionModel->readAll($params);
+		$response = $cotizacionModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -214,7 +214,7 @@ class Cotizaciones extends ApplicationController {
 			$data['Cotizacion']=$cotizacionModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$cotizacionModel->getById($id);
+			$data=$cotizacionModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();
@@ -439,7 +439,7 @@ class Cotizaciones extends ApplicationController {
 		$id=$_POST['idMov'];		
 		
 		if($id > 0){
-			$data=$movimientoModel->getById($id);
+			$data=$movimientoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

@@ -91,7 +91,7 @@ class Productos extends ApplicationController {
 			$id=$_POST['idPro'];
 			
 
-			$datos = $productoModel->getById($id);
+			$datos = $productoModel->getById($IDValue, $params = []);
 				
 			$unidades=$unidadesModel->readAll(0, 200, '');  //ESPERO NO TENGAMOS MAS DE 200 UNIDADES DE MEDIDA
 			$lineas=$lineasModel->readAll(0, 1000000, ''); 

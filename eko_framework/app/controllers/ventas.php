@@ -28,7 +28,7 @@ class Ventas extends ApplicationController {
 		}
         
 		$ventaModel=new VentaModel();
-		$response = $ventaModel->readAll($params);
+		$response = $ventaModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -522,7 +522,7 @@ class Ventas extends ApplicationController {
 
 		$id=$_POST['idVen'];
 				
-		$data=$ventaModel->getById($id);
+		$data=$ventaModel->getById($IDValue, $params = []);
 		
 		$response=array();
         $response['success']=true;

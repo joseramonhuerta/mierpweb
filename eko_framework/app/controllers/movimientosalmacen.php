@@ -19,7 +19,7 @@ class MovimientosAlmacen extends ApplicationController {
 		}
         
 		$movimientoModel=new MovimientoAlmacenModel();
-		$response = $movimientoModel->readAll($params);
+		$response = $movimientoModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; //RETURN PARA COMPRIMIR LA RESPUESTA CON GZIP
     }
@@ -293,7 +293,7 @@ class MovimientosAlmacen extends ApplicationController {
 			$data['Movimiento']=$movimientoModel->getInitialInfo($id_empresa,$id_sucursal,$id_almacen);
 					
 		}else{
-			$data=$movimientoModel->getById($id);
+			$data=$movimientoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();
@@ -526,7 +526,7 @@ class MovimientosAlmacen extends ApplicationController {
 		$id=$_POST['idMov'];		
 		
 		if($id > 0){
-			$data=$movimientoModel->getById($id);
+			$data=$movimientoModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

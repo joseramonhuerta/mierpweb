@@ -16,7 +16,7 @@ class Cortes extends ApplicationController {
 		}
         
 		$corteModel=new Corte();
-		$response = $corteModel->readAll($params);
+		$response = $corteModel->readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false);
       
         return $response; 
     }
@@ -46,7 +46,7 @@ class Cortes extends ApplicationController {
 			$data['Corte']=$corteModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data=$corteModel->getById($id);
+			$data=$corteModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

@@ -10,7 +10,7 @@ class RemisionModel extends Model{
     var $specific = true;
     var $camposAfiltrar = array('concepto');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -216,7 +216,7 @@ class RemisionModel extends Model{
 			
 			$this->guardarDetalles($id,$id_almacen,0,$Conceptos,4,$registroNuevo);
 			
-			$data=$this->getById($id);   
+			$data=$this->getById($IDValue, $params = []);   
 			
 			if ($registroNuevo){
 				$this->gastarFolio( $id_serie, $folio);
@@ -285,7 +285,7 @@ class RemisionModel extends Model{
         return $id;
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT r.id_remision,DATE_FORMAT(r.fecha,'%d/%m/%Y %H:%i:%S') as fecha,r.folio,
 				r.condicion_pago,r.id_serie,r.serie,r.concepto,r.importe,r.descuento,r.subtotal,r.impuestos,r.total,r.id_agente,ag.nombre_agente,r.id_cliente,c.nombre_fiscal as nombre_cliente,ifnull(r.aplicado,0) as aplicado,ifnull(c.foraneo,0) as foraneo, r.status
 				FROM $this->useTable r
@@ -413,7 +413,7 @@ class RemisionModel extends Model{
 			
 			$this->update($sql);
 			
-			$data=$this->getById($id); 
+			$data=$this->getById($IDValue, $params = []); 
 			$condicion_pago = $data['Remision']['condicion_pago'];
 			$id_cliente = $data['Remision']['id_cliente'];
 			$total = $data['Remision']['total'];			
@@ -458,7 +458,7 @@ class RemisionModel extends Model{
 	
 		try{
 			
-			$data=$this->getById($id);			
+			$data=$this->getById($IDValue, $params = []);			
 			$condicion_pago = $data['Remision']['condicion_pago'];
 						
 			if($condicion_pago == 2){
@@ -478,7 +478,7 @@ class RemisionModel extends Model{
 			
 			$sql="UPDATE remisiones set aplicado=0, fecha_aplica = null WHERE id_remision=$id";					
 			$this->update($sql);			
-			$data=$this->getById($id);
+			$data=$this->getById($IDValue, $params = []);
 				
 			$response['success']    = true;
 			$response['msg']       = array('titulo'=>"Remisiones",'mensaje'=>"Remision desaplicada correctamente");

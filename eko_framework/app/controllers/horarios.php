@@ -56,7 +56,7 @@ class Horarios extends ApplicationController {
 			$data['Horario']=$horarioModel->getInitialInfo($id_empresa,$id_sucursal);
 					
 		}else{
-			$data = $horarioModel->getById($id);
+			$data = $horarioModel->getById($IDValue, $params = []);
 		}
 		
 		

@@ -66,7 +66,7 @@ class Sucursales extends ApplicationController {
         if (isset($_POST['idValue'])) {
 
             $id = $_POST['idValue'];
-            $datos = $modelObject->getById($id);
+            $datos = $modelObject->getById($IDValue, $params = []);
               
             $response['success'] = true;
             $response['data'] = $datos;        

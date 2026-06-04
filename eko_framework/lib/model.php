@@ -1,559 +1,467 @@
 <?php
+
 /**
  * @class Model
  * Clase base para los modelos
-* $debug:		Usar como true para desarrollo	(muestra todo el detalle del error junto con el query)
-* 				usuar como false para modo de produccion (Solo regresar? el nombre del Modelo que lanz? el error y el tipo de consulta que trataba de realizar )
-*/
-class Model {
-    public $id=0, $name='Model';
-    private $debug=true; 	
-    var $select="*";
-    var $primaryKey='id';
-	var $singleton=false;	//TRUE: PARA USAR EL MISMO LINK DE CONEXION,  FALSE: UNA CONEXION NUEVA EN CADA CONSULTA
-    function jsDateToMysql($jsDate){
-        $date = "04/30/1973";
-        $arrDate=explode('/', $jsDate);   
+ * $debug: true para desarrollo (muestra detalle del error con query)
+ *         false para producción (solo nombre del modelo y tipo de consulta)
+ */
+class Model
+{
+    public $id = 0;
+    public $name = 'Model';
+    private $debug = true;
 
-        list($dia, $mes, $year) = explode("/", $jsDate);
+    public $select = "*";
+    public $primaryKey = 'id';
+    public $useTable = '';
+    public $camposAfiltrar = [];
+    public $hasOne = [];
+    public $orderBy = [];
+    public $singleton = false;
+    public $registroNuevo = false;
 
-        @list($year,$time) = explode(" ", $year);//si la fecha no trae la hora puede marcar un NOTICE:, no nos interesa el notice
-        $convertida="$year-$mes-$dia";
+    public function __construct(?array $params = null)
+    {
+        if (defined('SQL_DEBUG')) {
+            $this->debug = SQL_DEBUG !== '0';
+        }
+    }
 
-        if ($time!=''){
-            list($hora, $minuto, $segundo) = explode(':', $time);
-            $convertida.=" $hora:$minuto:$segundo";
-        }        
+    public function jsDateToMysql($jsDate)
+    {
+        [$dia, $mes, $year] = explode("/", $jsDate);
+        [$year, $time] = array_pad(explode(" ", $year), 2, '');
+
+        $convertida = "$year-$mes-$dia";
+
+        if ($time !== '') {
+            [$hora, $minuto, $segundo] = explode(':', $time);
+            $convertida .= " $hora:$minuto:$segundo";
+        }
+
         return $convertida;
     }
-	function startTransaction(){
-		$conexion=dbConexion::singleton();
-		$conexion->startTransaction();
-	}
 
-    /*      
-	*	     
-	*/
-    public function EscComillas($texto){
-		//return 	$texto;
-		// return addslashes($texto);
-    	return str_replace ( "'" ,"\'" ,$texto);
+    public function startTransaction()
+    {
+        $conexion = dbConexion::singleton();
+        $conexion->startTransaction();
     }
-	
-    public function execute($query,$dbName=null){
 
-		//if ($this->singleton){			
-			$conexion=dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
-		
-		$res  = mysql_query($query,$link);        
-        if (!$res) {
-			if ($this->debug){	
-				//throw new Exception('Debug: '. $this->name. "->".mysql_error() ." dbName: ".$dbName." : ".$query);
-				generaLog('query_'.$this->name,mysql_error().":".$query);
-				throw new Exception('Debug: '. $this->name. "->".mysql_error()." $query");
-			}else{
-				generaLog('query_'.$this->name,mysql_error().":".$query);				
-				throw new Exception($this->name.": Error al realizar la consulta, consulte con el administrador del sistema");
-			}
+    public function EscComillas($texto)
+    {
+        $conexion = dbConexion::singleton();
+        return $conexion->link->real_escape_string($texto);
+    }
+
+    public function execute(string $query, ?string $dbName = null)
+    {
+        $conexion = dbConexion::singleton($dbName);
+        $link = $conexion->link;
+
+        try {
+            $res = $link->query($query);
+            if ($res === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            $this->handleQueryError('query', $query, $e);
         }
     }
-    
-    public function query(string $query, ?string $dbName = null): array
-	{
-		
-		$conexion = dbConexion::singleton($dbName);
-		throw new Exception("Aqui");
-		$link = $conexion->link;
-		var_dump($link);
-		$res = $link->query($query);
 
-		if ($res === false) {
-			$error = $link->error;
-			generaLog('query_' . $this->name, $error . ":" . $query);
-			
-			if ($this->debug) {
-				throw new Exception("Debug: {$this->name} -> {$error} {$query}");
-			} else {
-				throw new Exception("{$this->name}: Error al realizar la consulta, consulte con el administrador del sistema");
-			}
-		}
+    public function query(string $query, ?string $dbName = null)
+    {
+        $conexion = dbConexion::singleton($dbName);
+        $link = $conexion->link;
 
-		$result = [];
-
-		// Si es un SELECT/SHOW/DESCRIBE, devuelve mysqli_result
-		// Si es INSERT/UPDATE/DELETE, devuelve true
-		if ($res instanceof mysqli_result) {
-			while ($row = $res->fetch_assoc()) {
-				$result[] = $row;
-			}
-			$res->free();
-		}
-
-		return $result;
-	}
-
-    
-    public function select($query,$dbName=null){
-    	return $this->query($query,$dbName);
-    }
-
-    /*  
-	*	RECIBE UN QUERY "INSERT" , LO EJECUTA Y REGRESA EL ID DEL REGISTRO INSERTADO   
-	*/
-    public function insert($query,$dbName=null){
-        //if ($this->singleton){
-			$conexion = dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
-        $res = mysql_query($query,$link);
-        if (!$res) { 
-        	switch(mysql_errno()){
-        		case 1062:
-					generaLog('insert_'.$this->name,mysql_error().":".$query);
-        			throw new Exception("El registro no puede duplicarse");
-        		break;
-        		default:
-        		
-        	}     
-			if ($this->debug){
-				//throw new Exception('Debug: '. $this->name. "->".mysql_error() );
-				generaLog('insert_'.$this->name,mysql_error().":".$query);
-				throw new Exception('Debug: '. $this->name. "->".mysql_error() . $query);
-			}else{
-				generaLog('insert_'.$this->name,mysql_error().":".$query);
-				throw new Exception($this->name." ".": Error al intentar crear el registro, consulte con el administrador del sistema");
-			}                  
+        try {
+            $res = $link->query($query);
+            if ($res === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            $this->handleQueryError('query', $query, $e);
         }
-        $id=mysql_insert_id();        
-        return $id;
+
+        $result = [];
+        while ($row = $res->fetch_assoc()) {
+            $result[] = $row;
+        }
+        $res->free();
+
+        return $result;
     }
 
-	/*
-	*	EJECUTA UN QUERY "UPDATE"	REGRESA TRUE AUNQUE DEBERIA REGRESAR  mysql_affected_rows()); 
-	*/
-    public function update($query, $dbName=null) {
-        //if ($this->singleton){
-			$conexion = dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
-        $res = mysql_query($query,$link);
-        if (!$res) {      
-        	switch(mysql_errno()){
-        		case 1062:
-        			generaLog('update_'.$this->name,mysql_error().":".$query);
-        			throw new Exception("El registro no puede duplicarse");
-        		break;
-        		default:        		
-        	}  
-			if ($this->debug){
-				throw new Exception('Debug: '. $this->name. "->".mysql_error() . $query);
-				generaLog('update_'.$this->name,mysql_error().":".$query);
-			//	throw new Exception('Debug: '. $this->name. "->".mysql_error() );
-			}else{
-				generaLog('update_'.$this->name,mysql_error().":".$query);
-				throw new Exception($this->name.": Error al intentar actualizar el registro, consulte con el administrador del sistema");
-			}                  
-        }		           
-        
+    public function select(string $query, ?string $dbName = null)
+    {
+        return $this->query($query, $dbName);
+    }
+
+    public function insert(string $query, ?string $dbName = null)
+    {
+        $conexion = dbConexion::singleton($dbName);
+        $link = $conexion->link;
+
+        try {
+            $res = $link->query($query);
+            if ($res === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() === 1062) {
+                generaLog('insert_' . $this->name, $e->getMessage() . ":" . $query);
+                throw new Exception("El registro no puede duplicarse");
+            }
+            $this->handleQueryError('insert', $query, $e);
+        }
+
+        return $link->insert_id;
+    }
+
+    public function update(string $query, ?string $dbName = null)
+    {
+        $conexion = dbConexion::singleton($dbName);
+        $link = $conexion->link;
+
+        try {
+            $res = $link->query($query);
+            if ($res === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            if ($e->getCode() === 1062) {
+                generaLog('update_' . $this->name, $e->getMessage() . ":" . $query);
+                throw new Exception("El registro no puede duplicarse");
+            }
+            $this->handleQueryError('update', $query, $e);
+        }
+
         return true;
-		//return   mysql_affected_rows();
     }
-	
-	
-	function delete($Id){
-		$dbName='';
-		//if ($this->singleton){
-			$conexion = dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
-        $query="DELETE FROM $this->useTable WHERE $this->primaryKey=$Id";
-        $result = mysql_query($query,$link);
-		if (!$result) {      
-			if ($this->debug){
-				generaLog('DELETE_'.$this->name,mysql_error().":".$query);	
-				throw new Exception('Debug: '. $this->name. "->".mysql_error() . $query);
-			}else{
-				generaLog('DELETE_'.$this->name,mysql_error().":".$query);
-				throw new Exception($this->name.": Error al intentar eliminar el registro, consulte con el administrador del sistema");
-			}                  
-        }        
+
+    public function delete($Id)
+    {
+        $conexion = dbConexion::singleton();
+        $link = $conexion->link;
+
+        $Id = $link->real_escape_string((string)$Id);
+        $query = "DELETE FROM {$this->useTable} WHERE {$this->primaryKey} = '{$Id}'";
+
+        try {
+            $result = $link->query($query);
+            if ($result === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            $this->handleQueryError('DELETE', $query, $e);
+        }
+
         return $Id;
     }
-    /*
-	*	EJECUTA UN QUERY "DELETE"	REGRESA TRUE AUNQUE DEBERIA REGRESAR  mysql_affected_rows()); 
-	*/
-     public function queryDelete($query, $dbName=null) {
-       // if ($this->singleton){
-			$conexion = dbConexion::singleton($dbName);
-			$link=$conexion->link;
-		/*}else{
-			$conexion = dbConexion::singleton($dbName,true);
-			$link=$conexion->link;
-		}*/
-        $res = mysql_query($query,$link);
-        if (!$res) {      
-			if ($this->debug){
-				throw new Exception('Debug: '. $this->name. "->".mysql_error() . $query);
-				generaLog('queryDelete_'.$this->name,mysql_error().":".$query);
-			//	throw new Exception('Debug: '. $this->name. "->".mysql_error());
-			}else{
-				generaLog('queryDelete_'.$this->name,mysql_error().":".$query);
-				throw new Exception($this->name.": Error al intentar eliminar el registro, consulte con el administrador del sistema");
-			}                  
+
+    public function queryDelete(string $query, ?string $dbName = null)
+    {
+        $conexion = dbConexion::singleton($dbName);
+        $link = $conexion->link;
+
+        try {
+            $res = $link->query($query);
+            if ($res === false) {
+                throw new mysqli_sql_exception($link->error, $link->errno);
+            }
+        } catch (mysqli_sql_exception $e) {
+            $this->handleQueryError('queryDelete', $query, $e);
         }
-		//return   mysql_affected_rows();
+
         return true;
     }
-	
-	/*
-	*	ESTA FUNCION SE USA PARA FILTRAR EL TEXTO ESCRITO EN LA CAJA DE TEXTO UBICADA EN EL TOOLBAR DE LOS BUSCADORES
-	*	ESE TEXTO ES PASADO EN LA VARIABLE $filtro
-	*	Para su funcionamiento, es necesario que se defina en el modelo un arreglo llamado $camposAfiltrar,
-	*	entonces el resultado de la busqueda estara definida por algun campo de ese arreglo que coincida (LIKE '%$texto%') CON EL TEXTO DE LA VARIABLE $filtro (NI YO ENTIENDO ESTA LINEA)
-	*/
-     function filtroToSQL($filtro,$filtros=array(),$usarAlias=false,$where='') {
-     	 //$where = '';
-     	 
+
+    /**
+     * Maneja errores de consulta de forma centralizada
+     */
+    private function handleQueryError(string $operation, string $query, mysqli_sql_exception $e)
+    {
+        generaLog($operation . '_' . $this->name, $e->getMessage() . ":" . $query);
+
+        if ($this->debug) {
+            throw new Exception("Debug: {$this->name}->{$e->getMessage()} $query");
+        } else {
+            throw new Exception("{$this->name}: Error al realizar la consulta, consulte con el administrador del sistema");
+        }
+    }
+
+    /**
+     * Filtra texto para búsqueda en campos definidos
+     */
+    public function filtroToSQL(
+        string $filtro,
+        array $filtros = [],
+        bool $usarAlias = false,
+        string $where = ''
+    ) {
+        $conexion = dbConexion::singleton();
+        $link = $conexion->link;
+        $tableAlias = $this->name;
+
         if (!empty($filtro)) {
-			$filtroArray = explode(" ", $filtro);
-	        $condiciones = "";
-	        $condicion = "";
-			$tableAlias=$this->name;
-	        foreach ($this->camposAfiltrar as $campo) {
-	
-	            foreach ($filtroArray as $text) {
-	                if (strlen($text) > 0){
-						if ($usarAlias==true){
-							$condicion.="$tableAlias.$campo LIKE '%$text%' AND ";
-						}else{
-							$condicion.="$campo LIKE '%$text%' AND ";
-						}
-						
-					}
-	            }
-	
-	            if (strlen($condicion) > 0) {
-	                $condicion = substr($condicion, 0, strlen($condicion) - 4); //<----LE BORRO LA ULTIMA PARTE "AND ";
-	                $condicion = "(" . $condicion . ") OR ";
-	                $condiciones.=$condicion;
-	                $condicion = "";
-	            }
-	        }
-	       
-	        if (strlen($condiciones) > 0) {
-	            $condiciones = substr($condiciones, 0, strlen($condiciones) - 3); //<----LE BORRO LA ULTIMA PARTE "or ";
-	            $where = "WHERE ($condiciones)";
-	        }
+            $filtroArray = explode(" ", $filtro);
+            $condiciones = "";
+
+            foreach ($this->camposAfiltrar as $campo) {
+                $condicion = "";
+                foreach ($filtroArray as $text) {
+                    if (strlen($text) > 0) {
+                        $text = $link->real_escape_string($text);
+                        $fieldRef = $usarAlias ? "$tableAlias.$campo" : $campo;
+                        $condicion .= "$fieldRef LIKE '%$text%' AND ";
+                    }
+                }
+
+                if (strlen($condicion) > 0) {
+                    $condicion = substr($condicion, 0, -4);
+                    $condicion = "(" . $condicion . ") OR ";
+                    $condiciones .= $condicion;
+                }
+            }
+
+            if (strlen($condiciones) > 0) {
+                $condiciones = substr($condiciones, 0, -3);
+                $where = "WHERE ($condiciones)";
+            }
         }
-        
-        //---------------------------------------------------------
-        $condiciones="";
-        for($i=0; $i<sizeof($filtros); $i++){   
-        	if ( sizeof($filtros[$i])==1 && isset($filtros[$i]['filtro'])  ){
-        		
-        		$condiciones.=$filtros[$i]['filtro']." AND ";
-        		
-        	}else{
-        		$campo=$filtros[$i]['campo'];
-				$condicion=$filtros[$i]['condicion'];
-				$valor=$filtros[$i]['valor'];			
-	        	$condiciones.="$campo $condicion '$valor' AND ";	
-        	}    	
-			
+
+        // Filtros adicionales
+        $condiciones = "";
+        foreach ($filtros as $filtroItem) {
+            if (count($filtroItem) === 1 && isset($filtroItem['filtro'])) {
+                $condiciones .= $filtroItem['filtro'] . " AND ";
+            } else {
+                $campo = $filtroItem['campo'];
+                $condicion = $filtroItem['condicion'];
+                $valor = $link->real_escape_string($filtroItem['valor']);
+                $condiciones .= "$campo $condicion '$valor' AND ";
+            }
         }
-       
-     	if (strlen($condiciones) > 0) {
-             $condiciones=substr($condiciones, 0, strlen($condiciones) - 4); //<----LE BORRO LA ULTIMA PARTE "AND ";
-             if (empty($where)){
-            	$where = "WHERE $condiciones"; 	
-             }else{
-             	$where.= "AND $condiciones";
-             }
-            
+
+        if (strlen($condiciones) > 0) {
+            $condiciones = substr($condiciones, 0, -4);
+            $where = empty($where)
+                ? "WHERE $condiciones"
+                : "$where AND $condiciones";
         }
-        //---------------------------------------------------------
+
         return $where;
     }
 
-	/*
-	*		 		PLANTILLA PARA BUSQUEDA PAGINADA   
-	*/
-     function readAll($start=0, $limit=0, $filtro='',$params=array(),$usarAlias=false) {	    
-		
-		$filtros= isset($params['filtros'])? $params['filtros'] : array();
-		$filtroSql = $this->filtroToSQL($filtro,$filtros,$usarAlias);
-        
-        $tableAlias=$this->name;
-       	//-------------------------------------------------------------------------------------------------------
-        $query = "select count($this->primaryKey) as totalrows  FROM $this->useTable as $tableAlias $filtroSql";
-        $resultado= $this->query($query);
-        $totalRows = $resultado[0]['totalrows'];
-		//-------------------------------------------------------------------------------------------------------
-        if (isset($params['select'])){
-        	$selectParams=$params['select'];
-        }else if (isset($this->select)){
-        	$selectParams=$this->select;
-        }else{
-        	$selectParams=array(0=>'*');
-        }
-		
-		
-		if ( is_string($selectParams) ){
-			$select=$selectParams;
-		}else if (is_array($selectParams)){
-			$select=$this->constructSelect($selectParams, $tableAlias);
-        }else{
-        	$select='*';
-        }
-        //------------------------------------------------------------------
-        if (isset($params['hasOne'])){
-        	$hasOne=$params['hasOne'];
-        }else if (isset($this->hasOne)){
-        	$hasOne=$this->hasOne;
-        } else{
-        	$hasOne=array();
-        }
-     	
-        $leftJoin='';
-        for($i=0; $i<sizeof($hasOne); $i++){
-        	if ( isset($hasOne[$i]['tabla']) && isset($hasOne[$i]['alias']) && isset($hasOne[$i]['pk']) && isset($hasOne[$i]['pk']) ){
-        		//echo print_r($hasOne[$i]);		
-        		$tabla=$this->hasOne[$i]['tabla'];
-        		$alias=$this->hasOne[$i]['alias'];
-        		$fk=$this->hasOne[$i]['fk'];
-        		$pk=$this->hasOne[$i]['pk'];
-        		$leftJoin.=" LEFT JOIN $tabla as $alias ON $alias.$pk=$tableAlias.$fk ";
-        	}
-        	
-	        if (isset($hasOne[$i]['select'])){
-	        	$selectParams=$hasOne[$i]['select'];
-	        	$tableAliasLeft=$hasOne[$i]['alias'];
-	        	$select.=",".$this->constructSelect($selectParams, $tableAliasLeft); 	        	
-	        }
-        }     	
-        //-------------------------------------------------------------------------------------------------------
-        $orderBy=$this->gerOrderBy();
+    /**
+     * Búsqueda paginada
+     */
+    public function readAll(
+        $start = 0,
+        $limit = 0,
+        $filtro = '',
+        $params = [],
+        $usarAlias = false
+    ) {
+        $filtros = $params['filtros'] ?? [];
+        $filtroSql = $this->filtroToSQL($filtro, $filtros, $usarAlias);
+        $tableAlias = $this->name;
+
+        // Contar registros
+        $query = "SELECT COUNT({$this->primaryKey}) as totalrows FROM {$this->useTable} AS $tableAlias $filtroSql";
+        $resultado = $this->query($query);
+        $totalRows = (int)$resultado[0]['totalrows'];
+
+        // Construir SELECT
+        $select = $this->buildSelectClause($params, $tableAlias);
+
+        // Construir LEFT JOINs
+        [$leftJoin, $selectExtra] = $this->buildJoinClause($params, $tableAlias);
+        $select .= $selectExtra;
+
+        $orderBy = $this->gerOrderBy();
+
         $query = "SELECT $select 
-        		FROM $this->useTable as $tableAlias
-        		$leftJoin
-        		$filtroSql
-				$orderBy
-				limit $start,$limit";
-				//echo $query."<br/>";	
-        $resArr=$this->query($query);
-		//throw new Exception($query);
-		/*if (sizeof($resArr)==0){
-			$response['success']=false;
-			$response['msg']=array('titulo'=>$this->name,'mensaje'=>'No se encontraron resultados con los par�metros especificados');
-        	$response['data']=array();
-        	$response['totalRows'] = 0;	
-		}else{
-			$response['success']=true;
-        	$response['data']=$resArr;
-        	$response['totalRows'] = $totalRows;
-		}*/
-        $response['success']=true;
-        	$response['data']=$resArr;
-        	$response['totalRows'] = $totalRows;
+                  FROM {$this->useTable} AS $tableAlias
+                  $leftJoin
+                  $filtroSql
+                  $orderBy
+                  LIMIT $start, $limit";
 
-        return $response;
+        $resArr = $this->query($query);
+
+        return [
+            'success' => true,
+            'data' => $resArr,
+            'totalRows' => $totalRows
+        ];
     }
-   
-   function gerOrderBy(){
-		if (isset($this->orderBy)){
-			$order='';
-			foreach($this->orderBy as $orderEl){
-				foreach($orderEl as $column=>$orden){
-					$order.="$column $orden,";
-				}
-			}
-			if (strlen($order)>0){
-				$order=substr($order,0,-1);
-				$order='ORDER BY '.$order;
-			}
-		}else{
-			$order='';
-		}
-		return $order;
-   }
-   /*
-   *	Plantillas
-   */
-   
-   /*
-   *				PLANTILLA PARA OBTENER UN REGISTRO	
-   */
-    public function constructSelect($selectParams, $tableAlias){
-    	$select='';        	
-        for ($i=0; $i<sizeof($selectParams); $i++){
-        	$regSelect=$selectParams[$i];
-        	if (is_array($regSelect) && sizeof($regSelect)==1){
-        		$campo=key($regSelect);
-        		$alias=$regSelect[$campo];
-        		if (isset($regSelect[$campo])){
-        			$select.="$tableAlias.$campo as $alias,";	
-        		}else{
-        			$select.="$tableAlias.$campo,";
-        		}        				
-        	}else if (is_array($regSelect) && sizeof($regSelect)==2){
-        		$campo=$regSelect[1];        		
-        		$select.="$campo,";        		        				
-        	}else if( is_string($regSelect) ){        		
-        		$select.="$tableAlias.$regSelect,";
-        	}else{        		
-        		
-        		throw new Exception("constructSelect error"); 
-        	}        		
-        }    
-        $select=substr($select, 0,strlen($select)-1);
-        
-        return $select;   
+
+    public function gerOrderBy()
+    {
+        if (!isset($this->orderBy) || empty($this->orderBy)) {
+            return '';
+        }
+
+        $order = '';
+        foreach ($this->orderBy as $orderEl) {
+            foreach ($orderEl as $column => $orden) {
+                $order .= "$column $orden,";
+            }
+        }
+
+        if (strlen($order) > 0) {
+            $order = substr($order, 0, -1);
+            return 'ORDER BY ' . $order;
+        }
+
+        return '';
     }
-    function getById($IDValue,$params=array()){	
-    	//-------------------------------------------------------------------------------------------------------
-        if (isset($params['select'])){
-        	$selectParams=$params['select'];
-        }else if (isset($this->select)){
-        	$selectParams=$this->select;
-        }else{
-        	$selectParams='*';
-        }
-		$tableAlias=$this->name;
-		
-		if ( is_string($selectParams) ){
-			$select=$selectParams;
-		}else if (is_array($selectParams)){
-			$select=$this->constructSelect($selectParams, $tableAlias);
-        }else{
-        	$select='*';
-        }
-        //-------------------------------------------------------------------------------------------------------
-         //------------------------------------------------------------------
-        if (isset($params['hasOne'])){
-        	$hasOne=$params['hasOne'];
-        }else if (isset($this->hasOne)){
-        	$hasOne=$this->hasOne;
-        } else{
-        	$hasOne=array();
-        }
-     	
-        $leftJoin='';
-        for($i=0; $i<sizeof($hasOne); $i++){
-        	if ( isset($hasOne[$i]['tabla']) && isset($hasOne[$i]['alias']) && isset($hasOne[$i]['pk']) && isset($hasOne[$i]['pk']) ){
-        		//echo print_r($hasOne[$i]);		
-        		$tabla=$this->hasOne[$i]['tabla'];
-        		$alias=$this->hasOne[$i]['alias'];
-        		$fk=$this->hasOne[$i]['fk'];
-        		$pk=$this->hasOne[$i]['pk'];
-        		$leftJoin.=" LEFT JOIN $tabla as $alias ON $alias.$pk=$tableAlias.$fk ";
-        	}
-        	
-	        if (isset($hasOne[$i]['select'])){
-	        	$selectParams=$hasOne[$i]['select'];
-	        	$tableAliasLeft=$hasOne[$i]['alias'];
-	        	$select.=",".$this->constructSelect($selectParams, $tableAliasLeft); 	        	
-	        }
-        }     	
-        //-------------------------------------------------------------------------------------------------------
-            $query="SELECT $select 
-            FROM $this->useTable as $tableAlias
-            $leftJoin
-            WHERE $tableAlias.$this->primaryKey=$IDValue";
-					
-            $arrRes= $this->select($query);
-            if (empty($arrRes)){
-            	throw new Exception("El elemento buscado no existe en la base de datos");
+
+    public function constructSelect($selectParams, $tableAlias)
+    {
+        $select = '';
+
+        foreach ($selectParams as $regSelect) {
+            if (is_array($regSelect) && count($regSelect) === 1) {
+                $campo = key($regSelect);
+                $alias = $regSelect[$campo];
+                $select .= "$tableAlias.$campo AS $alias,";
+            } elseif (is_array($regSelect) && count($regSelect) === 2) {
+                $campo = $regSelect[1];
+                $select .= "$campo,";
+            } elseif (is_string($regSelect)) {
+                $select .= "$tableAlias.$regSelect,";
+            } else {
+                throw new Exception("constructSelect error");
             }
-            $datos=array();
-			
-            $datos[$this->name]=$arrRes[0];            
-            return $datos;
+        }
+
+        return substr($select, 0, -1);
     }
-    
-    
-    
-	/*	
-	*	PLANTILLA GENERICA PARA GUARDAR	
-	*/
-    function save($params,$log=true){
-         $registroNuevo = false;
-         
-         if (!is_array($params) || sizeof($params)==0  ){
-             throw new Exception("No se recibieron los datos a guardar");
-         }
-         /*  Que pasa con $IDUsu cuando el usuario no est? logeado o cuando sea Super User??   */
-        $IDUsu = $_SESSION['Auth']['User']['IDUsu'];
-        $where='';
-        if (!empty($params[$this->primaryKey])) {//UPDATE
-            $query = "UPDATE $this->useTable SET ";
-            if ($log){
-            	$query.="ModUsuario=$IDUsu";    //LOG
-            	$query.=",ModFecha=now(),";	
-            }
-            
-            $where = " WHERE $this->primaryKey = " . $params[$this->primaryKey];
-        } else {  //INSERT
-            $query = "INSERT INTO $this->useTable SET ";
-        	if ($log){
-            	$query.="AddUsuario=$IDUsu";    //LOG
-            	$query.=",AddFecha=now(),";
-            }
 
-            $registroNuevo = true;
+    /**
+     * Obtiene un registro por ID
+     */
+    public function getById($IDValue, $params = [])
+    {
+        $tableAlias = $this->name;
+        $select = $this->buildSelectClause($params, $tableAlias);
+        [$leftJoin, $selectExtra] = $this->buildJoinClause($params, $tableAlias);
+        $select .= $selectExtra;
+
+        $conexion = dbConexion::singleton();
+        $IDValue = $conexion->link->real_escape_string((string)$IDValue);
+
+        $query = "SELECT $select 
+                  FROM {$this->useTable} AS $tableAlias
+                  $leftJoin
+                  WHERE $tableAlias.{$this->primaryKey} = '$IDValue'";
+
+        $arrRes = $this->select($query);
+
+        if (empty($arrRes)) {
+            throw new Exception("El elemento buscado no existe en la base de datos");
         }
 
-        foreach($params as $key=>$value){
-				
-				if (is_null($value)){
-					$query.="$key=NULL,";
-				}else{
-					$query.="$key='$value',";	
-				}
+        return [$this->name => $arrRes[0]];
+    }
 
+    /**
+     * Guarda un registro (INSERT o UPDATE)
+     */
+    public function save($params, $log = true)
+    {
+        if (empty($params)) {
+            throw new Exception("No se recibieron los datos a guardar");
         }
-        $query=substr($query, 0,strlen($query)-1);  
 
-        $query = $query . $where;
+        $conexion = dbConexion::singleton();
+        $link = $conexion->link;
 
-        $result = $this->insert($query);
+        $IDUsu = $_SESSION['Auth']['User']['IDUsu'] ?? 0;
+        $registroNuevo = empty($params[$this->primaryKey]);
 
         if ($registroNuevo) {
-            $id = mysql_insert_id();
+            $query = "INSERT INTO {$this->useTable} SET ";
+            if ($log) {
+                $query .= "AddUsuario = $IDUsu, AddFecha = NOW(), ";
+            }
         } else {
-		//	echo $query;
-            $id = $params[$this->primaryKey];
+            $query = "UPDATE {$this->useTable} SET ";
+            if ($log) {
+                $query .= "ModUsuario = $IDUsu, ModFecha = NOW(), ";
+            }
         }
-        $this->id = $id;
-        $data = $this->getById($id);
-        
-        $this->registroNuevo=$registroNuevo;
-        
-        return $data;                  
-    }
-	
-    public function __construct($params=null) {
-		if (defined('SQL_DEBUG')){	//ESTA CONSTANTE ESTA DEFINIDA EN EL ARCHIVO config.php, alli mismo se define lo relacionado con la base de datos			
-			if (SQL_DEBUG=='0'){
-				$this->debug=false;
-			}else{
-				$this->debug=true;
-			}
-		}    
+
+        foreach ($params as $key => $value) {
+            $key = $link->real_escape_string($key);
+            if (is_null($value)) {
+                $query .= "$key = NULL, ";
+            } else {
+                $value = $link->real_escape_string((string)$value);
+                $query .= "$key = '$value', ";
+            }
+        }
+
+        $query = rtrim($query, ', ');
+
+        if (!$registroNuevo) {
+            $pk = $link->real_escape_string((string)$params[$this->primaryKey]);
+            $query .= " WHERE {$this->primaryKey} = '$pk'";
+        }
+
+        $this->insert($query);
+
+        $id = $registroNuevo ? $link->insert_id : $params[$this->primaryKey];
+        $this->id = (int)$id;
+        $this->registroNuevo = $registroNuevo;
+
+        return $this->getById($IDValue, $params = []);
     }
 
+    /**
+     * Construye la cláusula SELECT
+     */
+    private function buildSelectClause($params, $tableAlias)
+    {
+        $selectParams = $params['select'] ?? $this->select ?? '*';
+
+        if (is_string($selectParams)) {
+            return $selectParams;
+        }
+
+        if (is_array($selectParams)) {
+            return $this->constructSelect($selectParams, $tableAlias);
+        }
+
+        return '*';
+    }
+
+    /**
+     * Construye LEFT JOINs y campos adicionales
+     */
+    private function buildJoinClause($params, $tableAlias)
+    {
+        $hasOne = $params['hasOne'] ?? $this->hasOne ?? [];
+        $leftJoin = '';
+        $selectExtra = '';
+
+        foreach ($hasOne as $relation) {
+            if (isset($relation['tabla'], $relation['alias'], $relation['pk'], $relation['fk'])) {
+                $tabla = $relation['tabla'];
+                $alias = $relation['alias'];
+                $fk = $relation['fk'];
+                $pk = $relation['pk'];
+                $leftJoin .= " LEFT JOIN $tabla AS $alias ON $alias.$pk = $tableAlias.$fk ";
+            }
+
+            if (isset($relation['select'])) {
+                $selectExtra .= "," . $this->constructSelect($relation['select'], $relation['alias']);
+            }
+        }
+
+        return [$leftJoin, $selectExtra];
+    }
 }
-?>

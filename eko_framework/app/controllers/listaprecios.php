@@ -81,7 +81,7 @@ class ListaPrecios extends ApplicationController {
 			$data['ListaPrecio']=$listaprecioModel->getInitialInfo();
 					
 		}else{
-			$data=$listaprecioModel->getById($id);
+			$data=$listaprecioModel->getById($IDValue, $params = []);
 		}
 	
 		$response=array();

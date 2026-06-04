@@ -7,7 +7,7 @@ class CitaModel extends Model{
 	var $specific = true;
     var $camposAfiltrar = array('observaciones','nombre_agente','nombre_fiscal');
 		
-    function readAll($params) {
+    function readAll($start = 0, $limit = 0, $filtro = '', $params = [], $usarAlias = false) {
         
 		$limit = (empty($params['limit'])) ? 20 : $params['limit'];
 		$start = (empty($params['start'])) ?  0 : $params['start'];
@@ -139,7 +139,7 @@ class CitaModel extends Model{
 				$id=$id_cita;
 			}		
 			
-			$data=$this->getById($id);   			
+			$data=$this->getById($IDValue, $params = []);   			
 			
 			$response['success']    = true;
 			$response['msg']       = array('titulo'=>"Citas",'mensaje'=>"Cita guardada correctamente");
@@ -161,7 +161,7 @@ class CitaModel extends Model{
         return parent::delete($id);
     }
 
-	 function getById($id){
+	 function getById($IDValue, $params = []){
     	 $query="SELECT a.id_cita,DATE_FORMAT(a.fecha,'%d/%m/%Y %H:%i:%S') as fecha,
 				cl.id_cliente,cl.nombre_fiscal,a.status,a.id_horario,a.id_agente,ag.nombre_agente,
 				concat(DATE_FORMAT(h.hora_inicio,'%H:%i:%S'),'-',DATE_FORMAT(h.hora_fin,'%H:%i:%S')) as descripcion_horario,

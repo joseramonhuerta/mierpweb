@@ -130,7 +130,7 @@ class CertificadoModel extends Model{
                 $this->respaldarCertificados($this->cerFileTempFullPath, $this->keyFileTempFullPath, $datos['id_empresa'], $datos['rfc_certificado']);
             }
             $this->id=$id;
-            $data=$this->getById($id);
+            $data=$this->getById($IDValue, $params = []);
             
             return $data;
         
